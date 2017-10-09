@@ -5,7 +5,7 @@
  *      Author: abj240
  */
 
-#include "Z:/workspace/esep_sortingmachine/src/test.h"
+#include "test.h"
 
 Test::Test() {
 	// TODO Auto-generated constructor stub
