@@ -1,3 +1,4 @@
+#include <sys/neutrino.h>
 #include <cstdlib>
 #include <iostream>
 #include "test.h"
@@ -10,11 +11,14 @@ int main(int argc, char *argv[])
 //  IOaccess_open();
 //#endif
 
-  cout << "Starting Sortingmachine ..." << endl;
+	ThreadCtl(_NTO_TCTL_IO_PRIV, 0);
+	cout << "Starting Sortingmachine ..." << endl;
 
-  Test test = Test();
+	Test test = Test();
+	test.setBit(PIN_YELLOW_LIGHT);
+	test.clearBit(PIN_GREEN_LIGHT);
 
-  cout << "Starting Sortingmachine ... done !" << endl;
+	cout << "Starting Sortingmachine ... done !" << endl;
 //#ifdef SIMULATION
 //  IOaccess_close();
 //#endif

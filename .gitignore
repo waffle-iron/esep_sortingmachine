@@ -1,5 +1,6 @@
 .cproject
 .project
 .qnx_internal.mk
+.settings
 common.mk
 x86
