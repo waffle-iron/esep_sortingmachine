@@ -1,8 +1,12 @@
 #include <sys/neutrino.h>
 #include <cstdlib>
 #include <iostream>
-#include "test.h"
+#include <thread>
+#include <chrono>
 #include "HAL.h"
+
+#define WAIT(x) (std::this_thread::sleep_for(std::chrono::milliseconds(x)))
+
 
 using namespace std;
 
@@ -15,16 +19,25 @@ int main(int argc, char *argv[])
 	ThreadCtl(_NTO_TCTL_IO_PRIV, 0);
 	cout << "Starting Sortingmachine ..." << endl;
 
-	Test test = Test();
-	test.setBit(PIN_RED_LIGHT);
-	test.clearBit(PIN_GREEN_LIGHT);
+
 
 	hal::HAL hal;
-	hal.motorRotateClockwise();
 	hal.motorStart();
+	hal.motorRotateClockwise();
+	hal.motorFast();
+	WAIT(2000);
+	hal.motorSlow();
+	WAIT(2000);
 	hal.motorStop();
-
+	WAIT(2000);
+	hal.switchPointOpen();
+	WAIT(2000);
 	hal.switchPointClose();
+	WAIT(2000);
+
+//	hal.yellowLightOn();
+//	hal.redLightOn();
+//	hal.greenLightOn();
 
 
 	cout << "Starting Sortingmachine ... done !" << endl;
