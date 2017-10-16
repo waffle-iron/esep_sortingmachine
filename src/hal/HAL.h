@@ -25,6 +25,7 @@ namespace hal {
 		void redLightOff();
 
 		void motorStart();
+		void motorStop();
 		void motorRotateClockwise();
 
 		void switchPointOpen();

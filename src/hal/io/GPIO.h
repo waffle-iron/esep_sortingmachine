@@ -28,6 +28,7 @@ public:
 	void write(  PORT port, int val);
 	int  read(   PORT port);
 	void setBits(PORT port, int bitmask);
+	void clearBits(PORT port, int bitmask);
 
 private:
 	GPIO();

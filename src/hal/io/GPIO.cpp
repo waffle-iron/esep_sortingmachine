@@ -48,6 +48,11 @@ void GPIO::setBits(PORT port, int bitmask) {
 	this->write(port, storedPortValue | bitmask);
 }
 
+void GPIO::clearBits(PORT port, int bitmask) {
+	int storedPortValue = this->read(port);
+	this->write(port, storedPortValue & ~bitmask);
+}
+
 
 } /* namespace gpio */
 } /* namespace hal */

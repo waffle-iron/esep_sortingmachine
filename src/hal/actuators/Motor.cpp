@@ -9,7 +9,7 @@
 #include "GPIO.h"
 
 constexpr int CLOCKWISE_ROTATION 	= 0b00000001;
-constexpr int MOTOR_START 			= 0b00001000;
+constexpr int MOTOR_STOP 			= 0b00001000;
 
 namespace hal {
 namespace actuators {
@@ -33,13 +33,14 @@ Motor::~Motor() {
 }
 
 void Motor::start() {
-	int port_a = io::GPIO::instance()->read(PORT::A);
-	io::GPIO::instance()->write(PORT::A, port_a & ~MOTOR_START);
+	io::GPIO::instance()->clearBits(PORT::A, MOTOR_STOP);
+}
+
+void Motor::stop() {
+	io::GPIO::instance()->setBits(PORT::A, MOTOR_STOP);
 }
 
 void Motor::setClockwiseRotation() {
-//	int storedPortValue = io::GPIO::instance()->read(PORT::A);
-//	io::GPIO::instance()->write(PORT::A, storedPortValue | CLOCKWISE_ROTATION);
 	io::GPIO::instance()->setBits(PORT::A, CLOCKWISE_ROTATION);
 }
 
