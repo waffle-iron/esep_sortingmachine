@@ -43,6 +43,11 @@ int GPIO::read(PORT port){
     return in8(DIO_BASE+(int)port);
 }
 
+void GPIO::setBits(PORT port, int bitmask) {
+	int storedPortValue = this->read(port);
+	this->write(port, storedPortValue | bitmask);
+}
+
 
 } /* namespace gpio */
 } /* namespace hal */

@@ -38,8 +38,9 @@ void Motor::start() {
 }
 
 void Motor::setClockwiseRotation() {
-	int port_a = io::GPIO::instance()->read(PORT::A);
-	io::GPIO::instance()->write(PORT::A, port_a | CLOCKWISE_ROTATION);
+//	int storedPortValue = io::GPIO::instance()->read(PORT::A);
+//	io::GPIO::instance()->write(PORT::A, storedPortValue | CLOCKWISE_ROTATION);
+	io::GPIO::instance()->setBits(PORT::A, CLOCKWISE_ROTATION);
 }
 
 } /* namespace actuators */

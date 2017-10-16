@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
 	cout << "Starting Sortingmachine ..." << endl;
 
 	Test test = Test();
-	test.setBit(PIN_YELLOW_LIGHT);
+	test.setBit(PIN_RED_LIGHT);
 	test.clearBit(PIN_GREEN_LIGHT);
 
 	hal::HAL hal;

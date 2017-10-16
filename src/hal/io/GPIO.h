@@ -25,8 +25,9 @@ public:
 	static GPIO *instance();
 	virtual ~GPIO();
 	void gainAccess();
-	void write(PORT port, int val);
-	int  read( PORT port);
+	void write(  PORT port, int val);
+	int  read(   PORT port);
+	void setBits(PORT port, int bitmask);
 
 private:
 	GPIO();

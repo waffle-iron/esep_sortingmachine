@@ -15,7 +15,7 @@ namespace hal {
 
 		SwitchPoint *SwitchPoint::instance() {
 			if (_instance == nullptr) {
-				_instance = new Motor;
+				_instance = new SwitchPoint;
 			}
 			return _instance;
 		}
@@ -29,7 +29,7 @@ namespace hal {
 			// TODO Auto-generated destructor stub
 		}
 
-		SwitchPoint::open(){
+		void SwitchPoint::open(){
 
 			// 1001 0001 or
 			// 0010 0000
@@ -41,7 +41,7 @@ namespace hal {
 			io::GPIO::instance()->write(PORT::B, bits );
 		}
 
-		SwitchPoint::close(){
+		void SwitchPoint::close(){
 
 			// 1011 0001 and
 			// 1101 1111
