@@ -20,17 +20,32 @@ public:
 	/**
 	* @brief turns the green light on
 	*/
-	void setGreenLight();
+	void greenLightOn();
 
 	/**
 	* @brief turns the yellow light on
 	*/
-	void setYellowLight();
+	void yellowLightOn();
 
 	/**
 	* @brief turns the red light on
 	*/
-	void setRedLight();
+	void redLightOn();
+
+	/**
+		* @brief turns the green light off
+		*/
+		void greenLightOff();
+
+		/**
+		* @brief turns the yellow light off
+		*/
+		void yellowLightOff();
+
+		/**
+		* @brief turns the red light off
+		*/
+		void redLightOff();
 
 	/**
 	* @brief makes the green light blink
