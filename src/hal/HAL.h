@@ -27,6 +27,9 @@ namespace hal {
 		void motorStart();
 		void motorRotateClockwise();
 
+		void switchPointOpen();
+		void switchPointClose();
+
 	private:
 		actuators::Motor *_motor;
 

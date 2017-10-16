@@ -12,7 +12,7 @@ namespace hal {
 
 HAL::HAL() {
 	_motor = actuators::Motor::instance();
-
+	_switchpoint = actuators::Switchpoint::instance();
 }
 
 HAL::~HAL() {
@@ -28,5 +28,10 @@ void HAL::motorRotateClockwise() {
 	_motor->setClockwiseRotation();
 }
 
+void HAL::switchPointOpen(){
+	_switchpoint->open();
+}
 
+void HAL::switchPointClose(){
+	_switchpoint->close();
 }
