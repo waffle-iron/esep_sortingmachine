@@ -20,6 +20,7 @@ int main(int argc, char *argv[])
 	test.clearBit(PIN_GREEN_LIGHT);
 
 	hal::HAL hal;
+	hal.motorRotateClockwise();
 	hal.motorStart();
 
 

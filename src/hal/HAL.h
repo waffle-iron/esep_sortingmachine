@@ -25,6 +25,7 @@ namespace hal {
 		void redLightOff();
 
 		void motorStart();
+		void motorRotateClockwise();
 
 	private:
 		actuators::Motor *_motor;
