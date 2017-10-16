@@ -49,4 +49,28 @@ void HAL::switchPointClose(){
 	_switchPoint->close();
 }
 
+void HAL::greenLightOn(){
+	_trafficLight->greenLightOn();
+}
+
+void HAL::greenLightOff(){
+	_trafficLight->greenLightOff();
+}
+
+void HAL::yellowLightOn(){
+	_trafficLight->yellowLightOn();
+}
+
+void HAL::yellowLightOff(){
+	_trafficLight->yellowLightOff();
+}
+
+void HAL::redLightOn(){
+	_trafficLight->redLightOn();
+}
+
+void HAL::redLightOff(){
+	_trafficLight->redLightOff();
+}
+
 } /* hal */
