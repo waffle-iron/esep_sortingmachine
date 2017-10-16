@@ -10,8 +10,6 @@
 
 #include "GPIO.h"
 
-#define DIO_BASE 0x300
-
 namespace hal {
 namespace io {
 

@@ -8,8 +8,8 @@
 #include "Motor.h"
 #include "GPIO.h"
 
-#define _BV(x) (1<<(x))
-#define LIGHT_GREEN 5
+constexpr int CLOCKWISE_ROTATION 	= 0b00000001;
+constexpr int MOTOR_START 			= 0b00001000;
 
 namespace hal {
 namespace actuators {
@@ -33,7 +33,13 @@ Motor::~Motor() {
 }
 
 void Motor::start() {
-	io::GPIO::instance()->write(PORT::A, _BV(LIGHT_GREEN));
+	int port_a = io::GPIO::instance()->read(PORT::A);
+	io::GPIO::instance()->write(PORT::A, port_a & ~MOTOR_START);
+}
+
+void Motor::setClockwiseRotation() {
+	int port_a = io::GPIO::instance()->read(PORT::A);
+	io::GPIO::instance()->write(PORT::A, port_a | CLOCKWISE_ROTATION);
 }
 
 } /* namespace actuators */

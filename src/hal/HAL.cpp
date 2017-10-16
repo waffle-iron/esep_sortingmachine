@@ -24,4 +24,9 @@ void HAL::motorStart() {
 	_motor->start();
 }
 
+void HAL::motorRotateClockwise() {
+	_motor->setClockwiseRotation();
+}
+
+
 }
