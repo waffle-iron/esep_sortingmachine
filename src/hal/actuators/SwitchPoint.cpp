@@ -31,13 +31,15 @@ namespace hal {
 
 		void SwitchPoint::open(){
 
-			io::GPIO::instance()->setBits(PORT::A, SWITCHPOINT_OPEN );
+			io::GPIO::instance()->setBits(PORT::A,  SWITCHPOINT_OPEN);
 		}
 
 		void SwitchPoint::close(){
 
-			io::GPIO::instance()->clearBits(PORT::A, SWITCHPOINT_OPEN );
+			io::GPIO::instance()->clearBits(PORT::A,  SWITCHPOINT_OPEN);
 		}
+
+
 
 
 

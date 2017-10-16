@@ -11,7 +11,7 @@
 /**
  * Switchpoint open
  */
-#define SWITCHPOINT_OPEN 0b00010000;
+constexpr int SWITCHPOINT_OPEN = 0b00010000;
 
 namespace hal {
 namespace actuators {
