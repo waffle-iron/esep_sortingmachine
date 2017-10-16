@@ -30,7 +30,7 @@ GPIO::GPIO() {
 }
 
 GPIO::~GPIO() {
-	// TODO Auto-generated destructor stub
+	delete _instance;
 }
 
 void GPIO::gainAccess(){

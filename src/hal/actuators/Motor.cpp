@@ -29,7 +29,7 @@ Motor::Motor() {
 }
 
 Motor::~Motor() {
-	// TODO Auto-generated destructor stub
+	delete _instance;
 }
 
 void Motor::start() {

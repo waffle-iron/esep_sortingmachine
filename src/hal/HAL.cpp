@@ -6,6 +6,7 @@
  */
 
 #include "HAL.h"
+#include "GPIO.h"
 
 namespace hal {
 
@@ -15,7 +16,8 @@ HAL::HAL() {
 }
 
 HAL::~HAL() {
-	// TODO Auto-generated destructor stub
+	delete _motor;
+	delete io::GPIO::instance();
 }
 
 void HAL::motorStart() {
