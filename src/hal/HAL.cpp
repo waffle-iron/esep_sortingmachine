@@ -6,12 +6,11 @@
  */
 
 #include "HAL.h"
-#include "Motor.h"
 
 namespace hal {
 
 HAL::HAL() {
-	// TODO Auto-generated constructor stub
+	_motor = actuators::Motor::instance();
 
 }
 
@@ -20,7 +19,7 @@ HAL::~HAL() {
 }
 
 void HAL::motorStart() {
-	hal::actuators::Motor::instance()->start();
+	_motor->start();
 }
 
 }

@@ -1,12 +1,14 @@
 /*
- * HardwareAbstractionLayer.h
+ * HAL.h
  *
  *  Created on: 16.10.2017
  *      Author: abj240
  */
 
-#ifndef HARDWAREABSTRACTIONLAYER_H_
-#define HARDWAREABSTRACTIONLAYER_H_
+#ifndef HAL_H_
+#define HAL_H_
+
+#include "Motor.h"
 
 namespace hal {
 
@@ -24,8 +26,11 @@ namespace hal {
 
 		void motorStart();
 
+	private:
+		actuators::Motor *_motor;
+
 	};
 
 }
 
-#endif /* HARDWAREABSTRACTIONLAYER_H_ */
+#endif /* HAL_H_ */
