@@ -19,12 +19,12 @@ TrafficLight *TrafficLights::instance() {
 	return _instance;
 }
 
-Motor::Motor() {
+TrafficLight::TrafficLight() {
 	// TODO Auto-generated constructor stub
 
 }
 
-Motor::~Motor() {
+TrafficLight::~trafficLight() {
 	delete _instance;
 }
 
