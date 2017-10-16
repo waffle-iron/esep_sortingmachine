@@ -9,6 +9,7 @@
 #include "GPIO.h"
 
 constexpr int CLOCKWISE_ROTATION 	= 0b00000001;
+constexpr int MOTOR_SLOW			= 0b00000100;
 constexpr int MOTOR_STOP 			= 0b00001000;
 
 namespace hal {
@@ -38,6 +39,14 @@ void Motor::start() {
 
 void Motor::stop() {
 	io::GPIO::instance()->setBits(PORT::A, MOTOR_STOP);
+}
+
+void Motor::setSlow() {
+	io::GPIO::instance()->setBits(PORT::A, MOTOR_SLOW);
+}
+
+void Motor::clearSlow() {
+	io::GPIO::instance()->clearBits(PORT::A, MOTOR_SLOW);
 }
 
 void Motor::setClockwiseRotation() {

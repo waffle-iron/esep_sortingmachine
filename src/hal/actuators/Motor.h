@@ -44,7 +44,7 @@ public:
 	/**
 	* @brief unsets motor's slow bit
 	*/
-	void unsetSlow();
+	void clearSlow();
 
 private:
 	Motor();

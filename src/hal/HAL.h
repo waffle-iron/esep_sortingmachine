@@ -9,6 +9,7 @@
 #define HAL_H_
 
 #include "Motor.h"
+#include "SwitchPoint.h"
 
 namespace hal {
 
@@ -26,6 +27,8 @@ namespace hal {
 
 		void motorStart();
 		void motorStop();
+		void motorSlow();
+		void motorFast();
 		void motorRotateClockwise();
 
 		void switchPointOpen();
@@ -33,6 +36,7 @@ namespace hal {
 
 	private:
 		actuators::Motor *_motor;
+		actuators::SwitchPoint *_switchPoint;
 
 	};
 

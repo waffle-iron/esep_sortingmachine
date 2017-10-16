@@ -22,7 +22,9 @@ int main(int argc, char *argv[])
 	hal::HAL hal;
 	hal.motorRotateClockwise();
 	hal.motorStart();
-	//hal.motorStop();
+	hal.motorStop();
+
+	hal.switchPointClose();
 
 
 	cout << "Starting Sortingmachine ... done !" << endl;
