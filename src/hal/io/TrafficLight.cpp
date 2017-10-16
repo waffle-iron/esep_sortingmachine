@@ -6,6 +6,7 @@
  */
 
 #include "TrafficLight.h"
+#include <iostream>
 
 namespace hal {
 namespace io {
@@ -26,12 +27,20 @@ TrafficLight *TrafficLight::instance() {
 }
 
 TrafficLight::TrafficLight() {
-	// TODO Auto-generated constructor stub
+	this->blink_slow = mmi::Blink(false);
+	this->blink_fast = mmi::Blink(true);
+	this->blink_fast.add(PIN_RED_LIGHT);
+	this->blink_fast.add(PIN_GREEN_LIGHT);
+	this->blink_slow.add(PIN_YELLOW_LIGHT);
+
+	t_slow = std::thread(blink_slow);
+	t_fast = std::thread(blink_fast);
+	std::cout << "RELEASED" << std::endl;
 
 }
 
 TrafficLight::~TrafficLight() {
-	delete _instance;
+
 }
 
 void TrafficLight::greenLightOn() {
@@ -56,6 +65,14 @@ void TrafficLight::yellowLightOff() {
 
 void TrafficLight::redLightOff() {
 	io::GPIO::instance()->clearBits(PORT::A, PIN_RED_LIGHT);
+}
+
+void TrafficLight::blinkGreen(bool fast) {
+	if (fast) {
+		blink_fast.add(PIN_GREEN_LIGHT);
+	} else {
+		blink_slow.add(PIN_GREEN_LIGHT);
+	}
 }
 
 } /* namespace io */

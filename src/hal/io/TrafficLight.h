@@ -8,7 +8,12 @@
 #ifndef TRAFFICLIGHT_H_
 #define TRAFFICLIGHT_H_
 
-#include "gpio.h"
+#include "GPIO.h"
+#include <functional>
+#include <thread>
+#include <chrono>
+#include "Blink.h"
+
 
 namespace hal {
 namespace io {
@@ -52,7 +57,7 @@ public:
 	/**
 	* @brief makes the green light blink
 	*/
-	void blinkGreen();
+	void blinkGreen(bool fast);
 
 	/**
 	* @brief makes the yellow light blink
@@ -68,6 +73,10 @@ private:
 	TrafficLight();
 
 	static TrafficLight *_instance;
+	mmi::Blink blink_fast;
+	mmi::Blink blink_slow;
+	std::thread t_fast;
+	std::thread t_slow;
 
 };
 } /* namespace io */

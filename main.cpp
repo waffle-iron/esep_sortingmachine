@@ -35,11 +35,17 @@ int main(int argc, char *argv[])
 	hal.switchPointClose();
 	WAIT(2000);
 
-//	hal.yellowLightOn();
-//	hal.redLightOn();
-//	hal.greenLightOn();
+	hal.yellowLightOn();
+	hal.redLightOn();
+	hal.greenLightOn();
+	WAIT(2000);
+	hal.yellowLightOff();
+	hal.redLightOff();
+	hal.greenLightOff();
 
+	hal.blinkGreen(true);
 
+	WAIT(20000);
 	cout << "Starting Sortingmachine ... done !" << endl;
 //#ifdef SIMULATION
 //  IOaccess_close();

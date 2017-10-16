@@ -18,6 +18,8 @@ HAL::HAL() {
 
 HAL::~HAL() {
 	delete _motor;
+	delete _switchPoint;
+	delete _trafficLight;
 	delete io::GPIO::instance();
 }
 
@@ -72,5 +74,10 @@ void HAL::redLightOn(){
 void HAL::redLightOff(){
 	_trafficLight->redLightOff();
 }
+
+void HAL::blinkGreen(bool fast) {
+	_trafficLight->blinkGreen(fast);
+}
+
 
 } /* hal */
