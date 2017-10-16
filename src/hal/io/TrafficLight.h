@@ -13,13 +13,8 @@ namespace io {
 
 class TrafficLight {
 public:
-	static trafficLight *instance();
+	static TrafficLight *instance();
 	virtual ~TrafficLight();
-	constexpr int PIN_RED_LIGHT = 7;
-	constexpr int PIN_YELLOW_LIGHT = 6;
-	constexpr int PIN_GREEN_LIGHT = 5;
-
-	constexpr int PORT_A_ADDR = 0x300;
 
 
 	/**
@@ -51,6 +46,11 @@ public:
 	* @brief makes the red light blink
 	*/
 	void blinkRed();
+
+private:
+	TrafficLight();
+
+	static TrafficLight *_instance;
 
 };
 } /* namespace io */
