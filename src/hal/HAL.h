@@ -10,6 +10,7 @@
 
 #include "Motor.h"
 #include "SwitchPoint.h"
+#include "TrafficLight.h"
 
 namespace hal {
 
@@ -37,6 +38,7 @@ namespace hal {
 	private:
 		actuators::Motor *_motor;
 		actuators::SwitchPoint *_switchPoint;
+		actuators::TrafficLight *_trafficLight;
 
 	};
 
