@@ -8,6 +8,8 @@
 #ifndef TRAFFICLIGHT_H_
 #define TRAFFICLIGHT_H_
 
+#include "gpio.h"
+
 namespace hal {
 namespace io {
 

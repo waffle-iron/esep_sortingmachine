@@ -35,28 +35,28 @@ TrafficLight::~TrafficLight() {
 }
 
 void TrafficLight::greenLightOn() {
-	io::GPIO::instance()->setBits(PORT_A_ADDR, PIN_GREEN_LIGHT);
+	io::GPIO::instance()->setBits(PORT::A, PIN_GREEN_LIGHT);
 }
 
 void TrafficLight::yellowLightOn() {
-	io::GPIO::instance()->setBits(PORT_A_ADDR, PIN_YELLOW_LIGHT);
+	io::GPIO::instance()->setBits(PORT::A, PIN_YELLOW_LIGHT);
 }
 
 void TrafficLight::redLightOn() {
-	io::GPIO::instance()->setBits(PORT_A_ADDR, PIN_RED_LIGHT);
+	io::GPIO::instance()->setBits(PORT::A, PIN_RED_LIGHT);
 }
 
 void TrafficLight::greenLightOff() {
-	io::GPIO::instance()->clearBits(PORT_A_ADDR, PIN_GREEN_LIGHT);
+	io::GPIO::instance()->clearBits(PORT::A, PIN_GREEN_LIGHT);
 }
 
 void TrafficLight::yellowLightOff() {
-	io::GPIO::instance()->clearBits(PORT_A_ADDR, PIN_YELLOW_LIGHT);
+	io::GPIO::instance()->clearBits(PORT::A, PIN_YELLOW_LIGHT);
 }
 
 void TrafficLight::redLightOff() {
-	io::GPIO::instance()->clearBits(PORT_A_ADDR, PIN_RED_LIGHT);
-
+	io::GPIO::instance()->clearBits(PORT::A, PIN_RED_LIGHT);
+}
 
 } /* namespace io */
 } /* namespace hal */

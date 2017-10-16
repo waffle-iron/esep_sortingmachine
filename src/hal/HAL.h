@@ -38,7 +38,7 @@ namespace hal {
 	private:
 		actuators::Motor *_motor;
 		actuators::SwitchPoint *_switchPoint;
-		actuators::TrafficLight *_trafficLight;
+		io::TrafficLight *_trafficLight;
 
 	};
 
