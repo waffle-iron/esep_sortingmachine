@@ -11,12 +11,7 @@
 /**
  * Switchpoint open
  */
-#define SP_OPEN 0b00100000;
-
-/**
- * Switchpoint close
- */
-#define SP_CLOSE 0b11011111;
+#define SWITCHPOINT_OPEN 0b00010000;
 
 namespace hal {
 namespace actuators {

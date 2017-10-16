@@ -31,26 +31,12 @@ namespace hal {
 
 		void SwitchPoint::open(){
 
-			// 1001 0001 or
-			// 0010 0000
-			// 1010 0001
-
-			int bits = io::GPIO::instance()->read(PORT::B);
-			bits = bits | SP_OPEN;
-
-			io::GPIO::instance()->write(PORT::B, bits );
+			io::GPIO::instance()->setBits(PORT::A, SWITCHPOINT_OPEN );
 		}
 
 		void SwitchPoint::close(){
 
-			// 1011 0001 and
-			// 1101 1111
-			// 1001 0001
-
-			int bits = io::GPIO::instance()->read(PORT::B);
-			bits = bits & SP_OPEN;
-
-			io::GPIO::instance()->write(PORT::B, bits );
+			io::GPIO::instance()->clearBits(PORT::A, SWITCHPOINT_OPEN );
 		}
 
 
