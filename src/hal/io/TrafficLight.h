@@ -40,19 +40,19 @@ public:
 	void redLightOn();
 
 	/**
-		* @brief turns the green light off
-		*/
-		void greenLightOff();
+	* @brief turns the green light off
+	*/
+	void greenLightOff();
 
-		/**
-		* @brief turns the yellow light off
-		*/
-		void yellowLightOff();
+	/**
+	* @brief turns the yellow light off
+	*/
+	void yellowLightOff();
 
-		/**
-		* @brief turns the red light off
-		*/
-		void redLightOff();
+	/**
+	* @brief turns the red light off
+	*/
+	void redLightOff();
 
 	/**
 	* @brief makes the green light blink
@@ -73,10 +73,8 @@ private:
 	TrafficLight();
 
 	static TrafficLight *_instance;
-	mmi::Blink blink_fast;
-	mmi::Blink blink_slow;
-	std::thread t_fast;
-	std::thread t_slow;
+	mmi::Blink blink;
+	std::thread thread;
 
 };
 } /* namespace io */

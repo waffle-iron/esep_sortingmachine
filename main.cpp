@@ -44,6 +44,11 @@ int main(int argc, char *argv[])
 	hal.greenLightOff();
 
 	hal.blinkGreen(true);
+	WAIT(700);
+	hal.blinkRed(false);
+	WAIT(700);
+	hal.blinkYellow(false);
+
 
 	WAIT(20000);
 	cout << "Starting Sortingmachine ... done !" << endl;
