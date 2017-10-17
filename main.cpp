@@ -44,10 +44,10 @@ int main(int argc, char *argv[])
 	hal.greenLightOff();
 
 	hal.blinkGreen(true);
-	WAIT(700);
+	WAIT(2000);
 	hal.blinkRed(false);
-	WAIT(700);
-	hal.blinkYellow(false);
+	WAIT(2000);
+	hal.blinkYellow(true);
 
 
 	WAIT(20000);

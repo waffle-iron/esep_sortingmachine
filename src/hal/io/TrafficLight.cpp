@@ -62,8 +62,17 @@ void TrafficLight::redLightOff() {
 	io::GPIO::instance()->clearBits(PORT::A, PIN_RED_LIGHT);
 }
 
+
 void TrafficLight::blinkGreen(bool fast) {
 		this->blink.add(PIN_GREEN_LIGHT, fast);
+}
+
+void TrafficLight::blinkYellow(bool fast) {
+		this->blink.add(PIN_YELLOW_LIGHT, fast);
+}
+
+void TrafficLight::blinkRed(bool fast) {
+		this->blink.add(PIN_RED_LIGHT, fast);
 }
 
 } /* namespace io */

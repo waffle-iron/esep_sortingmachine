@@ -62,12 +62,12 @@ public:
 	/**
 	* @brief makes the yellow light blink
 	*/
-	void blinkYellow();
+	void blinkYellow(bool fast);
 
 	/**
 	* @brief makes the red light blink
 	*/
-	void blinkRed();
+	void blinkRed(bool fast);
 
 private:
 	TrafficLight();

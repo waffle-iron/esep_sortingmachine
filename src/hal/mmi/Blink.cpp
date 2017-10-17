@@ -28,13 +28,15 @@ Blink::~Blink() {
 void Blink::operator()() {
 	while (true) {
 			hal::io::GPIO::instance()->setBits(PORT::A, this->bitmaskFast | this->bitmaskSlow);
-			std::cout << "bits set : " << this->bitmaskFast  << std::endl;
 			std::this_thread::sleep_for(std::chrono::milliseconds(500));
+
 			hal::io::GPIO::instance()->clearBits(PORT::A, this->bitmaskFast);
 			std::this_thread::sleep_for(std::chrono::milliseconds(500));
+
 			hal::io::GPIO::instance()->setBits(PORT::A, this->bitmaskFast);
 			hal::io::GPIO::instance()->clearBits(PORT::A, this->bitmaskSlow);
 			std::this_thread::sleep_for(std::chrono::milliseconds(500));
+
 			hal::io::GPIO::instance()->clearBits(PORT::A, this->bitmaskFast);
 			std::this_thread::sleep_for(std::chrono::milliseconds(500));
 	}
@@ -42,13 +44,10 @@ void Blink::operator()() {
 
 void Blink::add(int bitmask, bool fast) {
 	if (fast) {
-		std::cout << bitmask << std::endl;
 		this->bitmaskFast |= bitmask;
 	} else {
 		this->bitmaskSlow |= bitmask;
 	}
-
-	std::cout << "XXX" << this->bitmaskFast << std::endl;
 }
 
 } /* namespace mmi */
