@@ -16,7 +16,7 @@
 
 
 namespace hal {
-namespace io {
+namespace mmi {
 
 class TrafficLight {
 public:
@@ -77,7 +77,7 @@ private:
 	std::thread thread;
 
 };
-} /* namespace io */
+} /* namespace mmi */
 } /* namespace hal */
 
 #endif /* TRAFFICLIGHT_H_ */

@@ -13,7 +13,7 @@ namespace hal {
 HAL::HAL() {
 	_motor = actuators::Motor::instance();
 	_switchPoint = actuators::SwitchPoint::instance();
-	_trafficLight = io::TrafficLight::instance();
+	_trafficLight = mmi::TrafficLight::instance();
 }
 
 HAL::~HAL() {
@@ -41,6 +41,10 @@ void HAL::motorFast() {
 
 void HAL::motorRotateClockwise() {
 	_motor->setClockwiseRotation();
+}
+
+void HAL::motorRotateCounterclockwise() {
+	_motor->setCounterclockwiseRotation();
 }
 
 void HAL::switchPointOpen(){
