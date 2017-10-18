@@ -9,7 +9,7 @@
 #include "GPIO.h"
 #include "Header.h"
 
-constexpr int SWITCHPOINT_OPEN = 0b00010000;
+constexpr port_t SWITCHPOINT_OPEN = 0b00010000;
 
 namespace hal {
 namespace actuators {
@@ -32,15 +32,13 @@ namespace actuators {
 	}
 
 	void SwitchPoint::open(){
-
 		io::GPIO::instance()->setBits(PORT::A,  SWITCHPOINT_OPEN);
 	}
 
 	void SwitchPoint::close(){
-
 		io::GPIO::instance()->clearBits(PORT::A,  SWITCHPOINT_OPEN);
 	}
 
 
-	} /* namespace actuators */
+} /* namespace actuators */
 } /* namespace hal */

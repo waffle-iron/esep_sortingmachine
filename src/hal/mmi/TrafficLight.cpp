@@ -12,10 +12,9 @@
 namespace hal {
 namespace mmi {
 
-constexpr int PIN_RED_LIGHT = 0x80;
-constexpr int PIN_YELLOW_LIGHT = 0x40;
-constexpr int PIN_GREEN_LIGHT = 0x20;
-constexpr int PORT_A_ADDR = 0x300;
+constexpr port_t PIN_GREEN_LIGHT 	= 0x20;
+constexpr port_t PIN_YELLOW_LIGHT 	= 0x40;
+constexpr port_t PIN_RED_LIGHT 		= 0x80;
 
 
 TrafficLight *TrafficLight::_instance = nullptr;

@@ -7,9 +7,15 @@
 #include "Signals.h"
 #include "Logger.h"
 
+#include <cstdint>
+
 
 #ifndef HEADER_H_
 #define HEADER_H_
+
+#define WAIT(x) (std::this_thread::sleep_for(std::chrono::milliseconds(x)))
+
+typedef uint8_t port_t;
 
 
 #endif /* HEADER_H_ */

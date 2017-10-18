@@ -43,7 +43,7 @@ void Blink::operator()() {
 	}
 }
 
-void Blink::add(int bitmask, Speed speed) {
+void Blink::add(port_t bitmask, Speed speed) {
 	switch(speed) {
 	case Speed::fast:
 		bitmaskSlow &= ~bitmask;
@@ -59,7 +59,7 @@ void Blink::add(int bitmask, Speed speed) {
 	}
 }
 
-void Blink::removeBitmask(int bitmask) {
+void Blink::removeBitmask(port_t bitmask) {
 	bitmaskFast &= ~bitmask;
 	bitmaskSlow &= ~bitmask;
 }

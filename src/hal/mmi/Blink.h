@@ -31,12 +31,12 @@ public:
 	 * @param fast = 1: merging with bitmaskFast
 	 * @param fast = 0: merging with bitmaskSlow
 	 */
-	void add(int bitmask, Speed speed);
+	void add(port_t bitmask, Speed speed);
 
 	/**
 	 * @brief removes bitmask from bitmaskFast and bitmaskSlow
 	 */
-	void removeBitmask(int bitmask);
+	void removeBitmask(port_t bitmask);
 
 	/**
 	 * @brief causes termination of while loop
@@ -45,8 +45,8 @@ public:
 
 private:
 	bool running;
-	int bitmaskSlow;
-	int bitmaskFast;
+	port_t bitmaskSlow;
+	port_t bitmaskFast;
 };
 
 } /* namespace mmi */

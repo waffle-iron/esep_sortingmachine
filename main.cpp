@@ -7,9 +7,6 @@
 #include "HAL.h"
 #include "GPIO.h"
 
-#define WAIT(x) (std::this_thread::sleep_for(std::chrono::milliseconds(x)))
-
-
 using namespace std;
 
 int main(int argc, char *argv[])

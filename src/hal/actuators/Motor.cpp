@@ -9,9 +9,9 @@
 #include "GPIO.h"
 #include "Header.h"
 
-constexpr int CLOCKWISE_ROTATION 	= 0b00000001;
-constexpr int MOTOR_SLOW			= 0b00000100;
-constexpr int MOTOR_STOP 			= 0b00001000;
+constexpr port_t CLOCKWISE_ROTATION = 0b00000001;
+constexpr port_t MOTOR_SLOW			= 0b00000100;
+constexpr port_t MOTOR_STOP 		= 0b00001000;
 
 namespace hal {
 namespace actuators {

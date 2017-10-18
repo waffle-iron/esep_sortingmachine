@@ -38,21 +38,21 @@ void GPIO::gainAccess(){
 	ThreadCtl(_NTO_TCTL_IO_PRIV, 0);
 }
 
-void GPIO::write(PORT port, int val){
-    out8(DIO_BASE+(int)port, val);
+void GPIO::write(PORT port, port_t val){
+    out8(DIO_BASE+(port_t)port, val);
 }
 
-int GPIO::read(PORT port){
-    return in8(DIO_BASE+(int)port);
+port_t GPIO::read(PORT port){
+    return in8(DIO_BASE+(port_t)port);
 }
 
-void GPIO::setBits(PORT port, int bitmask) {
-	int storedPortValue = this->read(port);
+void GPIO::setBits(PORT port, port_t bitmask) {
+	port_t storedPortValue = this->read(port);
 	this->write(port, storedPortValue | bitmask);
 }
 
-void GPIO::clearBits(PORT port, int bitmask) {
-	int storedPortValue = this->read(port);
+void GPIO::clearBits(PORT port, port_t bitmask) {
+	port_t storedPortValue = this->read(port);
 	this->write(port, storedPortValue & ~bitmask);
 }
 

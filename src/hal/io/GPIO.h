@@ -5,6 +5,8 @@
  *      Author: abj240
  */
 
+#include "Header.h"
+
 #ifndef GPIO_H_
 #define GPIO_H_
 
@@ -23,15 +25,15 @@ public:
 	static GPIO *instance();
 	virtual ~GPIO();
 	void gainAccess();
-	int  read(   PORT port);
-	void setBits(PORT port, int bitmask);
-	void clearBits(PORT port, int bitmask);
+	port_t read(PORT port);
+	void setBits(PORT port, port_t bitmask);
+	void clearBits(PORT port, port_t bitmask);
 
 private:
 	static GPIO  *_instance;
 
 	GPIO();
-	void write(  PORT port, int val);
+	void write(  PORT port, port_t val);
 };
 
 } /* namespace gpio */
