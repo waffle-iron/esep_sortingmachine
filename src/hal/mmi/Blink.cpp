@@ -17,6 +17,7 @@ namespace mmi {
 
 
 Blink::Blink() {
+	running = true;
 	this->bitmaskFast = 0;
 	this->bitmaskSlow = 0;
 }
@@ -26,7 +27,7 @@ Blink::~Blink() {
 }
 
 void Blink::operator()() {
-	while (true) {
+	while (running) {
 			hal::io::GPIO::instance()->setBits(PORT::A, this->bitmaskFast | this->bitmaskSlow);
 			std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
@@ -42,12 +43,29 @@ void Blink::operator()() {
 	}
 }
 
-void Blink::add(int bitmask, bool fast) {
-	if (fast) {
-		this->bitmaskFast |= bitmask;
-	} else {
-		this->bitmaskSlow |= bitmask;
+void Blink::add(int bitmask, Speed speed) {
+	switch(speed) {
+	case Speed::fast:
+		bitmaskSlow &= ~bitmask;
+		bitmaskFast |= bitmask;
+		break;
+	case Speed::slow:
+		bitmaskFast &= ~bitmask;
+		bitmaskSlow |= bitmask;
+		break;
+	default:
+		// TODO log that given speed is not implemented
+		break;
 	}
+}
+
+void Blink::removeBitmask(int bitmask) {
+	bitmaskFast &= ~bitmask;
+	bitmaskSlow &= ~bitmask;
+}
+
+void Blink::terminate() {
+	running = false;
 }
 
 } /* namespace mmi */

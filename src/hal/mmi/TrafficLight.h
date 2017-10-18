@@ -57,17 +57,18 @@ public:
 	/**
 	* @brief makes the green light blink
 	*/
-	void blinkGreen(bool fast);
+	void blinkGreen(Speed speed);
 
 	/**
 	* @brief makes the yellow light blink
 	*/
-	void blinkYellow(bool fast);
+	void blinkYellow(Speed speed);
 
 	/**
 	* @brief makes the red light blink
 	*/
-	void blinkRed(bool fast);
+	void blinkRed(Speed speed);
+
 
 private:
 	TrafficLight();
