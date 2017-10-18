@@ -14,12 +14,6 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
-//#ifdef SIMULATION
-//  IOaccess_open();
-//#endif
-
-	hal::io::GPIO::instance()->gainAccess();
-
 	cout << "Starting Sortingmachine ..." << endl;
 
 	LOG_SCOPE;
@@ -69,9 +63,6 @@ int main(int argc, char *argv[])
 	hal.redLightOff();
 
 	cout << "Starting Sortingmachine ... done !" << endl;
-//#ifdef SIMULATION
-//  IOaccess_close();
-//#endif
   return EXIT_SUCCESS;
 }
 
