@@ -35,8 +35,6 @@ GPIO::~GPIO() {
 
 void GPIO::gainAccess(){
 	ThreadCtl(_NTO_TCTL_IO_PRIV, 0);
-
-
 }
 
 void GPIO::write(PORT port, int val){
