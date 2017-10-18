@@ -47,13 +47,19 @@ port_t GPIO::read(PORT port){
 }
 
 void GPIO::setBits(PORT port, port_t bitmask) {
-	port_t storedPortValue = this->read(port);
-	this->write(port, storedPortValue | bitmask);
+	port_t storedValue = this->read(port);
+	port_t newValue = storedValue | bitmask;
+	if(newValue != storedValue){
+		this->write(port, newValue);
+	}
 }
 
 void GPIO::clearBits(PORT port, port_t bitmask) {
-	port_t storedPortValue = this->read(port);
-	this->write(port, storedPortValue & ~bitmask);
+	port_t storedValue = this->read(port);
+	port_t newValue = storedValue & ~bitmask;
+	if(newValue != storedValue){
+		this->write(port, newValue);
+	}
 }
 
 
