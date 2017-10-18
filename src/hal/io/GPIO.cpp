@@ -10,9 +10,11 @@
 
 #include "GPIO.h"
 
+
 namespace hal {
 namespace io {
 
+constexpr int DIO_BASE = 0x300;
 GPIO *GPIO::_instance = nullptr;
 
 GPIO* GPIO::instance() {

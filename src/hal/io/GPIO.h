@@ -8,8 +8,6 @@
 #ifndef GPIO_H_
 #define GPIO_H_
 
-constexpr int DIO_BASE = 0x300;
-
 enum class PORT {
     A,
     B,
