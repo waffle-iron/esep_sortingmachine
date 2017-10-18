@@ -4,6 +4,7 @@
 #include <thread>
 #include <chrono>
 #include "HAL.h"
+#include "GPIO.h"
 
 #define WAIT(x) (std::this_thread::sleep_for(std::chrono::milliseconds(x)))
 
@@ -16,7 +17,8 @@ int main(int argc, char *argv[])
 //  IOaccess_open();
 //#endif
 
-	ThreadCtl(_NTO_TCTL_IO_PRIV, 0);
+	hal::io::GPIO::instance()->gainAccess();
+
 	cout << "Starting Sortingmachine ..." << endl;
 
 
