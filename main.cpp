@@ -16,7 +16,6 @@ int main(int argc, char *argv[])
 //  IOaccess_open();
 //#endif
 
-	ThreadCtl(_NTO_TCTL_IO_PRIV, 0);
 	cout << "Starting Sortingmachine ..." << endl;
 
 
