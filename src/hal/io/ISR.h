@@ -1,0 +1,83 @@
+/**
+ * Embedded System Engineering SoSe 2017
+ * ISR.h
+ * This module configures and activates the Interrupt Handler for the FESTO system
+ * @author: Nils Schönherr
+ * @version: 06.04.2017
+ *
+ */
+
+#ifndef ISR_H_
+#define ISR_H_
+
+#include <sys/siginfo.h>
+#include "AsyncChannel.h"
+
+namespace hal {
+namespace io {
+
+
+class ISR {
+public:
+
+	/**
+	 * @brief  - registers an Interrupt Handler on the specified channel
+	 * @before - GEME computer is connected and running (?)
+	 * @after  - Interrupt Handler is working and ready to receive interrupts
+	 * @param  - The channel ID the Interrupt Handler is listening on
+	 * @retval - none
+	 */
+	static void registerISR(AsyncChannel& chan, char msgType);
+
+	/**
+	 * @brief  - Detaches Interrupt Handler and signals thread function to end
+	 * @before - GEME computer is connected and running (?)
+	 * @after  - Interrupt has stopped working
+	 * @param  - none
+	 * @retval - none
+	 */
+	static void unregisterISR(void);
+
+private:
+	/*
+	 * @brief getter for pending Interrupts
+	 * @ret pending interrupt register
+	 */
+	static int getPendingIntFlags();
+
+	/*
+	 * @brief clears pending Interrupts by bit
+	 * @ret pending interrupt register
+	 */
+	static void clearPendingIntFlag(int bit);
+
+	/*
+	 * @brief clears all pending Interrupts
+	 */
+	static void clearAllPendingIntFlag();
+
+	/*
+	 * @brief enables interrupts by mask
+	 * @param mask
+	 */
+	static void enableInterrupts(int mask);
+
+	/*
+	 * @brief disables all interrupt
+	 */
+	static void disableInterrupts();
+
+	ISR();
+	~ISR();
+
+	//real ISR
+	static const struct sigevent* mainISR(void* arg, int id);
+
+	//class Attributes
+	static int isrId;
+	static struct sigevent isrEvent;
+};
+
+} /* io */
+} /* hal */
+#endif /* ISR_H_ */

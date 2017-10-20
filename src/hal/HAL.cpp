@@ -16,7 +16,6 @@ HAL::HAL() {
 	_motor = actuators::Motor::instance();
 	_switchPoint = actuators::SwitchPoint::instance();
 	_trafficLight = mmi::TrafficLight::instance();
-	interruptHandler = new io::MessageGenerator;
 }
 
 HAL::~HAL() {
@@ -25,7 +24,6 @@ HAL::~HAL() {
 	delete _switchPoint;
 	delete _trafficLight;
 	delete io::GPIO::instance();
-	delete interruptHandler;
 }
 
 void HAL::motorStart() {

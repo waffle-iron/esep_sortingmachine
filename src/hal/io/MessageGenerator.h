@@ -22,7 +22,7 @@ public:
 	void stop();
 
 private:
-	std::thread t_prio_low;
+	std::thread thread;
 	bool running;
 
 

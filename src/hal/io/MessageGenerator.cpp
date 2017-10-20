@@ -8,6 +8,7 @@
 #include "MessageGenerator.h"
 #include "Header.h"
 #include "AsyncChannel.h"
+#include "ISR.h"
 #include <iostream>
 
 namespace hal {
@@ -15,13 +16,15 @@ namespace io {
 
 MessageGenerator::MessageGenerator():
 running(true) {
-	t_prio_low = std::thread(std::ref(*this));
+	ISR::registerISR(AsyncChannel::getChannel(), 123);
+	thread = std::thread(std::ref(*this));
 }
 
 MessageGenerator::~MessageGenerator() {
 	stop();
 	AsyncChannel::getChannel().sendMessage({0,0});
-	t_prio_low.join();
+	thread.join();
+	ISR::unregisterISR();
 }
 
 void MessageGenerator::operator()() {

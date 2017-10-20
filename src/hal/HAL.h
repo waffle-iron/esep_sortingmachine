@@ -45,7 +45,7 @@ namespace hal {
 		actuators::Motor *_motor;
 		actuators::SwitchPoint *_switchPoint;
 		mmi::TrafficLight *_trafficLight;
-		io::MessageGenerator *interruptHandler;
+		io::MessageGenerator messageGenerator;
 
 	};
 
