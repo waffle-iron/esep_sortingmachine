@@ -29,6 +29,7 @@ namespace actuators {
 
 	SwitchPoint::~SwitchPoint() {
 		LOG_SCOPE;
+		_instance = nullptr;
 	}
 
 	void SwitchPoint::open(){

@@ -17,13 +17,14 @@ namespace mmi {
 
 
 Blink::Blink() {
+	LOG_SCOPE;
 	running = true;
 	this->bitmaskFast = 0;
 	this->bitmaskSlow = 0;
 }
 
 Blink::~Blink() {
-	// TODO Auto-generated destructor stub
+	LOG_SCOPE;
 }
 
 void Blink::operator()() {

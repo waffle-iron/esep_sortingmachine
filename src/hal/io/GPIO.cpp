@@ -47,7 +47,11 @@ port_t GPIO::read(PORT port){
 }
 
 void GPIO::setBits(PORT port, port_t bitmask) {
+	cout << " set bits " << endl;
+
 	port_t storedValue = this->read(port);
+	cout << " set bits " << endl;
+
 	port_t newValue = storedValue | bitmask;
 	if(newValue != storedValue){
 		this->write(port, newValue);
