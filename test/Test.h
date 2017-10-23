@@ -43,8 +43,8 @@ public:
 };
 
 
-} // end test
-} // end logicLayer
+} /* test */
+} /* logicLayer */
 
 #endif /* TEST_H_ */
 

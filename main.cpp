@@ -11,12 +11,6 @@
 
 using namespace std;
 
-namespace base {
-
-} /*base*/
-
-
-
 
 int main(int argc, char *argv[])
 {

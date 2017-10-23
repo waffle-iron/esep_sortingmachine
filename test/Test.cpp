@@ -12,8 +12,6 @@
 #include "HAL.h"
 #include "Header.h"
 #include "GpioTesting.h"
-#include <sys/neutrino.h>
-#include <hw/inout.h>
 
 using namespace std;
 
@@ -153,8 +151,8 @@ void Test::threadSafenessInGpioTest(){
 	LOG_SCOPE;
 	cout << "enter method " << __FUNCTION__ << endl;
 	LOG_DEBUG << "1";
-	ThreadCtl(_NTO_TCTL_IO_PRIV, 0);
 	GpioTesting *gpio = new GpioTesting;
+	gpio->gainAccess();
 
 	cout << " after instance " << endl;
 	LOG_DEBUG << "2";
@@ -170,5 +168,5 @@ bool Test::nextTest(){
 }
 
 
-} // end test
-} // end logicLayer
+} /* test */
+} /* logicLayer */

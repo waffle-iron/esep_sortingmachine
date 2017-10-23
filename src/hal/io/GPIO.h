@@ -31,8 +31,10 @@ public:
 
 protected:
 	virtual void write(  PORT port, port_t val);
+	GPIO();
 
 private:
+
 	static GPIO  *_instance;
 
 };

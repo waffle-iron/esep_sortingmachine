@@ -33,7 +33,7 @@ TrafficLight::TrafficLight() {
 }
 
 TrafficLight::~TrafficLight() {
-LOG_SCOPE;
+	LOG_SCOPE;
 	blink.terminate();
 	thread.join();
 

@@ -20,13 +20,18 @@ GPIO *GPIO::_instance = nullptr;
 
 GPIO* GPIO::instance() {
 	if (_instance == nullptr) {
-		_instance = new GPIO();
+		_instance = new GPIO;
 	}
 	return _instance;
 }
 
+GPIO::GPIO() {
+	LOG_SCOPE
+}
+
 GPIO::~GPIO() {
 	LOG_SCOPE;
+	_instance = nullptr;
 }
 
 void GPIO::gainAccess(){
