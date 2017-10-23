@@ -125,7 +125,7 @@ void Test::mmiTest(){
 	hal.blinkRed(Speed::fast);
 	if( !nextTest(__FUNCTION__) ) return;
 
-	cout << "test blinking fast: red, yellow, green" << endl;
+	cout << "test blinking slow: red, yellow, green" << endl;
 	hal.blinkGreen(Speed::slow);
 	hal.blinkYellow(Speed::slow);
 	hal.blinkRed(Speed::slow);
