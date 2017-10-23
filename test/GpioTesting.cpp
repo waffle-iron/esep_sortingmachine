@@ -15,7 +15,7 @@
 
 
 void GpioTesting::write(PORT port, port_t val){
-	cout << "read-modify-write cycle is starting" << endl;
+	cout << "# rmw-cycle starting #" << endl;
 	WAIT(500);
-	cout << "read-modify-write cycle finished" << endl;
+	cout << "# rmw-cycle finished #" << endl;
 }

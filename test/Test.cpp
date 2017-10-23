@@ -36,25 +36,25 @@ void Test::actuatorsTest(){
 
 	cout << "start " << __FUNCTION__ << endl;
 
-	cout << "Teste Motoraktorik (schnell) " << endl;
+	cout << "test motor (clockwise, fast) " << endl;
 	hal.motorStart();
-	hal.motorRotateClockwise(); // BUG
+	hal.motorRotateClockwise(); // BUG?
 	hal.motorFast();
 	if( !nextTest(__FUNCTION__) ) return;
 
-	cout << "Teste Motoraktorik (langsam) " << endl;
+	cout << "test motor (clockwise, slow) " << endl;
 	hal.motorSlow();
 	if( !nextTest(__FUNCTION__) ) return;
 
-	cout << "Teste Motorstopp" << endl;
+	cout << "test motor stop" << endl;
 	hal.motorStop();
 	if( !nextTest(__FUNCTION__) ) return;
 
-	cout << "Teste Weiche auf (bitte nicht zu lang auf lassen) " << endl;
+	cout << "test open switch point - please continue soon" << endl;
 	hal.switchPointOpen();
 	if( !nextTest(__FUNCTION__) ) return;
 
-	cout << "Teste Weiche zu " << endl;
+	cout << "test close switch point " << endl;
 	hal.switchPointClose();
 
 	if( !nextTest(__FUNCTION__) ) return;
@@ -68,76 +68,68 @@ void Test::mmiTest(){
 
 	hal::HAL hal;
 
-	hal.blinkGreen(Speed::fast);
-
 	cout << "start " << __FUNCTION__ << endl;
-	cout << "Teste alle Lichter der Ampel an " << endl;
+	cout << "test lamps on: red, yellow, green" << endl;
 	hal.yellowLightOn();
 	hal.redLightOn();
 	hal.greenLightOn();
 	if( !nextTest(__FUNCTION__) ) return;
 
-	cout << "Teste alle Lichter der Ampel aus " << endl;
+	cout << "test lamps off: red, yellow, green" << endl;
 	hal.yellowLightOff();
 	hal.redLightOff();
 	hal.greenLightOff();
 	if( !nextTest(__FUNCTION__) ) return;
 
-	cout << "Teste blinken der Ampel (schnell) " << endl;
+	cout << "test blinking fast: red, yello, green " << endl;
 	hal.blinkGreen(Speed::fast);
 	hal.blinkRed(Speed::fast);
 	hal.blinkYellow(Speed::fast);
 	if( !nextTest(__FUNCTION__) ) return;
 
-	cout << "Rotes Licht der Ampel aus" << endl;
+	cout << "test blinking fast: yellow, green" << endl;
 	hal.redLightOff();
 	if( !nextTest(__FUNCTION__) ) return;
 
-	cout << "Gelbes Licht der Ampel aus" << endl;
+	cout << "test blinking fast: green" << endl;
 	hal.yellowLightOff();
 	if( !nextTest(__FUNCTION__) ) return;
 
-	cout << "Grünes Licht der Ampel aus" << endl;
-	hal.greenLightOff();
-	if( !nextTest(__FUNCTION__) ) return;
-
-	cout << "Teste blinken der Ampel (langsam) " << endl;
+	cout << "test blinking slow: red, yellow, green" << endl;
 	hal.blinkGreen(Speed::slow);
 	hal.blinkYellow(Speed::slow);
 	hal.blinkRed(Speed::slow);
 	if( !nextTest(__FUNCTION__) ) return;
 
-	cout << "Rotes Licht der Ampel aus" << endl;
+	cout << "test blinking slow: yellow, green" << endl;
 	hal.redLightOff();
 	if( !nextTest(__FUNCTION__) ) return;
 
-	cout << "Gelbes Licht der Ampel aus" << endl;
+	cout << "test blinking slow: green" << endl;
 	hal.yellowLightOff();
 	if( !nextTest(__FUNCTION__) ) return;
 
-	cout << "Grünes Licht der Ampel aus" << endl;
+	cout << "test blinking slow: nothing" << endl;
 	hal.greenLightOff();
 	if( !nextTest(__FUNCTION__) ) return;
 
-	cout << "Teste blinken der Ampel (langsam) " << endl;
+	cout << "test blinking slow: red, yellow, green" << endl;
 	hal.blinkGreen(Speed::slow);
 	hal.blinkYellow(Speed::slow);
 	hal.blinkRed(Speed::slow);
 	if( !nextTest(__FUNCTION__) ) return;
 
-
-	cout << "Teste blinken der Ampel (schnell) " << endl;
+	cout << "test blinking fast: red, yellow, green" << endl;
 	hal.blinkGreen(Speed::fast);
 	hal.blinkYellow(Speed::fast);
 	hal.blinkRed(Speed::fast);
 	if( !nextTest(__FUNCTION__) ) return;
 
-	cout << "Teste blinken der Ampel (langsam) " << endl;
+	cout << "test blinking fast: red, yellow, green" << endl;
 	hal.blinkGreen(Speed::slow);
 	hal.blinkYellow(Speed::slow);
 	hal.blinkRed(Speed::slow);
 	if( !nextTest(__FUNCTION__) ) return;
-
 
 	cout  << __FUNCTION__ << " successful. " << endl;
 }
@@ -156,22 +148,20 @@ void Test::threadSafenessInGpioTest(){
 	cout << "start " << __FUNCTION__ << endl;
 
 	cout << "Looks the same?"<<endl;
-	cout << "################" << endl;
-	cout << "read-modify-write cycle is starting" << endl;
-	cout << "read-modify-write cycle finished" << endl;
-	cout << "read-modify-write cycle is starting" << endl;
-	cout << "read-modify-write cycle finished" << endl;
-	cout << "################" << endl;
-
+	cout << "######################" 	<< endl;
+	cout << "# rmw-cycle starting #" 	<< endl;
+	cout << "# rmw-cycle finished #" 	<< endl;
+	cout << "# rmw-cycle starting #" 	<< endl;
+	cout << "# rmw-cycle finished #" 	<< endl;
+	cout << "# ================== #" 	<< endl;
 
 	GpioTesting *gpio = new GpioTesting;
 	gpio->gainAccess();
-	cout << "################" << endl;
 	thread t1(&writeSomethingElse, gpio, 1);
 	thread t2(&writeSomethingElse, gpio, 2);
 	t1.join();
 	t2.join();
-	cout << "################" << endl;
+	cout << "######################" << endl;
 	if( !nextTest(__FUNCTION__) ) return;
 
 	cout << "start " << __FUNCTION__ << endl;
