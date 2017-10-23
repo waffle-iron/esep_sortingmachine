@@ -21,14 +21,13 @@ HAL::HAL() {
 HAL::~HAL() {
 	LOG_SCOPE;
 
-	/*motorStop();
+	motorStop();
 	switchPointClose();
 	greenLightOff();
 	redLightOff();
-	yellowLightOff();*/
+	yellowLightOff();
 
 	delete _motor;
-
 	delete _switchPoint;
 	delete _trafficLight;
 	delete io::GPIO::instance();

@@ -20,14 +20,9 @@ GPIO *GPIO::_instance = nullptr;
 
 GPIO* GPIO::instance() {
 	if (_instance == nullptr) {
-		_instance = new GPIO;
+		_instance = new GPIO();
 	}
 	return _instance;
-}
-
-GPIO::GPIO() {
-	LOG_SCOPE;
-
 }
 
 GPIO::~GPIO() {
@@ -39,7 +34,7 @@ void GPIO::gainAccess(){
 }
 
 void GPIO::write(PORT port, port_t val){
-    out8(DIO_BASE+(port_t)port, val);
+	out8(DIO_BASE+(port_t)port, val);
 }
 
 port_t GPIO::read(PORT port){
@@ -47,10 +42,7 @@ port_t GPIO::read(PORT port){
 }
 
 void GPIO::setBits(PORT port, port_t bitmask) {
-	cout << " set bits " << endl;
-
 	port_t storedValue = this->read(port);
-	cout << " set bits " << endl;
 
 	port_t newValue = storedValue | bitmask;
 	if(newValue != storedValue){

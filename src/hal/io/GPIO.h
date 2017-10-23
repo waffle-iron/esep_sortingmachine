@@ -19,20 +19,6 @@ enum class PORT {
 namespace hal {
 namespace io {
 
-class Base{
-	public:
-		void a(){
-			cout << "BASE:A" << endl;
-			b();
-		}
-		virtual ~Base(){}
-
-	protected:
-		virtual void b(){
-			cout << "BASE:B" << endl;
-		}
-};
-
 
 class GPIO {
 public:
@@ -44,9 +30,11 @@ public:
 	void clearBits(PORT port, port_t bitmask);
 
 protected:
-	static GPIO  *_instance;
-	GPIO();
 	virtual void write(  PORT port, port_t val);
+
+private:
+	static GPIO  *_instance;
+
 };
 
 } /* namespace gpio */

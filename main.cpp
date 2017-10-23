@@ -27,13 +27,11 @@ int main(int argc, char *argv[])
 	LOG_DEBUG<<"hello world \n";
 
 
-	hal::io::Base *d = new Derived();
-	d->a();
 
 
 	logicLayer::test::Test test;
-	//test.actuatorsTest();
-	//test.mmiTest();
+	test.actuatorsTest();
+	test.mmiTest();
 
 	test.threadSafenessInGpioTest();
 
