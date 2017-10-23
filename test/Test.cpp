@@ -181,7 +181,9 @@ void Test::threadSafenessInGpioTest(){
 
 
 bool Test::nextTest(string functionName){
-	cout << "test was successful and go on? (yes: hit return, no: hit any key followed by return" << endl;
+	cout << "Was the test successful and do you want to go on?\n"<<
+			"  yes: hit return\n"<<
+			"  no : hit any key followed by return" << endl;
 	if (cin.get() == '\n'){
 		return true;
 	} else {
