@@ -6,10 +6,16 @@
  */
 
 #include "GpioTesting.h"
+#include <iostream>
+#include "Header.h"
+#include <thread>
+#include <chrono>
+
 
 
 
 void GpioTesting::write(PORT port, port_t val){
-	cout << "DERIVED:B" << endl;
-    while(true){}
+	cout << "read-modify-write cycle is starting" << endl;
+	WAIT(500);
+	cout << "read-modify-write cycle finished" << endl;
 }

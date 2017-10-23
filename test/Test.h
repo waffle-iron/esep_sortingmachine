@@ -8,6 +8,9 @@
 #ifndef TEST_H_
 #define TEST_H_
 
+#include "GPIO.h"
+#include <string>
+
 namespace logicLayer{
 namespace test{
 
@@ -32,14 +35,20 @@ public:
 	void sensorsTest();
 
 	/**
-	 *	@brief go to next test
-	 */
-	bool nextTest();
-
-	/**
 	 *  @brief test thread safeness in GPIO class
 	 */
 	void threadSafenessInGpioTest();
+private:
+	/**
+	 *
+	 */
+	static void writeSomethingElse(hal::io::GPIO *gpio, int difference);
+
+	/**
+	 *	@brief go to next test
+	 */
+	bool nextTest(string functionName);
+
 };
 
 

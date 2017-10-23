@@ -40,26 +40,26 @@ void Test::actuatorsTest(){
 	hal.motorStart();
 	hal.motorRotateClockwise(); // BUG
 	hal.motorFast();
-	if( !nextTest() ) return;
+	if( !nextTest(__FUNCTION__) ) return;
 
 	cout << "Teste Motoraktorik (langsam) " << endl;
 	hal.motorSlow();
-	if( !nextTest() ) return;
+	if( !nextTest(__FUNCTION__) ) return;
 
 	cout << "Teste Motorstopp" << endl;
 	hal.motorStop();
-	if( !nextTest() ) return;
+	if( !nextTest(__FUNCTION__) ) return;
 
 	cout << "Teste Weiche auf (bitte nicht zu lang auf lassen) " << endl;
 	hal.switchPointOpen();
-	if( !nextTest() ) return;
+	if( !nextTest(__FUNCTION__) ) return;
 
 	cout << "Teste Weiche zu " << endl;
 	hal.switchPointClose();
 
-	if( !nextTest() ) return;
+	if( !nextTest(__FUNCTION__) ) return;
 
-	cout << __FUNCTION__ <<  " beendet!" << endl;
+	cout << __FUNCTION__ <<  "  successful." << endl;
 
 }
 
@@ -75,71 +75,71 @@ void Test::mmiTest(){
 	hal.yellowLightOn();
 	hal.redLightOn();
 	hal.greenLightOn();
-	if( !nextTest() ) return;
+	if( !nextTest(__FUNCTION__) ) return;
 
 	cout << "Teste alle Lichter der Ampel aus " << endl;
 	hal.yellowLightOff();
 	hal.redLightOff();
 	hal.greenLightOff();
-	if( !nextTest() ) return;
+	if( !nextTest(__FUNCTION__) ) return;
 
 	cout << "Teste blinken der Ampel (schnell) " << endl;
 	hal.blinkGreen(Speed::fast);
 	hal.blinkRed(Speed::fast);
 	hal.blinkYellow(Speed::fast);
-	if( !nextTest() ) return;
+	if( !nextTest(__FUNCTION__) ) return;
 
 	cout << "Rotes Licht der Ampel aus" << endl;
 	hal.redLightOff();
-	if( !nextTest() ) return;
+	if( !nextTest(__FUNCTION__) ) return;
 
 	cout << "Gelbes Licht der Ampel aus" << endl;
 	hal.yellowLightOff();
-	if( !nextTest() ) return;
+	if( !nextTest(__FUNCTION__) ) return;
 
 	cout << "Grünes Licht der Ampel aus" << endl;
 	hal.greenLightOff();
-	if( !nextTest() ) return;
+	if( !nextTest(__FUNCTION__) ) return;
 
 	cout << "Teste blinken der Ampel (langsam) " << endl;
 	hal.blinkGreen(Speed::slow);
 	hal.blinkYellow(Speed::slow);
 	hal.blinkRed(Speed::slow);
-	if( !nextTest() ) return;
+	if( !nextTest(__FUNCTION__) ) return;
 
 	cout << "Rotes Licht der Ampel aus" << endl;
 	hal.redLightOff();
-	if( !nextTest() ) return;
+	if( !nextTest(__FUNCTION__) ) return;
 
 	cout << "Gelbes Licht der Ampel aus" << endl;
 	hal.yellowLightOff();
-	if( !nextTest() ) return;
+	if( !nextTest(__FUNCTION__) ) return;
 
 	cout << "Grünes Licht der Ampel aus" << endl;
 	hal.greenLightOff();
-	if( !nextTest() ) return;
+	if( !nextTest(__FUNCTION__) ) return;
 
 	cout << "Teste blinken der Ampel (langsam) " << endl;
 	hal.blinkGreen(Speed::slow);
 	hal.blinkYellow(Speed::slow);
 	hal.blinkRed(Speed::slow);
-	if( !nextTest() ) return;
+	if( !nextTest(__FUNCTION__) ) return;
 
 
 	cout << "Teste blinken der Ampel (schnell) " << endl;
 	hal.blinkGreen(Speed::fast);
 	hal.blinkYellow(Speed::fast);
 	hal.blinkRed(Speed::fast);
-	if( !nextTest() ) return;
+	if( !nextTest(__FUNCTION__) ) return;
 
 	cout << "Teste blinken der Ampel (langsam) " << endl;
 	hal.blinkGreen(Speed::slow);
 	hal.blinkYellow(Speed::slow);
 	hal.blinkRed(Speed::slow);
-	if( !nextTest() ) return;
+	if( !nextTest(__FUNCTION__) ) return;
 
 
-	cout  << __FUNCTION__ << " beendet! " << endl;
+	cout  << __FUNCTION__ << " successful. " << endl;
 }
 
 
@@ -147,24 +147,50 @@ void Test::sensorsTest(){
 
 }
 
+void Test::writeSomethingElse(hal::io::GPIO *gpio, int difference) {
+	port_t port = gpio->read(PORT::A); // read port to write definetly something different so write method gets called
+	gpio->setBits(PORT::A, port + difference);
+}
+
 void Test::threadSafenessInGpioTest(){
-	LOG_SCOPE;
-	cout << "enter method " << __FUNCTION__ << endl;
-	LOG_DEBUG << "1";
+	cout << "start " << __FUNCTION__ << endl;
+
+	cout << "Looks the same?"<<endl;
+	cout << "################" << endl;
+	cout << "read-modify-write cycle is starting" << endl;
+	cout << "read-modify-write cycle finished" << endl;
+	cout << "read-modify-write cycle is starting" << endl;
+	cout << "read-modify-write cycle finished" << endl;
+	cout << "################" << endl;
+
+
 	GpioTesting *gpio = new GpioTesting;
 	gpio->gainAccess();
+	cout << "################" << endl;
+	thread t1(&writeSomethingElse, gpio, 1);
+	thread t2(&writeSomethingElse, gpio, 2);
+	t1.join();
+	t2.join();
+	cout << "################" << endl;
+	if( !nextTest(__FUNCTION__) ) return;
 
-	cout << " after instance " << endl;
-	LOG_DEBUG << "2";
-	gpio->setBits(PORT::A, 0b11111111); //alles an
-	cout << " after setBits " << endl;
-	LOG_DEBUG << "3";
+	cout << "start " << __FUNCTION__ << endl;
+
+	cout << __FUNCTION__ << " successful." << endl;
 }
 
 
-bool Test::nextTest(){
-	cout << "Weiter zum nächsten Test? (Eingabe=Enter - Abbruch=beliebige Eingabe + Enter" << endl;
-	return cin.get() == '\n';
+bool Test::nextTest(string functionName){
+	cout << "test was successful and go on? (yes: hit return, no: hit any key followed by return" << endl;
+	if (cin.get() == '\n'){
+		return true;
+	} else {
+		cout << "##### "<<functionName << " NOT succesfull." << " #####"<< endl;
+		cout << "Hit return to go on" << endl;
+		cin.get();
+		cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		return false;
+	}
 }
 
 

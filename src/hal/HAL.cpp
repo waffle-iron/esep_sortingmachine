@@ -16,6 +16,13 @@ HAL::HAL() {
 	_motor = actuators::Motor::instance();
 	_switchPoint = actuators::SwitchPoint::instance();
 	_trafficLight = mmi::TrafficLight::instance();
+
+	motorStop();
+	motorRotateClockwise();
+	switchPointClose();
+	greenLightOff();
+	redLightOff();
+	yellowLightOff();
 }
 
 HAL::~HAL() {

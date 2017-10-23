@@ -10,6 +10,8 @@
 #ifndef GPIO_H_
 #define GPIO_H_
 
+#include <mutex>
+
 enum class PORT {
     A,
     B,
@@ -33,8 +35,9 @@ protected:
 	virtual void write(  PORT port, port_t val);
 	GPIO();
 
-private:
+	std::mutex gpio_mutex;
 
+private:
 	static GPIO  *_instance;
 
 };
