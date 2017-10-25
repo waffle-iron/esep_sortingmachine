@@ -10,6 +10,8 @@
 #ifndef GPIO_H_
 #define GPIO_H_
 
+#include <mutex>
+
 enum class PORT {
     A,
     B,
@@ -29,11 +31,15 @@ public:
 	void setBits(PORT port, port_t bitmask);
 	void clearBits(PORT port, port_t bitmask);
 
+protected:
+	virtual void write(  PORT port, port_t val);
+	GPIO();
+
+	std::mutex gpio_mutex;
+
 private:
 	static GPIO  *_instance;
 
-	GPIO();
-	void write(  PORT port, port_t val);
 };
 
 } /* namespace gpio */

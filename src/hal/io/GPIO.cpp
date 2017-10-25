@@ -26,12 +26,12 @@ GPIO* GPIO::instance() {
 }
 
 GPIO::GPIO() {
-	LOG_SCOPE;
-
+	LOG_SCOPE
 }
 
 GPIO::~GPIO() {
 	LOG_SCOPE;
+	_instance = nullptr;
 }
 
 void GPIO::gainAccess(){
@@ -39,7 +39,7 @@ void GPIO::gainAccess(){
 }
 
 void GPIO::write(PORT port, port_t val){
-    out8(DIO_BASE+(port_t)port, val);
+	out8(DIO_BASE+(port_t)port, val);
 }
 
 port_t GPIO::read(PORT port){
@@ -47,19 +47,23 @@ port_t GPIO::read(PORT port){
 }
 
 void GPIO::setBits(PORT port, port_t bitmask) {
+	gpio_mutex.lock();
 	port_t storedValue = this->read(port);
 	port_t newValue = storedValue | bitmask;
 	if(newValue != storedValue){
 		this->write(port, newValue);
 	}
+	gpio_mutex.unlock();
 }
 
 void GPIO::clearBits(PORT port, port_t bitmask) {
+	gpio_mutex.lock();
 	port_t storedValue = this->read(port);
 	port_t newValue = storedValue & ~bitmask;
 	if(newValue != storedValue){
 		this->write(port, newValue);
 	}
+	gpio_mutex.unlock();
 }
 
 
