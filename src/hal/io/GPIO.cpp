@@ -8,7 +8,6 @@
 #include <sys/neutrino.h>
 #include <hw/inout.h>
 #include "Header.h"
-#include <ioaccess.h>
 #include "GPIO.h"
 
 

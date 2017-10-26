@@ -17,8 +17,4 @@
 
 typedef uint8_t port_t;
 
-#ifdef SIMULATION
-#include <ioaccess.h>
-#endif
-
 #endif /* HEADER_H_ */
