@@ -22,12 +22,12 @@ int main(int argc, char *argv[])
 
 
 
-
 	logicLayer::test::Test test;
-	test.actuatorsTest();
-	test.mmiTest();
-
 	test.threadSafenessInGpioTest();
+	//test.actuatorsTest();
+	//test.mmiTest();
+
+	//test.threadSafenessInGpioTest();
 
 	cout << "Starting Sortingmachine ... done !" << endl;
   return EXIT_SUCCESS;

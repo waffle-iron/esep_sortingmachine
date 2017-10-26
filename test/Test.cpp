@@ -144,6 +144,22 @@ void Test::writeSomethingElse(hal::io::GPIO *gpio, int difference) {
 	gpio->setBits(PORT::A, port + difference);
 }
 
+
+void Test::createInstance(){
+	new GPIOTesting;
+
+}
+
+void Test::singletonThreadSafeTest(){
+	thread t1(&createInstance);
+	thread t2(&createInstance);
+
+	t1.join();
+	t2.join();
+
+}
+
+
 void Test::threadSafenessInGpioTest(){
 	cout << "start " << __FUNCTION__ << endl;
 
@@ -162,6 +178,7 @@ void Test::threadSafenessInGpioTest(){
 	t1.join();
 	t2.join();
 	cout << "######################" << endl;
+
 	if( !nextTest(__FUNCTION__) ) return;
 
 	cout << "start " << __FUNCTION__ << endl;

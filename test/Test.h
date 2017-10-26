@@ -34,6 +34,10 @@ public:
 	 */
 	void sensorsTest();
 
+	void createInstance();
+
+	void singletonThreadSafeTest();
+
 	/**
 	 *  @brief test thread safeness in GPIO class
 	 */
