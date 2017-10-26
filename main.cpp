@@ -29,12 +29,11 @@ int main(int argc, char *argv[])
 
 	WAIT(2000);
 
-
-	logicLayer::test::Test test;
+	logicLayer::test::Test test = logicLayer::test::Test(&hal);
 	test.actuatorsTest();
-//	test.mmiTest();
-//
-//	test.threadSafenessInGpioTest();
+	test.mmiTest();
+
+	test.threadSafenessInGpioTest();
 
 	cout << "Starting Sortingmachine ... done !" << endl;
 

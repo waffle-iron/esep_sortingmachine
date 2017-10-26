@@ -10,13 +10,14 @@
 
 #include "GPIO.h"
 #include <string>
+#include "HAL.h"
 
 namespace logicLayer{
 namespace test{
 
 class Test {
 public:
-	Test();
+	Test(hal::HAL* hal);
 	virtual ~Test();
 
 	/**
@@ -39,6 +40,9 @@ public:
 	 */
 	void threadSafenessInGpioTest();
 private:
+
+	hal::HAL* _hal;
+
 	/**
 	 *
 	 */
