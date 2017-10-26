@@ -21,9 +21,9 @@ int main(int argc, char *argv[])
 	LOG_DEBUG<<"hello world \n";
 
 
+	hal::HAL hal;
 
-
-	logicLayer::test::Test test;
+	logicLayer::test::Test test = logicLayer::test::Test(&hal);
 	test.actuatorsTest();
 	test.mmiTest();
 
