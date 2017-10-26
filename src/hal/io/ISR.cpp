@@ -22,6 +22,10 @@ namespace io {
 int ISR::isrId;
 struct sigevent ISR::isrEvent;
 
+ISR::ISR() {
+	hal::io::GPIO::instance()->gainAccess();
+}
+
 int ISR::getPendingIntFlags() {
 	return in8(DIO_BASE + DIO_CHG_STATE_IRQ_STATUS);
 }
@@ -56,7 +60,6 @@ const struct sigevent* ISR::mainISR(void* arg, int id) {
 
 
 void ISR::registerISR(AsyncChannel& chan, char msgType){
-
     // disable IRQ
     ISR::disableInterrupts();
 

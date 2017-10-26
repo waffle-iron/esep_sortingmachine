@@ -10,13 +10,17 @@
 #include "AsyncChannel.h"
 #include "ISR.h"
 #include <iostream>
+#include "GPIO.h"
+
+constexpr int MAGIC_NUMBER = 15;
 
 namespace hal {
 namespace io {
 
 MessageGenerator::MessageGenerator():
 running(true) {
-	ISR::registerISR(AsyncChannel::getChannel(), 123);
+	hal::io::GPIO::instance()->gainAccess();
+	ISR::registerISR(AsyncChannel::getChannel(), MAGIC_NUMBER);
 	thread = std::thread(std::ref(*this));
 }
 
