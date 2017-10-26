@@ -19,7 +19,7 @@ namespace io {
 
 MessageGenerator::MessageGenerator():
 running(true) {
-	hal::io::GPIO::instance()->gainAccess();
+	hal::io::GPIO::instance()->gainAccess(); // first time calling singleton
 	ISR::registerISR(AsyncChannel::getChannel(), MAGIC_NUMBER);
 	thread = std::thread(std::ref(*this));
 }
