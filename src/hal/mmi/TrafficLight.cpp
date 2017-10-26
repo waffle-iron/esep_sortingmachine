@@ -36,6 +36,8 @@ TrafficLight::~TrafficLight() {
 	LOG_SCOPE;
 	blink.terminate();
 	thread.join();
+
+	_instance = nullptr;
 }
 
 void TrafficLight::greenLightOn() {

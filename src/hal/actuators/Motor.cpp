@@ -31,6 +31,7 @@ Motor::Motor() {
 
 Motor::~Motor() {
 	LOG_SCOPE;
+	_instance = nullptr;
 }
 
 void Motor::start() {
