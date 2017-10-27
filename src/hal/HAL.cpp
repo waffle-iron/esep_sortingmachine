@@ -12,7 +12,7 @@ namespace hal {
 
 HAL::HAL() {
 	LOG_SCOPE;
-	hal::io::GPIO::instance()->gainAccess();
+	hal::io::GPIO::instance().gainAccess();
 	_motor = actuators::Motor::instance();
 	_switchPoint = actuators::SwitchPoint::instance();
 	_trafficLight = mmi::TrafficLight::instance();
@@ -37,7 +37,7 @@ HAL::~HAL() {
 	delete _motor;
 	delete _switchPoint;
 	delete _trafficLight;
-	delete io::GPIO::instance();
+	//delete io::GPIO::instance();
 }
 
 void HAL::motorStart() {

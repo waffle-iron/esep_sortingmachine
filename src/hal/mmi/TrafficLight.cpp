@@ -42,32 +42,32 @@ TrafficLight::~TrafficLight() {
 
 void TrafficLight::greenLightOn() {
 	blink.removeBitmask(PIN_GREEN_LIGHT);
-	io::GPIO::instance()->setBits(PORT::A, PIN_GREEN_LIGHT);
+	io::GPIO::instance().setBits(PORT::A, PIN_GREEN_LIGHT);
 }
 
 void TrafficLight::yellowLightOn() {
 	blink.removeBitmask(PIN_YELLOW_LIGHT);
-	io::GPIO::instance()->setBits(PORT::A, PIN_YELLOW_LIGHT);
+	io::GPIO::instance().setBits(PORT::A, PIN_YELLOW_LIGHT);
 }
 
 void TrafficLight::redLightOn() {
 	blink.removeBitmask(PIN_RED_LIGHT);
-	io::GPIO::instance()->setBits(PORT::A, PIN_RED_LIGHT);
+	io::GPIO::instance().setBits(PORT::A, PIN_RED_LIGHT);
 }
 
 void TrafficLight::greenLightOff() {
 	blink.removeBitmask(PIN_GREEN_LIGHT);
-	io::GPIO::instance()->clearBits(PORT::A, PIN_GREEN_LIGHT);
+	io::GPIO::instance().clearBits(PORT::A, PIN_GREEN_LIGHT);
 }
 
 void TrafficLight::yellowLightOff() {
 	blink.removeBitmask(PIN_YELLOW_LIGHT);
-	io::GPIO::instance()->clearBits(PORT::A, PIN_YELLOW_LIGHT);
+	io::GPIO::instance().clearBits(PORT::A, PIN_YELLOW_LIGHT);
 }
 
 void TrafficLight::redLightOff() {
 	blink.removeBitmask(PIN_RED_LIGHT);
-	io::GPIO::instance()->clearBits(PORT::A, PIN_RED_LIGHT);
+	io::GPIO::instance().clearBits(PORT::A, PIN_RED_LIGHT);
 }
 
 

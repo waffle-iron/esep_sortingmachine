@@ -11,6 +11,7 @@
 #include "GPIO.h"
 #include <string>
 
+
 namespace logicLayer{
 namespace test{
 
@@ -33,8 +34,6 @@ public:
 	 *
 	 */
 	void sensorsTest();
-
-	void createInstance();
 
 	void singletonThreadSafeTest();
 

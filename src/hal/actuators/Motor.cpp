@@ -35,27 +35,27 @@ Motor::~Motor() {
 }
 
 void Motor::start() {
-	io::GPIO::instance()->clearBits(PORT::A, MOTOR_STOP);
+	io::GPIO::instance().clearBits(PORT::A, MOTOR_STOP);
 }
 
 void Motor::stop() {
-	io::GPIO::instance()->setBits(PORT::A, MOTOR_STOP);
+	io::GPIO::instance().setBits(PORT::A, MOTOR_STOP);
 }
 
 void Motor::setSlow() {
-	io::GPIO::instance()->setBits(PORT::A, MOTOR_SLOW);
+	io::GPIO::instance().setBits(PORT::A, MOTOR_SLOW);
 }
 
 void Motor::clearSlow() {
-	io::GPIO::instance()->clearBits(PORT::A, MOTOR_SLOW);
+	io::GPIO::instance().clearBits(PORT::A, MOTOR_SLOW);
 }
 
 void Motor::setClockwiseRotation() {
-	io::GPIO::instance()->setBits(PORT::A, CLOCKWISE_ROTATION);
+	io::GPIO::instance().setBits(PORT::A, CLOCKWISE_ROTATION);
 }
 
 void Motor::setCounterclockwiseRotation() {
-	io::GPIO::instance()->clearBits(PORT::A, CLOCKWISE_ROTATION);
+	io::GPIO::instance().clearBits(PORT::A, CLOCKWISE_ROTATION);
 }
 
 } /* namespace actuators */
