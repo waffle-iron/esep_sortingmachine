@@ -24,6 +24,7 @@ TrafficLight& TrafficLight::instance() {
 
 TrafficLight::TrafficLight() {
 	LOG_SCOPE;
+	io::GPIO::instance().gainAccess();
 	blink = mmi::Blink();
 	thread = std::thread(std::ref(blink));
 }

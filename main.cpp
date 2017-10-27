@@ -21,10 +21,7 @@ int main(int argc, char *argv[])
 	LOG_DEBUG<<"hello world \n";
 
 	hal::HAL hal;
-	cout << "Starting Sortingmachine ..." << endl;
-
 	logicLayer::test::Test test = logicLayer::test::Test(&hal);
-	cout << "Starting Sortingmachine ..." << endl;
 
 	test.actuatorsTest();
 

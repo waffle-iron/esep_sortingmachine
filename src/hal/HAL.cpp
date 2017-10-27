@@ -16,7 +16,6 @@ _switchPoint(actuators::SwitchPoint::instance()),
 _trafficLight(mmi::TrafficLight::instance())
 {
 	LOG_SCOPE;
-	io::GPIO::instance().gainAccess();
 
 	motorStop();
 	motorRotateClockwise();
