@@ -10,7 +10,11 @@
 
 namespace hal {
 
-HAL::HAL() {
+HAL::HAL() :
+_motor(actuators::Motor::instance()),
+_switchPoint(actuators::SwitchPoint::instance()),
+_trafficLight(mmi::TrafficLight::instance())
+{
 	LOG_SCOPE;
 	io::GPIO::instance().gainAccess();
 
