@@ -12,10 +12,7 @@ namespace hal {
 
 HAL::HAL() {
 	LOG_SCOPE;
-	hal::io::GPIO::instance().gainAccess();
-	_motor = actuators::Motor::instance();
-	_switchPoint = actuators::SwitchPoint::instance();
-	_trafficLight = mmi::TrafficLight::instance();
+	io::GPIO::instance().gainAccess();
 
 	motorStop();
 	motorRotateClockwise();
@@ -69,7 +66,7 @@ void HAL::switchPointClose(){
 }
 
 void HAL::greenLightOn(){
-	_trafficLight-.greenLightOn();
+	_trafficLight.greenLightOn();
 }
 
 void HAL::greenLightOff(){

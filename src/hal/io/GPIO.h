@@ -26,7 +26,6 @@ class GPIO {
 public:
 	static GPIO& instance();
 	virtual ~GPIO();
-	GPIO();
 	void gainAccess();
 	port_t read(PORT port);
 	void setBits(PORT port, port_t bitmask);
@@ -34,12 +33,9 @@ public:
 
 protected:
 	virtual void write(  PORT port, port_t val);
+	GPIO();
 
 	std::mutex gpio_mutex;
-
-private:
-	//static GPIO  *_instance;
-
 };
 
 } /* namespace gpio */
