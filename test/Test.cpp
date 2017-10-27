@@ -12,7 +12,7 @@
 #include "HAL.h"
 #include "Header.h"
 #include "GpioTesting.h"
-
+#include "SingletonTest.h"
 using namespace std;
 
 namespace logicLayer{
@@ -24,7 +24,6 @@ Test::Test(hal::HAL* hal) {
 }
 
 Test::~Test() {
-	// TODO Auto-generated destructor stub
 }
 
 
@@ -150,6 +149,28 @@ void Test::writeSomethingElse(hal::io::GPIO *gpio, int difference) {
 	gpio->setBits(PORT::A, port + difference);
 }
 
+void createInstance(){
+	SingletonTest& instance = SingletonTest::instance();
+}
+
+
+void Test::singletonThreadSafeTest(){
+	cout << "start " << __FUNCTION__ << endl;
+
+	cout << "Get just on singleton created?"<<endl;
+	thread t1(&createInstance);
+	thread t2(&createInstance);
+	t1.join();
+	t2.join();
+
+	if( !nextTest(__FUNCTION__) ) return;
+
+	cout << __FUNCTION__ << " successful." << endl;
+
+}
+
+
+
 void Test::threadSafenessInGpioTest(){
 	cout << "start " << __FUNCTION__ << endl;
 
@@ -168,9 +189,8 @@ void Test::threadSafenessInGpioTest(){
 	t1.join();
 	t2.join();
 	cout << "######################" << endl;
-	if( !nextTest(__FUNCTION__) ) return;
 
-	cout << "start " << __FUNCTION__ << endl;
+	if( !nextTest(__FUNCTION__) ) return;
 
 	cout << __FUNCTION__ << " successful." << endl;
 }
