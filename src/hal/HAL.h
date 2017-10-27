@@ -12,6 +12,8 @@
 #include "SwitchPoint.h"
 #include "TrafficLight.h"
 
+
+
 namespace hal {
 
 	class HAL {

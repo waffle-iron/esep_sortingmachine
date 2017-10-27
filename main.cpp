@@ -9,27 +9,55 @@
 #include "Test.h"
 #include "GpioTesting.h"
 
+#include "Serial.h"
+#include "Sender.h"
+#include "Receiver.h"
+
 using namespace std;
 
 
 int main(int argc, char *argv[])
 {
-	cout << "Starting Sortingmachine ..." << endl;
+	//connect to serial
+	hal::io::serial::Serial ser1("/dev/ser1");
+	hal::io::serial::Serial ser2("/dev/ser2");
 
-	LOG_SCOPE;
-	LOG_SET_LEVEL(DEBUG);
-	LOG_DEBUG<<"hello world \n";
+	//sender object
+	hal::io::serial::Sender sender(ser1);
+
+	//receiver object
+	hal::io::serial::Receiver receiver(ser2);
+
+	//start threads
+	std::thread th_sender(std::ref(sender));
+	std::thread th_receiver(std::ref(receiver));
+
+	//wait for Key Q to end program
+	while(1){
+		char in;
+		std::cin >> in;
+		if(in=='q' || in=='Q')  break;
+	}
 
 
-	hal::HAL hal;
+	//cleanup receiver
+	std::cout << "stop receiver thread" << std::endl;
 
-	logicLayer::test::Test test = logicLayer::test::Test(&hal);
-	test.actuatorsTest();
-	test.mmiTest();
+	receiver.stop();
+	//wake thread from blocking
+	pthread_kill(th_receiver.native_handle(), SIGUSR1);
+	std::cout << "wait for receiver thread to join" << std::endl;
+	th_receiver.join();
 
-	test.threadSafenessInGpioTest();
+	//clean up sender
+	std::cout << "stop sender thread" << std::endl;
+	sender.stop();
+	std::cout << "wait for sender thread to join" << std::endl;
+	th_sender.join();
 
-	cout << "Starting Sortingmachine ... done !" << endl;
+	std::cout << "Goodbye!" << std::endl;
+
+
   return EXIT_SUCCESS;
 }
 

@@ -6,7 +6,6 @@
  */
 
 #include "Serial.h"
-#include "Util.h"
 
 #include <fcntl.h>
 #include <termios.h>
