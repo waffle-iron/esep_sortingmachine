@@ -14,6 +14,28 @@
 
 constexpr int MAGIC_NUMBER = 15;
 
+constexpr int MAGIC_NUMBER = 15;
+constexpr int MAGIC_NUMBER = 15;
+constexpr int MAGIC_NUMBER = 15;
+constexpr int MAGIC_NUMBER = 15;
+constexpr int MAGIC_NUMBER = 15;
+constexpr int MAGIC_NUMBER = 15;
+constexpr int MAGIC_NUMBER = 15;
+constexpr int MAGIC_NUMBER = 15;
+constexpr int MAGIC_NUMBER = 15;
+constexpr int MAGIC_NUMBER = 15;
+constexpr int MAGIC_NUMBER = 15;
+constexpr int MAGIC_NUMBER = 15;
+constexpr int MAGIC_NUMBER = 15;
+constexpr int MAGIC_NUMBER = 15;
+constexpr int MAGIC_NUMBER = 15;
+constexpr int MAGIC_NUMBER = 15;
+constexpr int MAGIC_NUMBER = 15;
+constexpr int MAGIC_NUMBER = 15;
+constexpr int MAGIC_NUMBER = 15;
+constexpr int MAGIC_NUMBER = 15;
+
+
 namespace hal {
 namespace io {
 
