@@ -76,6 +76,6 @@ int Serial::recv(char* p){
 	return -1;
 }
 
-}/*end serial*/
-}/*end io*/
-}/*end hal*/
+} /* namespace serial */
+} /* namespace io */
+} /* namespace hal */

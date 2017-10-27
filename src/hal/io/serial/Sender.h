@@ -12,7 +12,7 @@
 
 namespace hal {
 namespace io {
-
+namespace serial {
 
 class Sender {
 public:
@@ -25,7 +25,8 @@ private:
     bool running;
 };
 
-}
-}
+} /* namespace serial */
+} /* namespace io */
+} /* namespace hal */
 
 #endif /* SENDER_H_ */

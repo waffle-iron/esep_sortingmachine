@@ -12,6 +12,7 @@
 
 namespace hal {
 namespace io {
+namespace serial {
 
 class Receiver {
 public:
@@ -24,8 +25,9 @@ private:
     bool running;
 };
 
-}
-}
+} /* namespace serial */
+} /* namespace io */
+} /* namespace hal */
 
 
 #endif /* RECEIVER_H_ */

@@ -12,6 +12,7 @@
 
 namespace hal {
 namespace io {
+namespace serial {
 
 class Serial {
 	private:
@@ -31,6 +32,8 @@ class Serial {
 	};
 
 
-}
-}
+} /* namespace serial */
+} /* namespace io */
+} /* namespace hal */
+
 #endif /* SERIAL_H_ */
