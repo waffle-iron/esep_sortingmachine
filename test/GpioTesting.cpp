@@ -11,12 +11,6 @@
 #include <thread>
 #include <chrono>
 
-GpioTesting::GpioTesting(){
-	cout << "testing constructor" << endl;
-	WAIT(1000);
-
-}
-
 
 void GpioTesting::write(PORT port, port_t val){
 	cout << "# rmw-cycle starting #" << endl;

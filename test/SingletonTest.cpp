@@ -20,7 +20,7 @@ SingletonTest& SingletonTest::instance() {
 
 SingletonTest::SingletonTest() {
 	cout<< "creating singleton" << endl;
-	WAIT(5000);
+	WAIT(500);
 
 }
 

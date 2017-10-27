@@ -24,7 +24,6 @@ Test::Test(hal::HAL* hal) {
 }
 
 Test::~Test() {
-	// TODO Auto-generated destructor stub
 }
 
 
@@ -152,12 +151,6 @@ void Test::writeSomethingElse(hal::io::GPIO *gpio, int difference) {
 
 void createInstance(){
 	SingletonTest& instance = SingletonTest::instance();
-	//GpioDuplicateTest& gpio = GpioDuplicateTest::instance().gainAccess();
-
-	//GpioDuplicateTest& test = test.instance();
-	//test = GpioDuplicateTest::instance();
-	//GpioDuplicateTest::instance();
-	//test.instance();
 }
 
 
