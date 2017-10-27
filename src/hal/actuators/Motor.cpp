@@ -9,9 +9,10 @@
 #include "GPIO.h"
 #include "Header.h"
 
-constexpr port_t CLOCKWISE_ROTATION = 0b00000001;
-constexpr port_t MOTOR_SLOW			= 0b00000100;
-constexpr port_t MOTOR_STOP 		= 0b00001000;
+constexpr port_t CLOCKWISE_ROTATION 		= 0b00000001;
+constexpr port_t COUNTERCLOCKWISE_ROTATION 	= 0b00000010;
+constexpr port_t MOTOR_SLOW					= 0b00000100;
+constexpr port_t MOTOR_STOP 				= 0b00001000;
 
 namespace hal {
 namespace actuators {
@@ -51,11 +52,13 @@ void Motor::clearSlow() {
 }
 
 void Motor::setClockwiseRotation() {
+	io::GPIO::instance()->clearBits(PORT::A, COUNTERCLOCKWISE_ROTATION);
 	io::GPIO::instance()->setBits(PORT::A, CLOCKWISE_ROTATION);
 }
 
 void Motor::setCounterclockwiseRotation() {
 	io::GPIO::instance()->clearBits(PORT::A, CLOCKWISE_ROTATION);
+	io::GPIO::instance()->setBits(PORT::A, COUNTERCLOCKWISE_ROTATION);
 }
 
 } /* namespace actuators */

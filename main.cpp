@@ -19,8 +19,6 @@ int main(int argc, char *argv[])
 	LogicLayer ll = LogicLayer(ref(hal));
 
 	hal.notify_observers();
-
-
 	return EXIT_SUCCESS;
 }
 
