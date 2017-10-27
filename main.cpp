@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
 
 
 	logicLayer::test::Test test;
-	test.threadSafenessInGpioTest();
+	test.singletonThreadSafeTest();
 	//test.actuatorsTest();
 	//test.mmiTest();
 
