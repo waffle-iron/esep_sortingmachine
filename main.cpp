@@ -8,28 +8,19 @@
 #include "GPIO.h"
 #include "Test.h"
 #include "GpioTesting.h"
+#include "observerpattern.hpp"
 
 using namespace std;
 
-
 int main(int argc, char *argv[])
 {
-	cout << "Starting Sortingmachine ..." << endl;
 
-	LOG_SCOPE;
-	LOG_SET_LEVEL(DEBUG);
-	LOG_DEBUG<<"hello world \n";
+	HardwareLayer hal;
+	LogicLayer ll = LogicLayer(ref(hal));
 
-
+	hal.notify_observers();
 
 
-	logicLayer::test::Test test;
-	test.actuatorsTest();
-	test.mmiTest();
-
-	test.threadSafenessInGpioTest();
-
-	cout << "Starting Sortingmachine ... done !" << endl;
-  return EXIT_SUCCESS;
+	return EXIT_SUCCESS;
 }
 
