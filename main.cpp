@@ -24,9 +24,7 @@ int main(int argc, char *argv[])
 	logicLayer::test::Test test = logicLayer::test::Test(&hal);
 
 	test.actuatorsTest();
-
 	test.mmiTest();
-
 	test.threadSafenessInGpioTest();
 	test.singletonThreadSafeTest();
 
