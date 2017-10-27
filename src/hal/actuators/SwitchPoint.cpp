@@ -14,13 +14,10 @@ constexpr port_t SWITCHPOINT_OPEN = 0b00010000;
 namespace hal {
 namespace actuators {
 
-	SwitchPoint *SwitchPoint::_instance = nullptr;
 
-	SwitchPoint *SwitchPoint::instance() {
-		if (_instance == nullptr) {
-			_instance = new SwitchPoint;
-		}
-		return _instance;
+	SwitchPoint& SwitchPoint::instance() {
+		static SwitchPoint instance;
+		return instance;
 	}
 
 	SwitchPoint::SwitchPoint() {
@@ -29,7 +26,6 @@ namespace actuators {
 
 	SwitchPoint::~SwitchPoint() {
 		LOG_SCOPE;
-		_instance = nullptr;
 	}
 
 	void SwitchPoint::open(){

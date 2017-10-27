@@ -20,7 +20,7 @@ namespace mmi {
 
 class TrafficLight {
 public:
-	static TrafficLight *instance();
+	static TrafficLight& instance();
 	virtual ~TrafficLight();
 
 
@@ -73,7 +73,6 @@ public:
 private:
 	TrafficLight();
 
-	static TrafficLight *_instance;
 	mmi::Blink blink;
 	std::thread thread;
 

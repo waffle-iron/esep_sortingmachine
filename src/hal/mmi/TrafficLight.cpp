@@ -17,13 +17,9 @@ constexpr port_t PIN_YELLOW_LIGHT 	= 0x40;
 constexpr port_t PIN_RED_LIGHT 		= 0x80;
 
 
-TrafficLight *TrafficLight::_instance = nullptr;
-
-TrafficLight *TrafficLight::instance() {
-	if (_instance == nullptr) {
-		_instance = new TrafficLight;
-	}
-	return _instance;
+TrafficLight& TrafficLight::instance() {
+	static TrafficLight instance;
+	return instance;
 }
 
 TrafficLight::TrafficLight() {
@@ -37,7 +33,6 @@ TrafficLight::~TrafficLight() {
 	blink.terminate();
 	thread.join();
 
-	_instance = nullptr;
 }
 
 void TrafficLight::greenLightOn() {

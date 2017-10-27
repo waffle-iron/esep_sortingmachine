@@ -13,7 +13,7 @@ namespace actuators {
 
 class Motor {
 public:
-	static Motor *instance();
+	static Motor& instance();
 	virtual ~Motor();
 
 	/**
@@ -48,8 +48,6 @@ public:
 
 private:
 	Motor();
-
-	static Motor *_instance;
 };
 
 } /* namespace actuators */

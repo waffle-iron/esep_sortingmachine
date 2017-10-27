@@ -18,7 +18,7 @@ namespace actuators {
 class SwitchPoint {
 public:
 
-	static SwitchPoint *instance();
+	static SwitchPoint& instance();
 
 	virtual ~SwitchPoint();
 
@@ -35,7 +35,6 @@ public:
 private:
 	SwitchPoint();
 
-	static SwitchPoint *_instance;
 };
 
 } /* namespace actuators */

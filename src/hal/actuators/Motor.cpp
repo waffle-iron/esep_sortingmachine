@@ -16,13 +16,10 @@ constexpr port_t MOTOR_STOP 		= 0b00001000;
 namespace hal {
 namespace actuators {
 
-Motor *Motor::_instance = nullptr;
 
-Motor *Motor::instance() {
-	if (_instance == nullptr) {
-		_instance = new Motor;
-	}
-	return _instance;
+Motor& Motor::instance() {
+	static Motor instance;
+	return instance;
 }
 
 Motor::Motor() {
@@ -31,7 +28,6 @@ Motor::Motor() {
 
 Motor::~Motor() {
 	LOG_SCOPE;
-	_instance = nullptr;
 }
 
 void Motor::start() {
