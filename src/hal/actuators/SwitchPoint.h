@@ -20,8 +20,6 @@ public:
 
 	static SwitchPoint& instance();
 
-	virtual ~SwitchPoint();
-
 	/**
 	 *  @brief opens switchpoint
 	 */
@@ -34,6 +32,10 @@ public:
 
 private:
 	SwitchPoint();
+	SwitchPoint(SwitchPoint const&);
+	SwitchPoint& operator=(SwitchPoint const&);
+	~SwitchPoint();
+
 
 };
 

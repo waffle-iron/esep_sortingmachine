@@ -21,8 +21,6 @@ namespace mmi {
 class TrafficLight {
 public:
 	static TrafficLight& instance();
-	virtual ~TrafficLight();
-
 
 	/**
 	* @brief turns the green light on
@@ -72,6 +70,10 @@ public:
 
 private:
 	TrafficLight();
+	TrafficLight(TrafficLight const&);
+	TrafficLight& operator=(TrafficLight const&);
+	virtual ~TrafficLight();
+
 
 	mmi::Blink blink;
 	std::thread thread;
