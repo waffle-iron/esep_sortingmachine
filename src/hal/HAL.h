@@ -11,7 +11,7 @@
 #include "Motor.h"
 #include "SwitchPoint.h"
 #include "TrafficLight.h"
-#include "MessageGenerator.h"
+#include "SignalGenerator.h"
 
 namespace hal {
 
@@ -45,7 +45,7 @@ namespace hal {
 		actuators::Motor *_motor;
 		actuators::SwitchPoint *_switchPoint;
 		mmi::TrafficLight *_trafficLight;
-		io::MessageGenerator messageGenerator;
+		io::SignalGenerator messageGenerator;
 
 	};
 

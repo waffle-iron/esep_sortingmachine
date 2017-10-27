@@ -13,10 +13,10 @@
 namespace hal {
 namespace io {
 
-class MessageGenerator {
+class SignalGenerator {
 public:
-	MessageGenerator();
-	virtual ~MessageGenerator();
+	SignalGenerator();
+	virtual ~SignalGenerator();
 
 	void operator()();
 	void stop();
