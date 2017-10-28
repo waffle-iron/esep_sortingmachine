@@ -43,6 +43,7 @@ void SignalGenerator::operator()() {
 		int change = current_mask xor stored_mask;
 		for(const auto &signal : signals) {
 			if (change & signal.first) { // change happend on signal?
+				cout<<"change!"<<endl;
 				if (signal.first & current_mask) { 	// low -> high
 					signalBuffer.push_back(Signal(1,1,signal.second.high));
 				} else {						// high -> low

@@ -17,27 +17,33 @@ int main(int argc, char *argv[])
 	LOG_SCOPE;
 	LOG_SET_LEVEL(DEBUG);
 	LOG_DEBUG<<"hello world \n";
-	cout << "blubb" << endl;
 
 	hal::HAL hal;
-	cout << "blubb" << endl;
 
 
-	WAIT(2000);
-
-	hal::io::AsyncChannel::getChannel().sendMessage({3,0});
 	hal::io::AsyncChannel::getChannel().sendMessage({3,0});
 	hal::io::AsyncChannel::getChannel().sendMessage({4,1});
 	hal::io::AsyncChannel::getChannel().sendMessage({5,0});
+	hal::io::AsyncChannel::getChannel().sendMessage({4,1});
+	hal::io::AsyncChannel::getChannel().sendMessage({5,0});
+
+	WAIT(1000);
+	cout << (int)hal.getSignal().name << endl;
+	cout << (int)Signalname::LIGHT_BARRIER_INPUT_NOT_INTERRUPTED<<endl;
 	cout << "blubb" << endl;
 	WAIT(1000);
 	cout << (int)hal.getSignal().name << endl;
+	cout << (int)Signalname::LIGHT_BARRIER_INPUT_INTERRUPTED<<endl;
 	cout << "blubb" << endl;
 	WAIT(1000);
 	cout << (int)hal.getSignal().name << endl;
+	cout << (int)Signalname::LIGHT_BARRIER_INPUT_NOT_INTERRUPTED<<endl;
 	cout << "blubb" << endl;
 	WAIT(1000);
 	cout << (int)hal.getSignal().name << endl;
+	cout << (int)Signalname::LIGHT_BARRIER_INPUT_INTERRUPTED<<endl;
+	cout << "blubb" << endl;
+
 
 
 	WAIT(2000);
