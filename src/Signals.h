@@ -91,15 +91,15 @@ enum class Signalname {
 };
 
 struct Signal {
-	Signal(char sender, char receiver, Signalname signalname) :
+	Signal(char sender, char receiver, Signalname name) :
 	sender(sender),
 	receiver(receiver),
-	signalname(signalname){
+	name(name){
 
 	}
 	char sender;
 	char receiver;
-	Signalname signalname;
+	Signalname name;
 };
 
 
