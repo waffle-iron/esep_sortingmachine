@@ -10,5 +10,5 @@
 
 enum class Speed {fast, slow};
 
-
+class Signal;
 #endif /* SIGNALS_H_ */
