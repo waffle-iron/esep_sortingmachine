@@ -26,7 +26,6 @@ int main(int argc, char *argv[])
 	test.actuatorsTest();
 
 	test.mmiTest();
-
 	test.threadSafenessInGpioTest();
 	test.singletonThreadSafeTest();
 
