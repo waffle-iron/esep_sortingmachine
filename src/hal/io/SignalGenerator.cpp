@@ -11,50 +11,15 @@
 #include "ISR.h"
 #include <iostream>
 #include "GPIO.h"
-#include <map>
 
 constexpr int MAGIC_NUMBER = 15;
-
-struct SPair {
-	SPair(Signalname high, Signalname low) :
-	high(high),
-	low(low) {
-
-	}
-	Signalname high;
-	Signalname low;
-};
-
-const map<const int, SPair> signals = {
-	{0b00010000<<8, SPair(	Signalname::BUTTON_START_PUSHED,
-							Signalname::BUTTON_START_PULLED)},
-	{0b00100000<<8, SPair(	Signalname::BUTTON_STOP_PULLED,
-							Signalname::BUTTON_STOP_PUSHED)},
-	{0b01000000<<8, SPair(	Signalname::BUTTON_RESET_PUSHED,
-							Signalname::BUTTON_RESET_PUSHED)},
-	{0b10000000<<8, SPair(	Signalname::BUTTON_E_STOP_PULLED,
-							Signalname::BUTTON_E_STOP_PUSHED)},
-	{0b00000001, SPair(	Signalname::LIGHT_BARRIER_INPUT_NOT_INTERRUPTED,
-						Signalname::LIGHT_BARRIER_INPUT_INTERRUPTED)},
-	{0b00000010, SPair(	Signalname::LIGHT_BARRIER_HEIGHT_NOT_INTERRUPTED,
-						Signalname::LIGHT_BARRIER_HEIGHT_INTERRUPTED)},
-	{0b00001000, SPair(	Signalname::LIGHT_BARRIER_SWITCH_NOT_INTERRUPTED,
-						Signalname::LIGHT_BARRIER_SWITCH_INTERRUPTED)},
-	{0b00100000, SPair(	Signalname::LIGHT_BARRIER_SLIDE_NOT_INTERRUPTED,
-						Signalname::LIGHT_BARRIER_SLIDE_INTERRUPTED)},
-	{0b10000000, SPair( Signalname::LIGHT_BARRIER_OUTPUT_NOT_INTERRUPTED,
-						Signalname::LIGHT_BARRIER_OUTPUT_INTERRUPTED)},
-	{0b00000100, SPair(	Signalname::SENSOR_HEIGHT_MATCH,
-						Signalname::SENSOR_HEIGHT_NOT_MATCH)},
-	{0b00010000, SPair( Signalname::SENSOR_METAL_MATCH,
-						Signalname::SENSOR_METAL_NOT_MATCH)},
-	{0b01000000, SPair( Signalname::SENSOR_SWITCH_IS_OPEN,
-						Signalname::SENSOR_SWITCH_IS_CLOSED)},
-};
 
 
 namespace hal {
 namespace io {
+
+const map<const int, SPair> SignalGenerator::signals = SignalGenerator::init_map();
+
 
 SignalGenerator::SignalGenerator():
 running(true) {
@@ -94,7 +59,38 @@ void SignalGenerator::stop() {
 }
 
 Signal SignalGenerator::nextSignal() {
-	return signalBuffer.front();
+	Signal signal = signalBuffer.front();
+	signalBuffer.erase(signalBuffer.begin());
+	return signal;
+}
+
+const std::map<const int, SPair> SignalGenerator::init_map() {
+	map<const int, SPair> map;
+	map.insert({0b00010000<<8, SPair(	Signalname::BUTTON_START_PUSHED,
+										Signalname::BUTTON_START_PULLED)});
+	map.insert({0b00100000<<8, SPair(	Signalname::BUTTON_STOP_PULLED,
+							Signalname::BUTTON_STOP_PUSHED)});
+	map.insert({0b01000000<<8, SPair(	Signalname::BUTTON_RESET_PUSHED,
+							Signalname::BUTTON_RESET_PUSHED)});
+	map.insert({0b10000000<<8, SPair(	Signalname::BUTTON_E_STOP_PULLED,
+							Signalname::BUTTON_E_STOP_PUSHED)});
+	map.insert({0b00000001, SPair(	Signalname::LIGHT_BARRIER_INPUT_NOT_INTERRUPTED,
+									Signalname::LIGHT_BARRIER_INPUT_INTERRUPTED)});
+	map.insert({0b00000010, SPair(	Signalname::LIGHT_BARRIER_HEIGHT_NOT_INTERRUPTED,
+									Signalname::LIGHT_BARRIER_HEIGHT_INTERRUPTED)});
+	map.insert({0b00001000, SPair(	Signalname::LIGHT_BARRIER_SWITCH_NOT_INTERRUPTED,
+									Signalname::LIGHT_BARRIER_SWITCH_INTERRUPTED)});
+	map.insert({0b00100000, SPair(	Signalname::LIGHT_BARRIER_SLIDE_NOT_INTERRUPTED,
+									Signalname::LIGHT_BARRIER_SLIDE_INTERRUPTED)});
+	map.insert({0b10000000, SPair( 	Signalname::LIGHT_BARRIER_OUTPUT_NOT_INTERRUPTED,
+									Signalname::LIGHT_BARRIER_OUTPUT_INTERRUPTED)});
+	map.insert({0b00000100, SPair(	Signalname::SENSOR_HEIGHT_MATCH,
+									Signalname::SENSOR_HEIGHT_NOT_MATCH)});
+	map.insert({0b00010000, SPair( 	Signalname::SENSOR_METAL_MATCH,
+									Signalname::SENSOR_METAL_NOT_MATCH)});
+	map.insert({0b01000000, SPair( 	Signalname::SENSOR_SWITCH_IS_OPEN,
+									Signalname::SENSOR_SWITCH_IS_CLOSED)});
+	return map;
 }
 
 

@@ -11,9 +11,20 @@
 #include "Signals.h"
 #include <thread>
 #include <vector>
+#include <map>
 
 namespace hal {
 namespace io {
+
+struct SPair {
+	SPair(Signalname high, Signalname low) :
+	high(high),
+	low(low) {
+
+	}
+	Signalname high;
+	Signalname low;
+};
 
 class SignalGenerator {
 public:
@@ -25,6 +36,8 @@ public:
 	Signal nextSignal();
 
 private:
+	static const std::map<const int, SPair> init_map();
+	static const std::map<const int, SPair> signals;
 	std::thread thread;
 	bool running;
 	int stored_mask;
