@@ -70,11 +70,11 @@ const std::map<const int, SPair> SignalGenerator::init_map() {
 	map.insert({0b00010000<<8, SPair(	Signalname::BUTTON_START_PUSHED,
 										Signalname::BUTTON_START_PULLED)});
 	map.insert({0b00100000<<8, SPair(	Signalname::BUTTON_STOP_PULLED,
-							Signalname::BUTTON_STOP_PUSHED)});
+										Signalname::BUTTON_STOP_PUSHED)});
 	map.insert({0b01000000<<8, SPair(	Signalname::BUTTON_RESET_PUSHED,
-							Signalname::BUTTON_RESET_PUSHED)});
+										Signalname::BUTTON_RESET_PUSHED)});
 	map.insert({0b10000000<<8, SPair(	Signalname::BUTTON_E_STOP_PULLED,
-							Signalname::BUTTON_E_STOP_PUSHED)});
+										Signalname::BUTTON_E_STOP_PUSHED)});
 	map.insert({0b00000001, SPair(	Signalname::LIGHT_BARRIER_INPUT_NOT_INTERRUPTED,
 									Signalname::LIGHT_BARRIER_INPUT_INTERRUPTED)});
 	map.insert({0b00000010, SPair(	Signalname::LIGHT_BARRIER_HEIGHT_NOT_INTERRUPTED,
