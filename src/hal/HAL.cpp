@@ -108,5 +108,8 @@ void HAL::blinkRed(Speed speed) {
 	_trafficLight->blinkRed(speed);
 }
 
+Signal HAL::getSignal() {
+	return signalGenerator.nextSignal();
+}
 
 } /* hal */

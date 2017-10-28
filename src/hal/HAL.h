@@ -41,11 +41,14 @@ namespace hal {
 		void switchPointOpen();
 		void switchPointClose();
 
+		Signal getSignal();
+
 	private:
 		actuators::Motor *_motor;
 		actuators::SwitchPoint *_switchPoint;
 		mmi::TrafficLight *_trafficLight;
-		io::SignalGenerator messageGenerator;
+		io::SignalGenerator signalGenerator;
+
 
 	};
 
