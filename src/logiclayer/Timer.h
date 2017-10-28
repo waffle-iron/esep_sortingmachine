@@ -8,6 +8,9 @@
 #ifndef TIMER_H_
 #define TIMER_H_
 
+#include "Header.h"
+#include "Item.h"
+
 namespace logicLayer {
 
 class Timer {

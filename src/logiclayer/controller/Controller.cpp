@@ -1,23 +1,23 @@
 /*
- * Errorcontroller.cpp
+ * Controller.cpp
  *
  *  Created on: Oct 28, 2017
  *      Author: stammtisch
  */
 
-#include "Errorcontroller.h"
+#include "Controller.h"
 
 namespace logicLayer {
-namespace controllers {
+namespace controller {
 
-Errorcontroller::Errorcontroller() {
+Controller::Controller() {
 	// TODO Auto-generated constructor stub
 
 }
 
-Errorcontroller::~Errorcontroller() {
+Controller::~Controller() {
 	// TODO Auto-generated destructor stub
 }
 
-} /* namespace controllers */
+} /* namespace controller */
 } /* namespace logicLayer */

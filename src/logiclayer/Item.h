@@ -25,8 +25,6 @@ public:
 	bool lb_slide_not_interrupted();
 	bool lb_output_interrupted();
 	bool lb_output_not_interrupted();
-
-
 };
 
 } /* namespace logicLayer */

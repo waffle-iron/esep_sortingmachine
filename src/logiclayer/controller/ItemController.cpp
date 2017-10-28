@@ -8,12 +8,9 @@
 #include "ItemController.h"
 
 namespace logicLayer {
-namespace controllers {
+namespace controller {
 
 ItemController::ItemController() {
-public:
-	addNewItem();
-
 	// TODO Auto-generated constructor stub
 
 }
@@ -22,5 +19,5 @@ ItemController::~ItemController() {
 	// TODO Auto-generated destructor stub
 }
 
-} /* namespace controllers */
+} /* namespace controller */
 } /* namespace logicLayer */

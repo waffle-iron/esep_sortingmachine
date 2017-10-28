@@ -8,8 +8,10 @@
 #ifndef CONTROLLER_H_
 #define CONTROLLER_H_
 
+#include "Header.h"
+
 namespace logicLayer {
-namespace controllers {
+namespace controller {
 
 /* @brief Controller can handle all light barrier signals
  *
@@ -22,6 +24,6 @@ public:
 	void sendSignal(Signal signal);
 };
 
-} /* namespace controllers */
+} /* namespace controller */
 } /* namespace logicLayer */
 #endif /* CONTROLLER_H_ */

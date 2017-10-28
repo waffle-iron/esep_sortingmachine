@@ -5,6 +5,7 @@
 #include <thread>
 #include <chrono>
 #include "HAL.h"
+#include "LogicLayer.h"
 #include "GPIO.h"
 #include "Test.h"
 #include "GpioTesting.h"

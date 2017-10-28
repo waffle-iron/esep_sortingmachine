@@ -1,23 +1,21 @@
 /*
- * Controller.cpp
+ * LogicLayer.cpp
  *
  *  Created on: Oct 28, 2017
  *      Author: stammtisch
  */
 
-#include "Controller.h"
+#include "LogicLayer.h"
 
 namespace logicLayer {
-namespace controllers {
 
-Controller::Controller() {
+LogicLayer::LogicLayer() {
 	// TODO Auto-generated constructor stub
 
 }
 
-Controller::~Controller() {
+LogicLayer::~LogicLayer() {
 	// TODO Auto-generated destructor stub
 }
 
-} /* namespace controllers */
 } /* namespace logicLayer */

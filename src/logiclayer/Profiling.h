@@ -8,10 +8,14 @@
 #ifndef PROFILING_H_
 #define PROFILING_H_
 
-struct Profil {
-	Enum Type,
-	int height,
-	(int binaryCode)
+#include "Header.h"
+
+enum class Type { UNKNOWN, FLAT, HOLE_ABOVE, METAL_AND_HOLE_ABOVE, BINARY_CODED };
+
+struct Profile {
+	Type type;
+	int height;
+	int binaryCode;
 };
 
 namespace logicLayer {
