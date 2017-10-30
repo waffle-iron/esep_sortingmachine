@@ -158,7 +158,7 @@ void createInstance(){
 void Test::singletonThreadSafeTest(){
 	cout << "start " << __FUNCTION__ << endl;
 
-	cout << "Get just one singleton created?"<<endl;
+	cout << "Get one singleton created and Two Hello Worlds?"<<endl;
 	thread t1(&createInstance);
 	thread t2(&createInstance);
 	t1.join();
