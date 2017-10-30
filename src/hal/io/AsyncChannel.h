@@ -8,9 +8,22 @@
 #ifndef ASYNCCHANNEL_H_
 #define ASYNCCHANNEL_H_
 
+#include <string>
+
 struct AsyncMsg {
 	char type;
 	int value;
+};
+
+struct SignalBitmask {
+	SignalBitmask();
+	SignalBitmask(int bitmask, std::string name) :
+	bitmask(bitmask),
+	name(name)
+	{
+	}
+	int bitmask;
+	std::string name;
 };
 
 namespace hal {
@@ -55,6 +68,20 @@ public:
 	 * @brief: returns connection id to channel
 	 */
 	int getConnectionId();
+
+	static SignalBitmask BUTTON_START_PUSHED;
+	static SignalBitmask BUTTON_STOP_PULLED;
+	static SignalBitmask BUTTON_RESET_PUSHED;
+	static SignalBitmask BUTTON_E_STOP_PULLED;
+	static SignalBitmask LIGHT_BARRIER_INPUT_NOT_INTERRUPTED;
+	static SignalBitmask LIGHT_BARRIER_HEIGHT_NOT_INTERRUPTED;
+	static SignalBitmask SENSOR_HEIGHT_MATCH;
+	static SignalBitmask LIGHT_BARRIER_SWITCH_NOT_INTERRUPTED;
+	static SignalBitmask SENSOR_METAL_MATCH;
+	static SignalBitmask LIGHT_BARRIER_SLIDE_NOT_INTERRUPTED;
+	static SignalBitmask SENSOR_SWITCH_IS_OPEN;
+	static SignalBitmask LIGHT_BARRIER_OUTPUT_NOT_INTERRUPTED;
+
 };
 
 } /* io */
