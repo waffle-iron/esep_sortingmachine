@@ -19,6 +19,19 @@ constexpr int MAGIC_NUMBER = 15;
 namespace hal {
 namespace io {
 
+SignalBitmask SignalGenerator::BUTTON_START_PUSHED(				    0b00010000<<8, "BUTTON_START_PUSHED");
+SignalBitmask SignalGenerator::BUTTON_STOP_PULLED( 					0b00100000<<8, "BUTTON_STOP_PULLED");
+SignalBitmask SignalGenerator::BUTTON_RESET_PUSHED( 				0b01000000<<8, "BUTTON_RESET_PUSHED");
+SignalBitmask SignalGenerator::BUTTON_E_STOP_PULLED(				0b10000000<<8, "BUTTON_E_STOP_PULLED");
+SignalBitmask SignalGenerator::LIGHT_BARRIER_INPUT_NOT_INTERRUPTED( 0b00000001, "LIGHT_BARRIER_INPUT_NOT_INTERRUPTED");
+SignalBitmask SignalGenerator::LIGHT_BARRIER_HEIGHT_NOT_INTERRUPTED(0b00000010, "LIGHT_BARRIER_HEIGHT_NOT_INTERRUPTED");
+SignalBitmask SignalGenerator::SENSOR_HEIGHT_MATCH(				    0b00000100, "SENSOR_HEIGHT_MATCH");
+SignalBitmask SignalGenerator::LIGHT_BARRIER_SWITCH_NOT_INTERRUPTED(0b00001000, "LIGHT_BARRIER_SWITCH_NOT_INTERRUPTED");
+SignalBitmask SignalGenerator::SENSOR_METAL_MATCH(					0b00010000, "SENSOR_METAL_MATCH");
+SignalBitmask SignalGenerator::SENSOR_SWITCH_IS_OPEN(				0b00100000, "SENSOR_SWITCH_IS_OPEN");
+SignalBitmask SignalGenerator::LIGHT_BARRIER_SLIDE_NOT_INTERRUPTED(	0b01000000, "LIGHT_BARRIER_SLIDE_NOT_INTERRUPTED");
+SignalBitmask SignalGenerator::LIGHT_BARRIER_OUTPUT_NOT_INTERRUPTED(0b10000000, "LIGHT_BARRIER_OUTPUT_NOT_INTERRUPTED");
+
 const map<const int, SPair> SignalGenerator::signals = SignalGenerator::init_map();
 
 
@@ -78,44 +91,42 @@ Signal SignalGenerator::nextSignal() {
 const std::map<const int, SPair> SignalGenerator::init_map() {
 	LOG_SCOPE
 	map<const int, SPair> map;
-	map.insert({0b00010000<<8, SPair(	Signalname::BUTTON_START_PUSHED,
-										Signalname::BUTTON_START_PULLED)});
-	map.insert({0b00100000<<8, SPair(	Signalname::BUTTON_STOP_PULLED,
-										Signalname::BUTTON_STOP_PUSHED)});
-	map.insert({0b01000000<<8, SPair(	Signalname::BUTTON_RESET_PUSHED,
-										Signalname::BUTTON_RESET_PUSHED)});
-	map.insert({0b10000000<<8, SPair(	Signalname::BUTTON_E_STOP_PULLED,
-										Signalname::BUTTON_E_STOP_PUSHED)});
-	map.insert({0b00000001, SPair(	Signalname::LIGHT_BARRIER_INPUT_NOT_INTERRUPTED,
-									Signalname::LIGHT_BARRIER_INPUT_INTERRUPTED)});
-	map.insert({AsyncChannel::LIGHT_BARRIER_HEIGHT_NOT_INTERRUPTED.bitmask, SPair(	Signalname::LIGHT_BARRIER_HEIGHT_NOT_INTERRUPTED,
-									Signalname::LIGHT_BARRIER_HEIGHT_INTERRUPTED)});
-	map.insert({0b00001000, SPair(	Signalname::LIGHT_BARRIER_SWITCH_NOT_INTERRUPTED,
-									Signalname::LIGHT_BARRIER_SWITCH_INTERRUPTED)});
-	map.insert({AsyncChannel::LIGHT_BARRIER_HEIGHT_NOT_INTERRUPTED.bitmask, SPair(	Signalname::LIGHT_BARRIER_SLIDE_NOT_INTERRUPTED,
-									Signalname::LIGHT_BARRIER_SLIDE_INTERRUPTED)});
-	map.insert({0b10000000, SPair( 	Signalname::LIGHT_BARRIER_OUTPUT_NOT_INTERRUPTED,
-									Signalname::LIGHT_BARRIER_OUTPUT_INTERRUPTED)});
-	map.insert({0b00000100, SPair(	Signalname::SENSOR_HEIGHT_MATCH,
-									Signalname::SENSOR_HEIGHT_NOT_MATCH)});
-	map.insert({0b00010000, SPair( 	Signalname::SENSOR_METAL_MATCH,
-									Signalname::SENSOR_METAL_NOT_MATCH)});
-	map.insert({0b00100000, SPair( 	Signalname::SENSOR_SWITCH_IS_OPEN,
-									Signalname::SENSOR_SWITCH_IS_CLOSED)});
-//	LOG_ERROR<<AsyncChannel::LIGHT_BARRIER_HEIGHT_NOT_INTERRUPTED.bitmask<<endl;
-	for(const auto &signal : map) {
-		LOG_ERROR<<signal.first<<endl;
-//		if (change & signal.first) { // change happend on signal?
-//			if (signal.first & current_mask) { 	// low -> high
-//
-//				signalBuffer.push_back(Signal(1,1,signal.second.high));
-//			} else {						// high -> low
-//				signalBuffer.push_back(Signal(1,1,signal.second.low));
-//			}
-//		}
-	}
-
-
+	map.insert({BUTTON_START_PUSHED.bitmask, SPair(
+				Signalname::BUTTON_START_PUSHED,
+				Signalname::BUTTON_START_PULLED)});
+	map.insert({BUTTON_STOP_PULLED.bitmask, SPair(
+				Signalname::BUTTON_STOP_PULLED,
+				Signalname::BUTTON_STOP_PUSHED)});
+	map.insert({BUTTON_RESET_PUSHED.bitmask, SPair(
+				Signalname::BUTTON_RESET_PUSHED,
+				Signalname::BUTTON_RESET_PUSHED)});
+	map.insert({BUTTON_E_STOP_PULLED.bitmask, SPair(
+				Signalname::BUTTON_E_STOP_PULLED,
+				Signalname::BUTTON_E_STOP_PUSHED)});
+	map.insert({LIGHT_BARRIER_INPUT_NOT_INTERRUPTED.bitmask, SPair(
+				Signalname::LIGHT_BARRIER_INPUT_NOT_INTERRUPTED,
+				Signalname::LIGHT_BARRIER_INPUT_INTERRUPTED)});
+	map.insert({LIGHT_BARRIER_HEIGHT_NOT_INTERRUPTED.bitmask, SPair(
+				Signalname::LIGHT_BARRIER_HEIGHT_NOT_INTERRUPTED,
+				Signalname::LIGHT_BARRIER_HEIGHT_INTERRUPTED)});
+	map.insert({LIGHT_BARRIER_SWITCH_NOT_INTERRUPTED.bitmask, SPair(
+				Signalname::LIGHT_BARRIER_SWITCH_NOT_INTERRUPTED,
+				Signalname::LIGHT_BARRIER_SWITCH_INTERRUPTED)});
+	map.insert({LIGHT_BARRIER_SLIDE_NOT_INTERRUPTED.bitmask, SPair(
+				Signalname::LIGHT_BARRIER_SLIDE_NOT_INTERRUPTED,
+				Signalname::LIGHT_BARRIER_SLIDE_INTERRUPTED)});
+	map.insert({LIGHT_BARRIER_OUTPUT_NOT_INTERRUPTED.bitmask, SPair(
+				Signalname::LIGHT_BARRIER_OUTPUT_NOT_INTERRUPTED,
+				Signalname::LIGHT_BARRIER_OUTPUT_INTERRUPTED)});
+	map.insert({SENSOR_HEIGHT_MATCH.bitmask, SPair(
+				Signalname::SENSOR_HEIGHT_MATCH,
+				Signalname::SENSOR_HEIGHT_NOT_MATCH)});
+	map.insert({SENSOR_METAL_MATCH.bitmask, SPair(
+				Signalname::SENSOR_METAL_MATCH,
+				Signalname::SENSOR_METAL_NOT_MATCH)});
+	map.insert({SENSOR_SWITCH_IS_OPEN.bitmask, SPair(
+				Signalname::SENSOR_SWITCH_IS_OPEN,
+				Signalname::SENSOR_SWITCH_IS_CLOSED)});
 	return map;
 }
 

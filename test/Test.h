@@ -11,7 +11,7 @@
 #include "GPIO.h"
 #include <string>
 #include "HAL.h"
-#include "AsyncChannel.h"
+#include "SignalGenerator.h"
 
 
 
@@ -61,7 +61,7 @@ private:
 	 */
 	bool nextTest(string functionName);
 
-	void sensorTestHelper(SignalBitmask signalbitmask, Signalname normal, Signalname opposite);
+	void sensorTestHelper(hal::io::SignalBitmask signalbitmask, Signalname normal, Signalname opposite);
 
 };
 

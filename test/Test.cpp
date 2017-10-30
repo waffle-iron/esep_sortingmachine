@@ -12,6 +12,7 @@
 #include "HAL.h"
 #include "Header.h"
 #include "GpioTesting.h"
+
 using namespace std;
 
 namespace logicLayer{
@@ -141,22 +142,73 @@ void Test::mmiTest(){
 
 void Test::sensorsTest(){
 	cout << "start " << __FUNCTION__ <<endl;
+
 	cout <<endl<< "test light barrier INPUT \n - please, interrupt it one time, let it free again and hit return key." << endl;
-	sensorTestHelper(	hal::io::AsyncChannel::LIGHT_BARRIER_INPUT_NOT_INTERRUPTED,
+	sensorTestHelper(	hal::io::SignalGenerator::LIGHT_BARRIER_INPUT_NOT_INTERRUPTED,
 						Signalname::LIGHT_BARRIER_INPUT_NOT_INTERRUPTED,
 						Signalname::LIGHT_BARRIER_INPUT_INTERRUPTED);
 
 	cout <<endl<< "test light barrier HEIGHT \n - please, interrupt it one time, let it free again and hit return key." << endl;
-	sensorTestHelper(	hal::io::AsyncChannel::LIGHT_BARRIER_HEIGHT_NOT_INTERRUPTED,
-							Signalname::LIGHT_BARRIER_HEIGHT_NOT_INTERRUPTED,
-							Signalname::LIGHT_BARRIER_HEIGHT_INTERRUPTED);
+	sensorTestHelper(	hal::io::SignalGenerator::LIGHT_BARRIER_HEIGHT_NOT_INTERRUPTED,
+						Signalname::LIGHT_BARRIER_HEIGHT_NOT_INTERRUPTED,
+						Signalname::LIGHT_BARRIER_HEIGHT_INTERRUPTED);
+
+	cout <<endl<< "test light barrier SWITCH \n - please, interrupt it one time, let it free again and hit return key." << endl;
+	sensorTestHelper(	hal::io::SignalGenerator::LIGHT_BARRIER_SWITCH_NOT_INTERRUPTED,
+						Signalname::LIGHT_BARRIER_SWITCH_NOT_INTERRUPTED,
+						Signalname::LIGHT_BARRIER_SWITCH_INTERRUPTED);
+
+	cout <<endl<< "test light barrier SLIDE \n - please, interrupt it one time, let it free again and hit return key." << endl;
+	sensorTestHelper(	hal::io::SignalGenerator::LIGHT_BARRIER_SLIDE_NOT_INTERRUPTED,
+						Signalname::LIGHT_BARRIER_SLIDE_NOT_INTERRUPTED,
+						Signalname::LIGHT_BARRIER_SLIDE_INTERRUPTED);
+
+	cout <<endl<< "test light barrier OUTPUT \n - please, interrupt it one time, let it free again and hit return key." << endl;
+	sensorTestHelper(	hal::io::SignalGenerator::LIGHT_BARRIER_OUTPUT_NOT_INTERRUPTED,
+						Signalname::LIGHT_BARRIER_OUTPUT_NOT_INTERRUPTED,
+						Signalname::LIGHT_BARRIER_OUTPUT_INTERRUPTED);
+
+	cout <<endl<< "test sensor HEIGHT_MATCH \n - please, provoke it one time, undo it again and hit return key." << endl;
+	sensorTestHelper(	hal::io::SignalGenerator::SENSOR_HEIGHT_MATCH,
+						Signalname::SENSOR_HEIGHT_MATCH,
+						Signalname::SENSOR_HEIGHT_NOT_MATCH);
+
+	cout <<endl<< "test sensor SWITCH_OPEN \n - please, open it one time, close it again and hit return key." << endl;
+	sensorTestHelper(	hal::io::SignalGenerator::SENSOR_SWITCH_IS_OPEN,
+						Signalname::SENSOR_SWITCH_IS_OPEN,
+						Signalname::SENSOR_SWITCH_IS_CLOSED);
+
+	cout <<endl<< "test sensor METAL \n - please, activate it one time, deactivate it again and hit return key." << endl;
+	sensorTestHelper(	hal::io::SignalGenerator::SENSOR_HEIGHT_MATCH,
+						Signalname::SENSOR_HEIGHT_MATCH,
+						Signalname::SENSOR_HEIGHT_NOT_MATCH);
+
+	cout <<endl<< "test button START \n - please, push it one time, redo it again and hit return key." << endl;
+	sensorTestHelper(	hal::io::SignalGenerator::BUTTON_START_PUSHED,
+						Signalname::BUTTON_START_PUSHED,
+						Signalname::BUTTON_START_PULLED);
+
+	cout <<endl<< "test button STOP \n - please, push it one time, redo it again and hit return key." << endl;
+	sensorTestHelper(	hal::io::SignalGenerator::BUTTON_STOP_PULLED,
+						Signalname::BUTTON_STOP_PULLED,
+						Signalname::BUTTON_STOP_PUSHED);
+
+	cout <<endl<< "test button RESET \n - please, push it one time, redo it again and hit return key." << endl;
+	sensorTestHelper(	hal::io::SignalGenerator::BUTTON_RESET_PUSHED,
+						Signalname::BUTTON_RESET_PUSHED,
+						Signalname::BUTTON_RESET_PULLED);
+
+	cout <<endl<< "test button E-STOP \n - please, push it one time, redo it again and hit return key." << endl;
+	sensorTestHelper(	hal::io::SignalGenerator::BUTTON_E_STOP_PULLED,
+						Signalname::BUTTON_E_STOP_PULLED,
+						Signalname::BUTTON_E_STOP_PUSHED);
 
 	if( !nextTest(__FUNCTION__) ) return;
 
 	cout  << __FUNCTION__ << " successful. " <<endl<<endl;
 }
 
-void Test::sensorTestHelper(SignalBitmask signalbitmask, Signalname normal, Signalname opposite) {
+void Test::sensorTestHelper(hal::io::SignalBitmask signalbitmask, Signalname normal, Signalname opposite) {
 	while (cin.get() != '\n');
 	cout << "test opposite Signal of " << signalbitmask.name<< endl;
 	if (_hal->getSignal().name == opposite){
