@@ -18,18 +18,20 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
+
+
 	//connect to serial
 	hal::io::serial::Serial ser1("/dev/ser1");
 	hal::io::serial::Serial ser2("/dev/ser2");
 
 	//sender object
-	hal::io::serial::Sender sender(ser1);
+	hal::io::serial::WatchDog dog(ser1);
 
 	//receiver object
-	hal::io::serial::Receiver receiver(ser2);
+	hal::io::serial::Receiver receiver(ser2, dog);
 
 	//start threads
-	std::thread th_sender(std::ref(sender));
+	std::thread th_sender(std::ref(dog));
 	std::thread th_receiver(std::ref(receiver));
 
 	//wait for Key Q to end program
@@ -52,7 +54,7 @@ int main(int argc, char *argv[])
 
 	//clean up sender
 	std::cout << "stop sender thread" << std::endl;
-	sender.stop();
+	//sender.stop();
 	std::cout << "wait for sender thread to join" << std::endl;
 	th_sender.join();
 

@@ -9,6 +9,8 @@
 #define RECEIVER_H_
 
 #include "Serial.h"
+#include "WatchDog.h"
+
 
 namespace hal {
 namespace io {
@@ -16,12 +18,13 @@ namespace serial {
 
 class Receiver {
 public:
-    Receiver(Serial& serial);
+    Receiver(Serial& serial, WatchDog& dog);
     void operator()();
     void stop();
 
 private:
     Serial& serial_;
+    WatchDog& dog_;
     bool running;
 };
 

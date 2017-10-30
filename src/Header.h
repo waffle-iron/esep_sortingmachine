@@ -14,6 +14,7 @@
 #define HEADER_H_
 
 #define WAIT(x) (std::this_thread::sleep_for(std::chrono::milliseconds(x)))
+#define NOW std::chrono::steady_clock::now()
 
 typedef uint8_t port_t;
 

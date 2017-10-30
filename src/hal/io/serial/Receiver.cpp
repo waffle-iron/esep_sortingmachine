@@ -12,8 +12,9 @@ namespace hal {
 namespace io {
 namespace serial {
 
-	Receiver::Receiver(Serial& serial):
+	Receiver::Receiver(Serial& serial, WatchDog& dog):
 	serial_(serial),
+	dog_(dog),
 	running(true)
 	{
 
@@ -21,10 +22,17 @@ namespace serial {
 
 	void Receiver::operator()(){
 		while(running){
-			char inbyte;
-			serial_.recv(&inbyte);
-			std::cout << inbyte;
-			std::cout.flush();
+			struct Message msg;
+
+			//blocking io
+			serial_.recv(&msg);
+
+			switch (msg.signal) {
+				case Signalname::IS_ALIVE:
+					dog_.feed();
+				break;
+			}
+
 		}
 	}
 

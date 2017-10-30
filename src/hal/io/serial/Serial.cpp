@@ -63,17 +63,45 @@ void Serial::init(int baud){
     tcsetattr(this->fdesc_, TCSANOW, &ts);
 }
 
+/**
+ *  @brief write simple char messages to serial interface
+ */
 int Serial::send(char* buffer, unsigned char numBytes){
 	write(this->fdesc_, buffer, numBytes);
 	return 0;
 }
 
+/**
+ *  @brief read simple char messages from serial interface
+ */
 int Serial::recv(char* p){
 	if( readcond(this->fdesc_, p, sizeof(char), sizeof(char),0,10000) > 0) {
 		return 0;
 	}
 	return -1;
 }
+
+
+/**
+ *  @brief write ... to serial interface
+ */
+int Serial::send( Message *msg ){
+	write(this->fdesc_, msg, sizeof(Message));
+	return 0;
+}
+
+/**
+ *  @brief read ... from serial interface
+ */
+int Serial::recv( Message *msg ){
+	if( readcond(this->fdesc_, msg, sizeof(Message), sizeof(Message),0,10000) > 0) {
+		return 0;
+	}
+	return -1;
+}
+
+
+
 
 } /* namespace serial */
 } /* namespace io */

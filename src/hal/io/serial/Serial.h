@@ -9,6 +9,7 @@
 #define SERIAL_H_
 
 #include <string>
+#include <Message.h>
 
 namespace hal {
 namespace io {
@@ -23,8 +24,12 @@ class Serial {
 		Serial(std::string dev, int baud);
 		~Serial();
 		void init(int baud);
+
 		int send(char* buffer, unsigned char numBytes);
 		int recv(char* p);
+
+		int send(Message *msg);
+		int recv(Message *msg);
 
 	private:
 		Serial(const Serial& other);
