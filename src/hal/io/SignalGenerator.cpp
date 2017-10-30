@@ -11,6 +11,7 @@
 #include "ISR.h"
 #include <iostream>
 #include "GPIO.h"
+#include <string>//bugfixing
 
 constexpr int MAGIC_NUMBER = 15;
 
@@ -24,8 +25,8 @@ const map<const int, SPair> SignalGenerator::signals = SignalGenerator::init_map
 SignalGenerator::SignalGenerator():
 running(true) {
 	LOG_SCOPE
-	hal::io::GPIO::instance()->gainAccess();
-	stored_mask = hal::io::GPIO::instance()->read(PORT::C)<<8 | hal::io::GPIO::instance()->read(PORT::B);
+	hal::io::GPIO::instance().gainAccess();
+	stored_mask = hal::io::GPIO::instance().read(PORT::C)<<8 | hal::io::GPIO::instance().read(PORT::B);
 	ISR::registerISR(AsyncChannel::getChannel(), MAGIC_NUMBER);
 	thread = std::thread(std::ref(*this));
 }
@@ -43,10 +44,11 @@ void SignalGenerator::operator()() {
 	while (running) {
 		AsyncMsg message;
 		message = AsyncChannel::getChannel().getNextMessage();
-		int current_mask = message.value;
+		int current_mask = (int)message.value;
 		int change = current_mask xor stored_mask;
 		for(const auto &signal : signals) {
 			if (change & signal.first) { // change happend on signal?
+				LOG_ERROR<<"CHANGE"<<endl;
 				if (signal.first & current_mask) { 	// low -> high
 					signalBuffer.push_back(Signal(1,1,signal.second.high));
 				} else {						// high -> low
@@ -65,8 +67,11 @@ void SignalGenerator::stop() {
 
 Signal SignalGenerator::nextSignal() {
 	LOG_SCOPE
+	LOG_ERROR<<signalBuffer.size()<<endl;
 	Signal signal = signalBuffer.front();
+	LOG_ERROR<<"after signalBuffer.front()"<<endl;
 	signalBuffer.erase(signalBuffer.begin());
+	LOG_ERROR<<"after signalBuffer.erase()"<<endl;
 	return signal;
 }
 
@@ -83,11 +88,11 @@ const std::map<const int, SPair> SignalGenerator::init_map() {
 										Signalname::BUTTON_E_STOP_PUSHED)});
 	map.insert({0b00000001, SPair(	Signalname::LIGHT_BARRIER_INPUT_NOT_INTERRUPTED,
 									Signalname::LIGHT_BARRIER_INPUT_INTERRUPTED)});
-	map.insert({AsyncChannel::LIGHT_BARRIER_HEIGHT_NOT_INTERRUPTED.bitmask, SPair(	Signalname::LIGHT_BARRIER_HEIGHT_NOT_INTERRUPTED,
+	map.insert({0b00000010, SPair(	Signalname::LIGHT_BARRIER_HEIGHT_NOT_INTERRUPTED,
 									Signalname::LIGHT_BARRIER_HEIGHT_INTERRUPTED)});
 	map.insert({0b00001000, SPair(	Signalname::LIGHT_BARRIER_SWITCH_NOT_INTERRUPTED,
 									Signalname::LIGHT_BARRIER_SWITCH_INTERRUPTED)});
-	map.insert({0b00100000, SPair(	Signalname::LIGHT_BARRIER_SLIDE_NOT_INTERRUPTED,
+	map.insert({0b01000000, SPair(	Signalname::LIGHT_BARRIER_SLIDE_NOT_INTERRUPTED,
 									Signalname::LIGHT_BARRIER_SLIDE_INTERRUPTED)});
 	map.insert({0b10000000, SPair( 	Signalname::LIGHT_BARRIER_OUTPUT_NOT_INTERRUPTED,
 									Signalname::LIGHT_BARRIER_OUTPUT_INTERRUPTED)});
@@ -95,8 +100,22 @@ const std::map<const int, SPair> SignalGenerator::init_map() {
 									Signalname::SENSOR_HEIGHT_NOT_MATCH)});
 	map.insert({0b00010000, SPair( 	Signalname::SENSOR_METAL_MATCH,
 									Signalname::SENSOR_METAL_NOT_MATCH)});
-	map.insert({0b01000000, SPair( 	Signalname::SENSOR_SWITCH_IS_OPEN,
+	map.insert({0b00100000, SPair( 	Signalname::SENSOR_SWITCH_IS_OPEN,
 									Signalname::SENSOR_SWITCH_IS_CLOSED)});
+	LOG_ERROR<<AsyncChannel::LIGHT_BARRIER_HEIGHT_NOT_INTERRUPTED.bitmask<<endl;
+	for(const auto &signal : map) {
+		LOG_ERROR<<signal.first<<endl;
+//		if (change & signal.first) { // change happend on signal?
+//			if (signal.first & current_mask) { 	// low -> high
+//
+//				signalBuffer.push_back(Signal(1,1,signal.second.high));
+//			} else {						// high -> low
+//				signalBuffer.push_back(Signal(1,1,signal.second.low));
+//			}
+//		}
+	}
+
+
 	return map;
 }
 

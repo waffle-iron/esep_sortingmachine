@@ -17,14 +17,21 @@ struct AsyncMsg {
 };
 
 struct SignalBitmask {
-	SignalBitmask();
-	SignalBitmask(int bitmask, std::string name) :
-	bitmask(bitmask),
+	SignalBitmask() :
+	bitmask(0b111),
+	name("blubb")
+	{
+	}
+	SignalBitmask(const int bitmask2, std::string name) :
+	bitmask(bitmask2),
 	name(name)
 	{
 		LOG_SCOPE
 	}
-	int bitmask;
+	~SignalBitmask(){
+		LOG_SCOPE
+	}
+	const int bitmask;
 	std::string name;
 };
 

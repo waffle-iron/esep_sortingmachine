@@ -8,6 +8,8 @@
 #ifndef SIGNALS_H_
 #define SIGNALS_H_
 
+#include "Logger.h"
+
 constexpr int cb_1 = 0b001;
 constexpr int cb_2 = 0b010;
 constexpr int cb_3 = 0b100;
@@ -97,8 +99,13 @@ struct Signal {
 	Signal(char sender, char receiver, Signalname name) :
 	sender(sender),
 	receiver(receiver),
-	name(name){
-
+	name(name)
+	{
+		LOG_SCOPE
+	}
+	~Signal()
+	{
+		LOG_SCOPE
 	}
 	char sender;
 	char receiver;
