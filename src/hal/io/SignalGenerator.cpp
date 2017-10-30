@@ -88,11 +88,11 @@ const std::map<const int, SPair> SignalGenerator::init_map() {
 										Signalname::BUTTON_E_STOP_PUSHED)});
 	map.insert({0b00000001, SPair(	Signalname::LIGHT_BARRIER_INPUT_NOT_INTERRUPTED,
 									Signalname::LIGHT_BARRIER_INPUT_INTERRUPTED)});
-	map.insert({0b00000010, SPair(	Signalname::LIGHT_BARRIER_HEIGHT_NOT_INTERRUPTED,
+	map.insert({AsyncChannel::LIGHT_BARRIER_HEIGHT_NOT_INTERRUPTED.bitmask, SPair(	Signalname::LIGHT_BARRIER_HEIGHT_NOT_INTERRUPTED,
 									Signalname::LIGHT_BARRIER_HEIGHT_INTERRUPTED)});
 	map.insert({0b00001000, SPair(	Signalname::LIGHT_BARRIER_SWITCH_NOT_INTERRUPTED,
 									Signalname::LIGHT_BARRIER_SWITCH_INTERRUPTED)});
-	map.insert({0b01000000, SPair(	Signalname::LIGHT_BARRIER_SLIDE_NOT_INTERRUPTED,
+	map.insert({AsyncChannel::LIGHT_BARRIER_HEIGHT_NOT_INTERRUPTED.bitmask, SPair(	Signalname::LIGHT_BARRIER_SLIDE_NOT_INTERRUPTED,
 									Signalname::LIGHT_BARRIER_SLIDE_INTERRUPTED)});
 	map.insert({0b10000000, SPair( 	Signalname::LIGHT_BARRIER_OUTPUT_NOT_INTERRUPTED,
 									Signalname::LIGHT_BARRIER_OUTPUT_INTERRUPTED)});
@@ -102,7 +102,7 @@ const std::map<const int, SPair> SignalGenerator::init_map() {
 									Signalname::SENSOR_METAL_NOT_MATCH)});
 	map.insert({0b00100000, SPair( 	Signalname::SENSOR_SWITCH_IS_OPEN,
 									Signalname::SENSOR_SWITCH_IS_CLOSED)});
-	LOG_ERROR<<AsyncChannel::LIGHT_BARRIER_HEIGHT_NOT_INTERRUPTED.bitmask<<endl;
+//	LOG_ERROR<<AsyncChannel::LIGHT_BARRIER_HEIGHT_NOT_INTERRUPTED.bitmask<<endl;
 	for(const auto &signal : map) {
 		LOG_ERROR<<signal.first<<endl;
 //		if (change & signal.first) { // change happend on signal?
