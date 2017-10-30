@@ -8,6 +8,8 @@
 #include "GPIO.h"
 #include "Test.h"
 #include "GpioTesting.h"
+#include "HeightSensor.h"
+
 
 using namespace std;
 
@@ -22,11 +24,15 @@ int main(int argc, char *argv[])
 
 	hal::HAL hal;
 	logicLayer::test::Test test = logicLayer::test::Test(&hal);
-
-	test.actuatorsTest();
-	test.mmiTest();
-	test.threadSafenessInGpioTest();
-	test.singletonThreadSafeTest();
+	uint16_t heightValue;
+//	test.actuatorsTest();
+//	test.mmiTest();
+//	test.threadSafenessInGpioTest();
+//	test.singletonThreadSafeTest();
+	 while (true) {
+	    heightValue = hal.getHeight();
+	    cout << heightValue << endl;
+	}
 
 
 	cout << "Starting Sortingmachine ... done !" << endl;

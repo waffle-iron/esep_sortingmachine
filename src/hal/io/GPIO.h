@@ -27,8 +27,12 @@ public:
 	static GPIO& instance();
 	void gainAccess();
 	port_t read(PORT port);
+	uint8_t read(uint8_t address);
+	void write(  uint8_t address, uint8_t val);
 	void setBits(PORT port, port_t bitmask);
+	void setBits(uint8_t address, uint8_t bitmask);
 	void clearBits(PORT port, port_t bitmask);
+	void clearBits(uint8_t address, port_t bitmask);
 
 protected:
 	virtual void write(  PORT port, port_t val);

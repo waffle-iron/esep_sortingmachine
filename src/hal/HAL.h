@@ -11,6 +11,7 @@
 #include "Motor.h"
 #include "SwitchPoint.h"
 #include "TrafficLight.h"
+#include "HeightSensor.h"
 
 namespace hal {
 
@@ -18,6 +19,8 @@ namespace hal {
 	public:
 		HAL();
 		virtual ~HAL();
+
+		uint16_t getHeight();
 
 		void greenLightOn();
 		void greenLightOff();
@@ -44,6 +47,7 @@ namespace hal {
 		actuators::Motor& _motor;
 		actuators::SwitchPoint& _switchPoint;
 		mmi::TrafficLight& _trafficLight;
+		sensors::HeightSensor& _heightSensor;
 
 	};
 
