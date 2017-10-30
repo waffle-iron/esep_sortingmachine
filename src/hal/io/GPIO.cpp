@@ -16,13 +16,10 @@ namespace hal {
 namespace io {
 
 constexpr int DIO_BASE = 0x300;
-GPIO *GPIO::_instance = nullptr;
 
-GPIO* GPIO::instance() {
-	if (_instance == nullptr) {
-		_instance = new GPIO;
-	}
-	return _instance;
+GPIO& GPIO::instance() {
+	static GPIO instance;
+	return instance;
 }
 
 GPIO::GPIO() {
@@ -31,7 +28,6 @@ GPIO::GPIO() {
 
 GPIO::~GPIO() {
 	LOG_SCOPE;
-	_instance = nullptr;
 }
 
 void GPIO::gainAccess(){

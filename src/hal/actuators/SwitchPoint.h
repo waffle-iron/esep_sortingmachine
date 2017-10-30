@@ -18,9 +18,7 @@ namespace actuators {
 class SwitchPoint {
 public:
 
-	static SwitchPoint *instance();
-
-	virtual ~SwitchPoint();
+	static SwitchPoint& instance();
 
 	/**
 	 *  @brief opens switchpoint
@@ -34,8 +32,11 @@ public:
 
 private:
 	SwitchPoint();
+	SwitchPoint(SwitchPoint const&);
+	SwitchPoint& operator=(SwitchPoint const&);
+	~SwitchPoint();
 
-	static SwitchPoint *_instance;
+
 };
 
 } /* namespace actuators */

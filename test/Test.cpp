@@ -12,50 +12,57 @@
 #include "HAL.h"
 #include "Header.h"
 #include "GpioTesting.h"
-
+#include "SingletonTest.h"
 using namespace std;
 
 namespace logicLayer{
 namespace test{
 
 
-Test::Test() {
-	// TODO Auto-generated constructor stub
-
+Test::Test(hal::HAL* hal) {
+	_hal = hal;
 }
 
 Test::~Test() {
-	// TODO Auto-generated destructor stub
 }
 
 
 void Test::actuatorsTest(){
 
-	hal::HAL hal;
-
-
 	cout << "start " << __FUNCTION__ << endl;
 
+	cout << "test motor (counterclockwise, fast) " << endl;
+	_hal->motorStart();
+	_hal->motorRotateCounterclockwise();
+	_hal->motorFast();
+	if( !nextTest(__FUNCTION__) ) return;
+
+	cout << "test motor (counterclockwise, slow) " << endl;
+	_hal->motorStart();
+	_hal->motorRotateCounterclockwise();
+	_hal->motorSlow();
+	if( !nextTest(__FUNCTION__) ) return;
+
 	cout << "test motor (clockwise, fast) " << endl;
-	hal.motorStart();
-	hal.motorRotateClockwise(); // BUG?
-	hal.motorFast();
+	_hal->motorStart();
+	_hal->motorRotateClockwise();
+	_hal->motorFast();
 	if( !nextTest(__FUNCTION__) ) return;
 
 	cout << "test motor (clockwise, slow) " << endl;
-	hal.motorSlow();
+	_hal->motorSlow();
 	if( !nextTest(__FUNCTION__) ) return;
 
 	cout << "test motor stop" << endl;
-	hal.motorStop();
+	_hal->motorStop();
 	if( !nextTest(__FUNCTION__) ) return;
 
 	cout << "test open switch point - please continue soon" << endl;
-	hal.switchPointOpen();
+	_hal->switchPointOpen();
 	if( !nextTest(__FUNCTION__) ) return;
 
 	cout << "test close switch point " << endl;
-	hal.switchPointClose();
+	_hal->switchPointClose();
 
 	if( !nextTest(__FUNCTION__) ) return;
 
@@ -66,69 +73,67 @@ void Test::actuatorsTest(){
 
 void Test::mmiTest(){
 
-	hal::HAL hal;
-
 	cout << "start " << __FUNCTION__ << endl;
 	cout << "test lamps on: red, yellow, green" << endl;
-	hal.yellowLightOn();
-	hal.redLightOn();
-	hal.greenLightOn();
+	_hal->yellowLightOn();
+	_hal->redLightOn();
+	_hal->greenLightOn();
 	if( !nextTest(__FUNCTION__) ) return;
 
 	cout << "test lamps off: red, yellow, green" << endl;
-	hal.yellowLightOff();
-	hal.redLightOff();
-	hal.greenLightOff();
+	_hal->yellowLightOff();
+	_hal->redLightOff();
+	_hal->greenLightOff();
 	if( !nextTest(__FUNCTION__) ) return;
 
 	cout << "test blinking fast: red, yello, green " << endl;
-	hal.blinkGreen(Speed::fast);
-	hal.blinkRed(Speed::fast);
-	hal.blinkYellow(Speed::fast);
+	_hal->blinkGreen(Speed::fast);
+	_hal->blinkRed(Speed::fast);
+	_hal->blinkYellow(Speed::fast);
 	if( !nextTest(__FUNCTION__) ) return;
 
 	cout << "test blinking fast: yellow, green" << endl;
-	hal.redLightOff();
+	_hal->redLightOff();
 	if( !nextTest(__FUNCTION__) ) return;
 
 	cout << "test blinking fast: green" << endl;
-	hal.yellowLightOff();
+	_hal->yellowLightOff();
 	if( !nextTest(__FUNCTION__) ) return;
 
 	cout << "test blinking slow: red, yellow, green" << endl;
-	hal.blinkGreen(Speed::slow);
-	hal.blinkYellow(Speed::slow);
-	hal.blinkRed(Speed::slow);
+	_hal->blinkGreen(Speed::slow);
+	_hal->blinkYellow(Speed::slow);
+	_hal->blinkRed(Speed::slow);
 	if( !nextTest(__FUNCTION__) ) return;
 
 	cout << "test blinking slow: yellow, green" << endl;
-	hal.redLightOff();
+	_hal->redLightOff();
 	if( !nextTest(__FUNCTION__) ) return;
 
 	cout << "test blinking slow: green" << endl;
-	hal.yellowLightOff();
+	_hal->yellowLightOff();
 	if( !nextTest(__FUNCTION__) ) return;
 
 	cout << "test blinking slow: nothing" << endl;
-	hal.greenLightOff();
+	_hal->greenLightOff();
 	if( !nextTest(__FUNCTION__) ) return;
 
 	cout << "test blinking slow: red, yellow, green" << endl;
-	hal.blinkGreen(Speed::slow);
-	hal.blinkYellow(Speed::slow);
-	hal.blinkRed(Speed::slow);
+	_hal->blinkGreen(Speed::slow);
+	_hal->blinkYellow(Speed::slow);
+	_hal->blinkRed(Speed::slow);
 	if( !nextTest(__FUNCTION__) ) return;
 
 	cout << "test blinking fast: red, yellow, green" << endl;
-	hal.blinkGreen(Speed::fast);
-	hal.blinkYellow(Speed::fast);
-	hal.blinkRed(Speed::fast);
+	_hal->blinkGreen(Speed::fast);
+	_hal->blinkYellow(Speed::fast);
+	_hal->blinkRed(Speed::fast);
 	if( !nextTest(__FUNCTION__) ) return;
 
 	cout << "test blinking slow: red, yellow, green" << endl;
-	hal.blinkGreen(Speed::slow);
-	hal.blinkYellow(Speed::slow);
-	hal.blinkRed(Speed::slow);
+	_hal->blinkGreen(Speed::slow);
+	_hal->blinkYellow(Speed::slow);
+	_hal->blinkRed(Speed::slow);
 	if( !nextTest(__FUNCTION__) ) return;
 
 	cout  << __FUNCTION__ << " successful. " << endl;
@@ -143,6 +148,28 @@ void Test::writeSomethingElse(hal::io::GPIO *gpio, int difference) {
 	port_t port = gpio->read(PORT::A); // read port to write definetly something different so write method gets called
 	gpio->setBits(PORT::A, port + difference);
 }
+
+void createInstance(){
+	SingletonTest& instance = SingletonTest::instance();
+}
+
+
+void Test::singletonThreadSafeTest(){
+	cout << "start " << __FUNCTION__ << endl;
+
+	cout << "Get just on singleton created?"<<endl;
+	thread t1(&createInstance);
+	thread t2(&createInstance);
+	t1.join();
+	t2.join();
+
+	if( !nextTest(__FUNCTION__) ) return;
+
+	cout << __FUNCTION__ << " successful." << endl;
+
+}
+
+
 
 void Test::threadSafenessInGpioTest(){
 	cout << "start " << __FUNCTION__ << endl;
@@ -162,9 +189,8 @@ void Test::threadSafenessInGpioTest(){
 	t1.join();
 	t2.join();
 	cout << "######################" << endl;
-	if( !nextTest(__FUNCTION__) ) return;
 
-	cout << "start " << __FUNCTION__ << endl;
+	if( !nextTest(__FUNCTION__) ) return;
 
 	cout << __FUNCTION__ << " successful." << endl;
 }
