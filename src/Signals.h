@@ -8,8 +8,6 @@
 #ifndef SIGNALS_H_
 #define SIGNALS_H_
 
-#include <string>
-
 constexpr int cb_1 = 0b001;
 constexpr int cb_2 = 0b010;
 constexpr int cb_3 = 0b100;

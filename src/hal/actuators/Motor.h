@@ -13,8 +13,7 @@ namespace actuators {
 
 class Motor {
 public:
-	static Motor *instance();
-	virtual ~Motor();
+	static Motor& instance();
 
 	/**
 	* @brief starts the motor without changing other behaviors
@@ -48,8 +47,9 @@ public:
 
 private:
 	Motor();
-
-	static Motor *_instance;
+	Motor(Motor const&);
+	Motor& operator=(Motor const&);
+	~Motor();
 };
 
 } /* namespace actuators */

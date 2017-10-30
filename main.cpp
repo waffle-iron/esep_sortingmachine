@@ -19,12 +19,13 @@ int main(int argc, char *argv[])
 	LOG_DEBUG<<"hello world \n";
 
 	hal::HAL hal;
-
 	logicLayer::test::Test test = logicLayer::test::Test(&hal);
 	test.sensorsTest();
 //	test.actuatorsTest();
 //	test.mmiTest();
 //	test.threadSafenessInGpioTest();
+//	test.singletonThreadSafeTest();
+
 
 	cout << "Starting Sortingmachine ... done !" << endl;
 

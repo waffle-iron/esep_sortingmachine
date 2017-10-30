@@ -12,8 +12,13 @@
 
 class GpioTesting: public hal::io::GPIO {
 public:
-	virtual ~GpioTesting(){}
 	virtual void write(  PORT port, port_t val) override;
+	static GpioTesting& instance(bool test);
+	GpioTesting();
+	void helloWorld();
+
+private:
+	GpioTesting(bool test);
 };
 
 #endif /* GPIOTESTING_H_ */

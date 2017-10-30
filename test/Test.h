@@ -14,6 +14,7 @@
 #include "AsyncChannel.h"
 
 
+
 namespace logicLayer{
 namespace test{
 
@@ -36,6 +37,11 @@ public:
 	 *
 	 */
 	void sensorsTest();
+
+	/**
+	*  @brief test singleton thread safeness
+	*/
+	void singletonThreadSafeTest();
 
 	/**
 	 *  @brief test thread safeness in GPIO class
