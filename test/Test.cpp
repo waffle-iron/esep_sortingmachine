@@ -12,7 +12,6 @@
 #include "HAL.h"
 #include "Header.h"
 #include "GpioTesting.h"
-#include "SingletonTest.h"
 using namespace std;
 
 namespace logicLayer{
