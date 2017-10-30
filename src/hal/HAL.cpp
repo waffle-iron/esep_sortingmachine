@@ -36,6 +36,10 @@ HAL::~HAL() {
 
 }
 
+string HAL::getSignal() {
+	return "HAL: Here, take my signal, bitch!";
+}
+
 void HAL::motorStart() {
 	_motor.start();
 }

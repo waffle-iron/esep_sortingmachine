@@ -8,12 +8,18 @@
 #ifndef LOGICLAYER_H_
 #define LOGICLAYER_H_
 
+#include "Observer.h"
+#include "HAL.h"
+
 namespace logicLayer {
 
-class LogicLayer {
+class LogicLayer : public Observer {
 public:
-	LogicLayer();
+	LogicLayer(hal::HAL&);
 	virtual ~LogicLayer();
+	void notify();
+private:
+	hal::HAL& hal;
 };
 
 } /* namespace logicLayer */

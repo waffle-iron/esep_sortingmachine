@@ -9,13 +9,20 @@
 
 namespace logicLayer {
 
-LogicLayer::LogicLayer() {
-	// TODO Auto-generated constructor stub
-
+LogicLayer::LogicLayer(hal::HAL& hal) :
+hal(hal)
+{
+	hal.register_observer(this);
 }
 
 LogicLayer::~LogicLayer() {
 	// TODO Auto-generated destructor stub
 }
 
+
+void LogicLayer::notify(){
+	cout << "LogicLayer: I have been notified! Now I go get the Signal." << endl;
+	cout << hal.getSignal() << endl;
+
+}
 } /* namespace logicLayer */

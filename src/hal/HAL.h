@@ -11,13 +11,16 @@
 #include "Motor.h"
 #include "SwitchPoint.h"
 #include "TrafficLight.h"
+#include "Observable.h"
 
 namespace hal {
 
-	class HAL {
+	class HAL : public Observable{
 	public:
 		HAL();
 		virtual ~HAL();
+
+		string getSignal();
 
 		void greenLightOn();
 		void greenLightOff();
