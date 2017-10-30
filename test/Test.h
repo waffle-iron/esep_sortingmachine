@@ -11,6 +11,8 @@
 #include "GPIO.h"
 #include <string>
 #include "HAL.h"
+#include "AsyncChannel.h"
+
 
 namespace logicLayer{
 namespace test{
@@ -52,6 +54,8 @@ private:
 	 *	@brief go to next test
 	 */
 	bool nextTest(string functionName);
+
+	void sensorTestHelper(SignalBitmask signalbitmask, Signalname normal, Signalname opposite);
 
 };
 

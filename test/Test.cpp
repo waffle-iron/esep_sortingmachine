@@ -12,7 +12,6 @@
 #include "HAL.h"
 #include "Header.h"
 #include "GpioTesting.h"
-#include "AsyncChannel.h"
 
 using namespace std;
 
@@ -143,24 +142,36 @@ void Test::mmiTest(){
 
 
 void Test::sensorsTest(){
-	cout << "start " << __FUNCTION__ << endl<<endl;
-	cout << "test light barrier INPUT \n - please, interrupt it one time, let it free again and hit return key." << endl;
-	while (cin.get() != '\n');
-	cout << "test opposite Signal of " << hal::io::AsyncChannel::LIGHT_BARRIER_INPUT_NOT_INTERRUPTED.name<< endl;
-	if (_hal->getSignal().name == Signalname::LIGHT_BARRIER_INPUT_INTERRUPTED){
-		cout << "test successful." << endl;
-	} else {
-		cout << "test NOT successful." << endl;
-	}
-	cout << "test Signal " << hal::io::AsyncChannel::LIGHT_BARRIER_INPUT_NOT_INTERRUPTED.name<< endl;
-	if (_hal->getSignal().name == Signalname::LIGHT_BARRIER_INPUT_NOT_INTERRUPTED){
-		cout << "test successful." << endl;
-	} else {
-		cout << "test NOT successful." << endl;
-	}
+	cout << "start " << __FUNCTION__ <<endl;
+	cout <<endl<< "test light barrier INPUT \n - please, interrupt it one time, let it free again and hit return key." << endl;
+	sensorTestHelper(	hal::io::AsyncChannel::LIGHT_BARRIER_INPUT_NOT_INTERRUPTED,
+						Signalname::LIGHT_BARRIER_INPUT_NOT_INTERRUPTED,
+						Signalname::LIGHT_BARRIER_INPUT_INTERRUPTED);
+
+	cout <<endl<< "test light barrier HEIGHT \n - please, interrupt it one time, let it free again and hit return key." << endl;
+	sensorTestHelper(	hal::io::AsyncChannel::LIGHT_BARRIER_HEIGHT_NOT_INTERRUPTED,
+							Signalname::LIGHT_BARRIER_HEIGHT_NOT_INTERRUPTED,
+							Signalname::LIGHT_BARRIER_HEIGHT_INTERRUPTED);
+
 	if( !nextTest(__FUNCTION__) ) return;
 
-	cout  << __FUNCTION__ << " successful. " << endl<<endl;
+	cout  << __FUNCTION__ << " successful. " <<endl<<endl;
+}
+
+void Test::sensorTestHelper(SignalBitmask signalbitmask, Signalname normal, Signalname opposite) {
+	while (cin.get() != '\n');
+	cout << "test opposite Signal of " << signalbitmask.name<< endl;
+	if (_hal->getSignal().name == opposite){
+		cout << "test successful." << endl;
+	} else {
+		cout << "test NOT successful." << endl;
+	}
+	cout << "test Signal " << signalbitmask.name<< endl;
+	if (_hal->getSignal().name == normal){
+		cout << "test successful." << endl;
+	} else {
+		cout << "test NOT successful." << endl;
+	}
 }
 
 void Test::writeSomethingElse(hal::io::GPIO *gpio, int difference) {
