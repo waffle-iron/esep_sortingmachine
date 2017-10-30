@@ -23,7 +23,8 @@ const map<const int, SPair> SignalGenerator::signals = SignalGenerator::init_map
 
 SignalGenerator::SignalGenerator():
 running(true) {
-	hal::io::GPIO::instance()->gainAccess(); // first time calling singleton
+	hal::io::GPIO::instance()->gainAccess();
+	stored_mask = hal::io::GPIO::instance()->read(PORT::C)<<8 | hal::io::GPIO::instance()->read(PORT::B);
 	ISR::registerISR(AsyncChannel::getChannel(), MAGIC_NUMBER);
 	thread = std::thread(std::ref(*this));
 }
@@ -42,8 +43,8 @@ void SignalGenerator::operator()() {
 		int current_mask = message.value;
 		int change = current_mask xor stored_mask;
 		for(const auto &signal : signals) {
+			cout<<"current mask: "<<(int)current_mask<<endl;
 			if (change & signal.first) { // change happend on signal?
-				cout<<"change!"<<endl;
 				if (signal.first & current_mask) { 	// low -> high
 					signalBuffer.push_back(Signal(1,1,signal.second.high));
 				} else {						// high -> low

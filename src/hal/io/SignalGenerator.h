@@ -40,7 +40,7 @@ private:
 	static const std::map<const int, SPair> signals;
 	std::thread thread;
 	bool running;
-	int stored_mask = 0;
+	int stored_mask;
 	std::vector<Signal> signalBuffer;
 };
 

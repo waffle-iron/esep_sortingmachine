@@ -12,6 +12,7 @@
 #include "HAL.h"
 #include "Header.h"
 #include "GpioTesting.h"
+#include "AsyncChannel.h"
 
 using namespace std;
 
@@ -142,7 +143,24 @@ void Test::mmiTest(){
 
 
 void Test::sensorsTest(){
+	cout << "start " << __FUNCTION__ << endl<<endl;
+	cout << "test light barrier INPUT \n - please, interrupt it one time, let it free again and hit return key." << endl;
+	while (cin.get() != '\n');
+	cout << "test opposite Signal of " << hal::io::AsyncChannel::LIGHT_BARRIER_INPUT_NOT_INTERRUPTED.name<< endl;
+	if (_hal->getSignal().name == Signalname::LIGHT_BARRIER_INPUT_INTERRUPTED){
+		cout << "test successful." << endl;
+	} else {
+		cout << "test NOT successful." << endl;
+	}
+	cout << "test Signal " << hal::io::AsyncChannel::LIGHT_BARRIER_INPUT_NOT_INTERRUPTED.name<< endl;
+	if (_hal->getSignal().name == Signalname::LIGHT_BARRIER_INPUT_NOT_INTERRUPTED){
+		cout << "test successful." << endl;
+	} else {
+		cout << "test NOT successful." << endl;
+	}
+	if( !nextTest(__FUNCTION__) ) return;
 
+	cout  << __FUNCTION__ << " successful. " << endl<<endl;
 }
 
 void Test::writeSomethingElse(hal::io::GPIO *gpio, int difference) {
