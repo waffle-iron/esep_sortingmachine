@@ -12,10 +12,9 @@
 #include <chrono>
 
 
-
-
 void GpioTesting::write(PORT port, port_t val){
 	cout << "# rmw-cycle starting #" << endl;
 	WAIT(500);
 	cout << "# rmw-cycle finished #" << endl;
 }
+

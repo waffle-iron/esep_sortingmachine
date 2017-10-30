@@ -10,12 +10,12 @@
 
 namespace hal {
 
-HAL::HAL() {
+HAL::HAL() :
+_motor(actuators::Motor::instance()),
+_switchPoint(actuators::SwitchPoint::instance()),
+_trafficLight(mmi::TrafficLight::instance())
+{
 	LOG_SCOPE;
-	hal::io::GPIO::instance()->gainAccess();
-	_motor = actuators::Motor::instance();
-	_switchPoint = actuators::SwitchPoint::instance();
-	_trafficLight = mmi::TrafficLight::instance();
 
 	motorStop();
 	motorRotateClockwise();
@@ -34,78 +34,74 @@ HAL::~HAL() {
 	redLightOff();
 	yellowLightOff();
 
-	delete _motor;
-	delete _switchPoint;
-	delete _trafficLight;
-	delete io::GPIO::instance();
 }
 
 void HAL::motorStart() {
-	_motor->start();
+	_motor.start();
 }
 
 void HAL::motorStop() {
-	_motor->stop();
+	_motor.stop();
 }
 
 void HAL::motorSlow() {
-	_motor->setSlow();
+	_motor.setSlow();
 }
 
 void HAL::motorFast() {
-	_motor->clearSlow();
+	_motor.clearSlow();
 }
 
 void HAL::motorRotateClockwise() {
-	_motor->setClockwiseRotation();
+	_motor.setClockwiseRotation();
 }
 
 void HAL::motorRotateCounterclockwise() {
-	_motor->setCounterclockwiseRotation();
+	_motor.setCounterclockwiseRotation();
 }
 
 void HAL::switchPointOpen(){
-	_switchPoint->open();
+	_switchPoint.open();
 }
 
 void HAL::switchPointClose(){
-	_switchPoint->close();
+	_switchPoint.close();
 }
 
 void HAL::greenLightOn(){
-	_trafficLight->greenLightOn();
+	_trafficLight.greenLightOn();
 }
 
 void HAL::greenLightOff(){
-	_trafficLight->greenLightOff();
+	_trafficLight.greenLightOff();
 }
 
 void HAL::yellowLightOn(){
-	_trafficLight->yellowLightOn();
+	_trafficLight.yellowLightOn();
 }
 
 void HAL::yellowLightOff(){
-	_trafficLight->yellowLightOff();
+	_trafficLight.yellowLightOff();
 }
 
 void HAL::redLightOn(){
-	_trafficLight->redLightOn();
+	_trafficLight.redLightOn();
 }
 
 void HAL::redLightOff(){
-	_trafficLight->redLightOff();
+	_trafficLight.redLightOff();
 }
 
 void HAL::blinkGreen(Speed speed) {
-	_trafficLight->blinkGreen(speed);
+	_trafficLight.blinkGreen(speed);
 }
 
 void HAL::blinkYellow(Speed speed) {
-	_trafficLight->blinkYellow(speed);
+	_trafficLight.blinkYellow(speed);
 }
 
 void HAL::blinkRed(Speed speed) {
-	_trafficLight->blinkRed(speed);
+	_trafficLight.blinkRed(speed);
 }
 
 

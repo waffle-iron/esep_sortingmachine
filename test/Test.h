@@ -12,6 +12,7 @@
 #include <string>
 #include "HAL.h"
 
+
 namespace logicLayer{
 namespace test{
 
@@ -34,6 +35,8 @@ public:
 	 *
 	 */
 	void sensorsTest();
+
+	void singletonThreadSafeTest();
 
 	/**
 	 *  @brief test thread safeness in GPIO class

@@ -43,9 +43,9 @@ namespace hal {
 		void switchPointClose();
 
 	private:
-		actuators::Motor *_motor;
-		actuators::SwitchPoint *_switchPoint;
-		mmi::TrafficLight *_trafficLight;
+		actuators::Motor& _motor;
+		actuators::SwitchPoint& _switchPoint;
+		mmi::TrafficLight& _trafficLight;
 
 	};
 

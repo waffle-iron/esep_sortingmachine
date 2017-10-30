@@ -40,6 +40,7 @@ int main(int argc, char *argv[])
 	}
 
 
+
 	//cleanup receiver
 	std::cout << "stop receiver thread" << std::endl;
 
@@ -54,6 +55,7 @@ int main(int argc, char *argv[])
 	sender.stop();
 	std::cout << "wait for sender thread to join" << std::endl;
 	th_sender.join();
+
 
 	std::cout << "Goodbye!" << std::endl;
 
