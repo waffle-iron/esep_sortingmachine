@@ -23,6 +23,7 @@ const map<const int, SPair> SignalGenerator::signals = SignalGenerator::init_map
 
 SignalGenerator::SignalGenerator():
 running(true) {
+	LOG_SCOPE
 	hal::io::GPIO::instance()->gainAccess();
 	stored_mask = hal::io::GPIO::instance()->read(PORT::C)<<8 | hal::io::GPIO::instance()->read(PORT::B);
 	ISR::registerISR(AsyncChannel::getChannel(), MAGIC_NUMBER);
@@ -30,6 +31,7 @@ running(true) {
 }
 
 SignalGenerator::~SignalGenerator() {
+	LOG_SCOPE
 	stop();
 	AsyncChannel::getChannel().sendMessage({0,0});
 	thread.join();
@@ -37,6 +39,7 @@ SignalGenerator::~SignalGenerator() {
 }
 
 void SignalGenerator::operator()() {
+	LOG_SCOPE
 	while (running) {
 		AsyncMsg message;
 		message = AsyncChannel::getChannel().getNextMessage();
@@ -56,16 +59,19 @@ void SignalGenerator::operator()() {
 }
 
 void SignalGenerator::stop() {
+	LOG_SCOPE
 	running = false;
 }
 
 Signal SignalGenerator::nextSignal() {
+	LOG_SCOPE
 	Signal signal = signalBuffer.front();
 	signalBuffer.erase(signalBuffer.begin());
 	return signal;
 }
 
 const std::map<const int, SPair> SignalGenerator::init_map() {
+	LOG_SCOPE
 	map<const int, SPair> map;
 	map.insert({0b00010000<<8, SPair(	Signalname::BUTTON_START_PUSHED,
 										Signalname::BUTTON_START_PULLED)});
@@ -77,7 +83,7 @@ const std::map<const int, SPair> SignalGenerator::init_map() {
 										Signalname::BUTTON_E_STOP_PUSHED)});
 	map.insert({0b00000001, SPair(	Signalname::LIGHT_BARRIER_INPUT_NOT_INTERRUPTED,
 									Signalname::LIGHT_BARRIER_INPUT_INTERRUPTED)});
-	map.insert({0b00000010, SPair(	Signalname::LIGHT_BARRIER_HEIGHT_NOT_INTERRUPTED,
+	map.insert({AsyncChannel::LIGHT_BARRIER_HEIGHT_NOT_INTERRUPTED.bitmask, SPair(	Signalname::LIGHT_BARRIER_HEIGHT_NOT_INTERRUPTED,
 									Signalname::LIGHT_BARRIER_HEIGHT_INTERRUPTED)});
 	map.insert({0b00001000, SPair(	Signalname::LIGHT_BARRIER_SWITCH_NOT_INTERRUPTED,
 									Signalname::LIGHT_BARRIER_SWITCH_INTERRUPTED)});

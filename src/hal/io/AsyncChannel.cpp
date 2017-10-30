@@ -31,6 +31,7 @@ SignalBitmask AsyncChannel::SENSOR_SWITCH_IS_OPEN = 			   SignalBitmask(0b010000
 SignalBitmask AsyncChannel::LIGHT_BARRIER_OUTPUT_NOT_INTERRUPTED = SignalBitmask(0b10000000, "LIGHT_BARRIER_OUTPUT_NOT_INTERRUPTED");
 
 AsyncChannel::AsyncChannel() {
+	LOG_SCOPE
 	//creating Channel
 	channelId = ChannelCreate_r(0);
 	if(channelId<0){
@@ -49,6 +50,7 @@ AsyncChannel::AsyncChannel() {
 }
 
 AsyncChannel::~AsyncChannel() {
+	LOG_SCOPE
 	ConnectDetach(connectionId);
 	ChannelDestroy(channelId);
 
@@ -56,6 +58,7 @@ AsyncChannel::~AsyncChannel() {
 }
 
 AsyncMsg AsyncChannel::getNextMessage(){
+	LOG_SCOPE
 	AsyncMsg msg;
 	struct _pulse pulse;
 
@@ -74,6 +77,7 @@ AsyncMsg AsyncChannel::getNextMessage(){
 }
 
 void AsyncChannel::sendMessage(AsyncMsg msg){
+	LOG_SCOPE
 	//send message to channel via connectionId
     int ret = MsgSendPulse_r(
 		connectionId,
@@ -87,10 +91,12 @@ void AsyncChannel::sendMessage(AsyncMsg msg){
 }
 
 int AsyncChannel::getConnectionId(){
+	LOG_SCOPE
 	return connectionId;
 }
 
 AsyncChannel& AsyncChannel::getChannel(){
+	LOG_SCOPE
 	static AsyncChannel instance;
 	return instance;
 }

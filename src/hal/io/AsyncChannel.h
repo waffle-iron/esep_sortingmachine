@@ -9,6 +9,7 @@
 #define ASYNCCHANNEL_H_
 
 #include <string>
+#include "Header.h"
 
 struct AsyncMsg {
 	char type;
@@ -21,6 +22,7 @@ struct SignalBitmask {
 	bitmask(bitmask),
 	name(name)
 	{
+		LOG_SCOPE
 	}
 	int bitmask;
 	std::string name;
