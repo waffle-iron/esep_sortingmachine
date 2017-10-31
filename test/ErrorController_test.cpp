@@ -1,11 +1,11 @@
 /*
- * Errorcontroller_test.cpp
+ * ErrorController_test.cpp
  *
  *  Created on: Oct 28, 2017
  *      Author: stammtisch
  */
 
-#include "Errorcontroller.h"
+#include "ErrorController.h"
 
 namespace logicLayer {
 namespace controllers {
