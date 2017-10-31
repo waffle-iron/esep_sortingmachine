@@ -14,10 +14,10 @@
 namespace logicLayer {
 namespace controller {
 
-class Errorcontroller : public Controller {
+class ErrorController : public Controller {
 public:
-	Errorcontroller(hal::HAL& hal);
-	virtual ~Errorcontroller();
+	ErrorController(hal::HAL& hal);
+	virtual ~ErrorController();
 };
 
 } /* namespace controller */

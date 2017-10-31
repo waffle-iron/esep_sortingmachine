@@ -12,7 +12,7 @@ namespace controller {
 
 ItemController::ItemController(hal::HAL& hal) :
 Controller(hal),
-errorController(Errorcontroller(hal))
+errorController(ErrorController(hal))
 {
 
 }

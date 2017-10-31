@@ -5,17 +5,17 @@
  *      Author: stammtisch
  */
 
-#include "Errorcontroller.h"
+#include "ErrorController.h"
 
 namespace logicLayer {
 namespace controller {
 
-Errorcontroller::Errorcontroller(hal::HAL& hal) :
+ErrorController::ErrorController(hal::HAL& hal) :
 Controller(hal)
 {
 }
 
-Errorcontroller::~Errorcontroller() {
+ErrorController::~ErrorController() {
 	// TODO Auto-generated destructor stub
 }
 

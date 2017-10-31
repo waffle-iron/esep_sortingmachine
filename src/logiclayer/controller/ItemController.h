@@ -11,7 +11,7 @@
 
 #include "Header.h"
 #include "Controller.h"
-#include "Errorcontroller.h"
+#include "ErrorController.h"
 #include "HAL.h"
 #include "Item.h"
 #include "Timer.h"
@@ -31,7 +31,7 @@ private:
 	 */
 	void addNewItem();
 
-	Errorcontroller errorController;
+	ErrorController errorController;
 	Timer timer;
 	vector<Item> items;
 };
