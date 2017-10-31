@@ -10,8 +10,9 @@
 namespace logicLayer {
 namespace controller {
 
-Controller::Controller() {
-	// TODO Auto-generated constructor stub
+Controller::Controller(hal::HAL& hal) :
+hal(hal)
+{
 
 }
 

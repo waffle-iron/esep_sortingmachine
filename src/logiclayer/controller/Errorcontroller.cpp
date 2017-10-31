@@ -10,9 +10,9 @@
 namespace logicLayer {
 namespace controller {
 
-Errorcontroller::Errorcontroller() {
-	// TODO Auto-generated constructor stub
-
+Errorcontroller::Errorcontroller(hal::HAL& hal) :
+Controller(hal)
+{
 }
 
 Errorcontroller::~Errorcontroller() {

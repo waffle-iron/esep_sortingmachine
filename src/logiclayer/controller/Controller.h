@@ -9,6 +9,8 @@
 #define CONTROLLER_H_
 
 #include "Header.h"
+#include "HAL.h"
+#include <vector>
 
 namespace logicLayer {
 namespace controller {
@@ -18,10 +20,33 @@ namespace controller {
  */
 class Controller {
 public:
-	Controller();
+	Controller(hal::HAL& hal);
 	virtual ~Controller();
+
+	/*
+	 * @brief blocked waiting call for new async signals from channel
+	 */
 	Signal getSignal();
+
+	/*
+	 * @brief gets called from derived classes like ItemController and performs signals
+	 * like MOTOR_FORWARD_RUN_FAST calling adequate methods on hal.
+	 */
 	void sendSignal(Signal signal);
+
+	/*
+	 * @brief adds controller to controllers vector if not already in
+	 */
+	void registerController(Controller* controller);
+
+	/*
+	 * @brief removes controller from controllers vector if not already removed
+	 */
+	void unregisterController(Controller* controller);
+
+private:
+	hal::HAL& hal;
+	std::vector<Controller*> controllers;
 };
 
 } /* namespace controller */

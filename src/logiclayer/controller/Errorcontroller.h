@@ -6,6 +6,7 @@
  */
 #include "Header.h"
 #include "Controller.h";
+#include "HAL.h"
 
 #ifndef ERRORCONTROLLER_H_
 #define ERRORCONTROLLER_H_
@@ -15,7 +16,7 @@ namespace controller {
 
 class Errorcontroller : public Controller {
 public:
-	Errorcontroller();
+	Errorcontroller(hal::HAL& hal);
 	virtual ~Errorcontroller();
 };
 

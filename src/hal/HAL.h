@@ -11,6 +11,7 @@
 #include "Motor.h"
 #include "SwitchPoint.h"
 #include "TrafficLight.h"
+#include "Item.h"
 
 namespace hal {
 
@@ -39,6 +40,16 @@ namespace hal {
 
 		void switchPointOpen();
 		void switchPointClose();
+
+		/*
+		 * @brief used to send a signal via serial interface
+		 */
+		void sendSignal(Signal signal);
+
+		/*
+		 * @brief used to send an item via serial interface
+		 */
+		void sendItem(logicLayer::Item item);
 
 	private:
 		actuators::Motor& _motor;

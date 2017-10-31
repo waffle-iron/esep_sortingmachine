@@ -11,6 +11,8 @@
 
 #include "Header.h"
 #include "Controller.h"
+#include "Errorcontroller.h"
+#include "HAL.h"
 #include "Item.h"
 #include "Timer.h"
 #include <vector>
@@ -20,11 +22,16 @@ namespace controller {
 
 class ItemController : public Controller {
 public:
-	ItemController();
+	ItemController(hal::HAL& hal);
 	virtual ~ItemController();
-	void addNewItem();
 
 private:
+	/*
+	 * @brief adds new item to items vector
+	 */
+	void addNewItem();
+
+	Errorcontroller errorController;
 	Timer timer;
 	vector<Item> items;
 };
