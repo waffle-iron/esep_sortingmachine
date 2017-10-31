@@ -11,7 +11,8 @@ namespace logicLayer {
 namespace controller {
 
 Controller::Controller(hal::HAL& hal) :
-hal(hal)
+hal(hal),
+running(true)
 {
 
 }

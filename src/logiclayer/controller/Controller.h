@@ -24,9 +24,19 @@ public:
 	virtual ~Controller();
 
 	/*
-	 * @brief blocked waiting call for new async signals from channel
+	 * @brief method gets called in thread and is a blocked waiting call for new async signals from channel
 	 */
 	Signal getSignal();
+
+	/*
+	 * @brief method gets called when thread is started with an Controller Object
+	 */
+    void operator()();
+
+    /*
+     * @brief provokes termination of thread the next time a signal gets read from channel
+     */
+    void terminate();
 
 	/*
 	 * @brief gets called from derived classes like ItemController and performs signals
@@ -46,6 +56,7 @@ public:
 
 private:
 	hal::HAL& hal;
+	bool running;
 	std::vector<Controller*> controllers;
 };
 
