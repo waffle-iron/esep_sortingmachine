@@ -19,20 +19,20 @@ constexpr int MAGIC_NUMBER = 15;
 namespace hal {
 namespace io {
 
-SignalBitmask SignalGenerator::BUTTON_START(		0b00010000<<8, "BUTTON_START");
-SignalBitmask SignalGenerator::BUTTON_STOP( 		0b00100000<<8, "BUTTON_STOP");
-SignalBitmask SignalGenerator::BUTTON_RESET( 		0b01000000<<8, "BUTTON_RESET");
-SignalBitmask SignalGenerator::BUTTON_E_STOP(		0b10000000<<8, "BUTTON_E_STOP");
-SignalBitmask SignalGenerator::LIGHT_BARRIER_INPUT( 0b00000001, "LIGHT_BARRIER_INPUT");
-SignalBitmask SignalGenerator::LIGHT_BARRIER_HEIGHT(0b00000010, "LIGHT_BARRIER_HEIGHT");
-SignalBitmask SignalGenerator::SENSOR_HEIGHT_MATCH(	0b00000100, "SENSOR_HEIGHT_MATCH");
-SignalBitmask SignalGenerator::LIGHT_BARRIER_SWITCH(0b00001000, "LIGHT_BARRIER_SWITCH");
-SignalBitmask SignalGenerator::SENSOR_METAL_MATCH(	0b00010000, "SENSOR_METAL_MATCH");
-SignalBitmask SignalGenerator::SENSOR_SWITCH_OPEN(	0b00100000, "SENSOR_SWITCH_OPEN");
-SignalBitmask SignalGenerator::LIGHT_BARRIER_SLIDE(	0b01000000, "LIGHT_BARRIER_SLIDE");
-SignalBitmask SignalGenerator::LIGHT_BARRIER_OUTPUT(0b10000000, "LIGHT_BARRIER_OUTPUT");
+SensorEvent SignalGenerator::BUTTON_START(		0b00010000<<8, "BUTTON_START");
+SensorEvent SignalGenerator::BUTTON_STOP( 		0b00100000<<8, "BUTTON_STOP");
+SensorEvent SignalGenerator::BUTTON_RESET( 		0b01000000<<8, "BUTTON_RESET");
+SensorEvent SignalGenerator::BUTTON_E_STOP(		0b10000000<<8, "BUTTON_E_STOP");
+SensorEvent SignalGenerator::LIGHT_BARRIER_INPUT( 0b00000001, "LIGHT_BARRIER_INPUT");
+SensorEvent SignalGenerator::LIGHT_BARRIER_HEIGHT(0b00000010, "LIGHT_BARRIER_HEIGHT");
+SensorEvent SignalGenerator::SENSOR_HEIGHT_MATCH(	0b00000100, "SENSOR_HEIGHT_MATCH");
+SensorEvent SignalGenerator::LIGHT_BARRIER_SWITCH(0b00001000, "LIGHT_BARRIER_SWITCH");
+SensorEvent SignalGenerator::SENSOR_METAL_MATCH(	0b00010000, "SENSOR_METAL_MATCH");
+SensorEvent SignalGenerator::SENSOR_SWITCH_OPEN(	0b00100000, "SENSOR_SWITCH_OPEN");
+SensorEvent SignalGenerator::LIGHT_BARRIER_SLIDE(	0b01000000, "LIGHT_BARRIER_SLIDE");
+SensorEvent SignalGenerator::LIGHT_BARRIER_OUTPUT(0b10000000, "LIGHT_BARRIER_OUTPUT");
 
-const map<const int, SPair> SignalGenerator::signals = SignalGenerator::init_map();
+const map<const int, SPair> SignalGenerator::events = SignalGenerator::init_map();
 
 
 SignalGenerator::SignalGenerator():
@@ -59,12 +59,12 @@ void SignalGenerator::operator()() {
 		message = AsyncChannel::getChannel().getNextMessage();
 		int current_mask = (int)message.value;
 		int change = current_mask xor stored_mask;
-		for(const auto &signal : signals) {
-			if (change & signal.first) { // change happend on signal?
-				if (signal.first & current_mask) { 	// low -> high
-					signalBuffer.push_back(Signal(1,1,signal.second.high));
+		for(const auto &event : events) {
+			if (change & event.first) { // change happend on signal?
+				if (event.first & current_mask) { 	// low -> high
+					signalBuffer.push_back(Signal(1,1,event.second.high));
 				} else {						// high -> low
-					signalBuffer.push_back(Signal(1,1,signal.second.low));
+					signalBuffer.push_back(Signal(1,1,event.second.low));
 				}
 			}
 		}

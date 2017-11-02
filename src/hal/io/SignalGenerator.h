@@ -26,14 +26,14 @@ struct SPair {
 	Signalname low;
 };
 
-struct SignalBitmask {
-	SignalBitmask(const int bitmask, std::string name) :
+struct SensorEvent {
+	SensorEvent(const int bitmask, std::string name) :
 	bitmask(bitmask),
 	name(name)
 	{
 		LOG_SCOPE
 	}
-	~SignalBitmask(){
+	~SensorEvent(){
 		LOG_SCOPE
 	}
 	const int bitmask;
@@ -54,22 +54,22 @@ public:
 	 */
 	void resetSignalBuffer();
 
-	static SignalBitmask BUTTON_START;
-	static SignalBitmask BUTTON_STOP;
-	static SignalBitmask BUTTON_RESET;
-	static SignalBitmask BUTTON_E_STOP;
-	static SignalBitmask LIGHT_BARRIER_INPUT;
-	static SignalBitmask LIGHT_BARRIER_HEIGHT;
-	static SignalBitmask SENSOR_HEIGHT_MATCH;
-	static SignalBitmask LIGHT_BARRIER_SWITCH;
-	static SignalBitmask SENSOR_METAL_MATCH;
-	static SignalBitmask LIGHT_BARRIER_SLIDE;
-	static SignalBitmask SENSOR_SWITCH_OPEN;
-	static SignalBitmask LIGHT_BARRIER_OUTPUT;
+	static SensorEvent BUTTON_START;
+	static SensorEvent BUTTON_STOP;
+	static SensorEvent BUTTON_RESET;
+	static SensorEvent BUTTON_E_STOP;
+	static SensorEvent LIGHT_BARRIER_INPUT;
+	static SensorEvent LIGHT_BARRIER_HEIGHT;
+	static SensorEvent SENSOR_HEIGHT_MATCH;
+	static SensorEvent LIGHT_BARRIER_SWITCH;
+	static SensorEvent SENSOR_METAL_MATCH;
+	static SensorEvent LIGHT_BARRIER_SLIDE;
+	static SensorEvent SENSOR_SWITCH_OPEN;
+	static SensorEvent LIGHT_BARRIER_OUTPUT;
 
 private:
 	static const std::map<const int, SPair> init_map();
-	static const std::map<const int, SPair> signals;
+	static const std::map<const int, SPair> events;
 	std::thread thread;
 	bool running;
 	int stored_mask;

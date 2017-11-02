@@ -196,7 +196,7 @@ void Test::sensorsTest(){
 	cout  << __FUNCTION__ << " successful. " <<endl<<endl;
 }
 
-void Test::sensorTestHelper(hal::io::SignalBitmask signalBitmask, Signalname eventTriggerStart, Signalname eventTriggerEnd) {
+void Test::sensorTestHelper(hal::io::SensorEvent signalBitmask, Signalname eventTriggerStart, Signalname eventTriggerEnd) {
 
 	_hal->resetSignals();
 
