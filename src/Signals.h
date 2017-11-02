@@ -10,9 +10,16 @@
 
 #include "Logger.h"
 
-constexpr int cb_1 = 0b001;
-constexpr int cb_2 = 0b010;
-constexpr int cb_3 = 0b100;
+// conveyer belts
+constexpr int cb_1 = 0b00000001;
+constexpr int cb_2 = 0b00000010;
+constexpr int cb_3 = 0b00000100;
+constexpr int cb_4 = 0b00001000;
+constexpr int cb_5 = 0b00010000;
+constexpr int cb_6 = 0b00100000;
+constexpr int cb_7 = 0b01000000;
+constexpr int cb_8 = 0b10000000;
+
 
 enum class Speed {fast, slow};
 
@@ -103,6 +110,13 @@ enum class Signalname {
 	MEASURE_VELOCITY_SLOW_STOP,
 };
 
+/**
+ * @brief next to signal's name a signal has one specific sender and can have several receivers
+ * @param sender cb_1 as an example for cb_1 as signal's sender. Possible values cb_1-cb_8.
+ * @param receiver  cb_1 | cb_2 as an example for cb_1 and cb_2 as receivers of the signal.
+ * 					receiver 0 means that the signal is a shadow signal
+ * @param name specific signal name
+ */
 struct Signal {
 	Signal(char sender, char receiver, Signalname name) :
 	sender(sender),
