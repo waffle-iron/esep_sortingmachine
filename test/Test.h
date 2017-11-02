@@ -61,7 +61,7 @@ private:
 	 */
 	bool nextTest(string functionName);
 
-	void sensorTestHelper(hal::io::SignalBitmask signalbitmask, Signalname normal, Signalname opposite);
+	void sensorTestHelper(hal::io::SignalBitmask signalbitmask, Signalname eventTriggerStart, Signalname eventTriggerEnd);
 
 };
 

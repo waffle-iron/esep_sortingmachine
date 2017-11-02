@@ -54,18 +54,18 @@ public:
 	 */
 	void resetSignalBuffer();
 
-	static SignalBitmask BUTTON_START_PUSHED;
-	static SignalBitmask BUTTON_STOP_PULLED;
-	static SignalBitmask BUTTON_RESET_PUSHED;
-	static SignalBitmask BUTTON_E_STOP_PULLED;
-	static SignalBitmask LIGHT_BARRIER_INPUT_NOT_INTERRUPTED;
-	static SignalBitmask LIGHT_BARRIER_HEIGHT_NOT_INTERRUPTED;
+	static SignalBitmask BUTTON_START;
+	static SignalBitmask BUTTON_STOP;
+	static SignalBitmask BUTTON_RESET;
+	static SignalBitmask BUTTON_E_STOP;
+	static SignalBitmask LIGHT_BARRIER_INPUT;
+	static SignalBitmask LIGHT_BARRIER_HEIGHT;
 	static SignalBitmask SENSOR_HEIGHT_MATCH;
-	static SignalBitmask LIGHT_BARRIER_SWITCH_NOT_INTERRUPTED;
+	static SignalBitmask LIGHT_BARRIER_SWITCH;
 	static SignalBitmask SENSOR_METAL_MATCH;
-	static SignalBitmask LIGHT_BARRIER_SLIDE_NOT_INTERRUPTED;
-	static SignalBitmask SENSOR_SWITCH_IS_OPEN;
-	static SignalBitmask LIGHT_BARRIER_OUTPUT_NOT_INTERRUPTED;
+	static SignalBitmask LIGHT_BARRIER_SLIDE;
+	static SignalBitmask SENSOR_SWITCH_OPEN;
+	static SignalBitmask LIGHT_BARRIER_OUTPUT;
 
 private:
 	static const std::map<const int, SPair> init_map();
