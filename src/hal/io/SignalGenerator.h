@@ -15,6 +15,10 @@
 namespace hal {
 namespace io {
 
+/*
+ * brief: SPair's high member holds signal for edge high
+ * 		  SPair's low member holds signal for edge low
+ */
 struct SPair {
 	SPair(Signalname high, Signalname low) :
 	high(high),
@@ -26,6 +30,14 @@ struct SPair {
 	Signalname low;
 };
 
+/*
+ * brief: SensorEvent holds data for one specific event.
+ *
+ * bitmask specifies specific bit for this event that consists of two signals.
+ * name holds a string of the signal
+ * signalPair.high holds signal for higher edge change of bit
+ * siganlPair.low holds signal for lower edge  change of bit
+ */
 struct SensorEvent {
 	SensorEvent(const int bitmask, std::string name, SPair signalPair) :
 	bitmask(bitmask),
@@ -47,19 +59,35 @@ public:
 	SignalGenerator();
 	virtual ~SignalGenerator();
 
+	/*
+	 *@brief: functor for thread that listens on AsyncChannel with a blocked wait
+	 */
 	void operator()();
-	void stop();
+
+	/*
+	 *@brief: terminates thread that listens on AsyncChannel within the next message
+	 *@brief: that gets read after calling this method
+	 */
+	void terminate();
+
+	/*
+	 *@brief: returns nextSignal in signalBuffer.
+	 *
+	 *If signalBuffer is empty it returns Signal(cb_x,cb_x,SIGNAL_BUFFER_EMPTY)
+	 */
 	Signal nextSignal();
 
 	/*
-	 * @brief deletes all signals in buffers without signal SIGNAL_BUFFER_EMPTY
+	 *@brief clears signalBuffer
 	 */
-	void resetSignalBuffer();
+	void clearSignalBuffer();
 
+	// sensor events for higher byte of PORT C
 	static const SensorEvent BUTTON_START;
 	static const SensorEvent BUTTON_STOP;
 	static const SensorEvent BUTTON_RESET;
 	static const SensorEvent BUTTON_E_STOP;
+	// sensor events for PORT B
 	static const SensorEvent LIGHT_BARRIER_INPUT;
 	static const SensorEvent LIGHT_BARRIER_HEIGHT;
 	static const SensorEvent SENSOR_HEIGHT_MATCH;
@@ -70,8 +98,14 @@ public:
 	static const SensorEvent LIGHT_BARRIER_OUTPUT;
 
 private:
+	/*
+	 *@brief: initializes class member events
+	 */
 	static void init_events();
 
+	/*
+	 * events holds all sensor events
+	 */
 	static std::vector<const SensorEvent> events;
 	std::thread thread;
 	bool running;

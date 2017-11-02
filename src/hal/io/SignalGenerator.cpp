@@ -59,7 +59,7 @@ running(true) {
 
 SignalGenerator::~SignalGenerator() {
 	LOG_SCOPE
-	stop();
+	terminate();
 	AsyncChannel::getChannel().sendMessage({0,0});
 	thread.join();
 	ISR::unregisterISR();
@@ -67,6 +67,7 @@ SignalGenerator::~SignalGenerator() {
 
 void SignalGenerator::operator()() {
 	LOG_SCOPE
+
 	while (running) {
 		AsyncMsg message;
 		message = AsyncChannel::getChannel().getNextMessage();
@@ -85,7 +86,7 @@ void SignalGenerator::operator()() {
 	}
 }
 
-void SignalGenerator::stop() {
+void SignalGenerator::terminate() {
 	LOG_SCOPE
 	running = false;
 }
@@ -100,7 +101,7 @@ Signal SignalGenerator::nextSignal() {
 	return signal;
 }
 
-void SignalGenerator::resetSignalBuffer() {
+void SignalGenerator::clearSignalBuffer() {
 	LOG_SCOPE
 	signalBuffer.clear();
 	if(signalBuffer.size() != 0){
