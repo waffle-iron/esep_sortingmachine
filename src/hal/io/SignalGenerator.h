@@ -70,9 +70,9 @@ public:
 	static const SensorEvent LIGHT_BARRIER_OUTPUT;
 
 private:
-	static const std::vector<const SensorEvent> init_events();
+	static void init_events();
 
-	static const std::vector<const SensorEvent> events;
+	static std::vector<const SensorEvent> events;
 	std::thread thread;
 	bool running;
 	int stored_mask;

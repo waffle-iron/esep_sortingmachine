@@ -44,7 +44,7 @@ const SensorEvent SignalGenerator::LIGHT_BARRIER_SLIDE(	0b01000000, "LIGHT_BARRI
 const SensorEvent SignalGenerator::LIGHT_BARRIER_OUTPUT(0b10000000, "LIGHT_BARRIER_OUTPUT", SPair(Signalname::LIGHT_BARRIER_OUTPUT_NOT_INTERRUPTED,
 																								  Signalname::LIGHT_BARRIER_OUTPUT_INTERRUPTED));
 
-const vector<const SensorEvent> SignalGenerator::events = SignalGenerator::init_events();
+std::vector<const SensorEvent> SignalGenerator::events;
 
 
 SignalGenerator::SignalGenerator():
@@ -54,6 +54,7 @@ running(true) {
 	stored_mask = hal::io::GPIO::instance().read(PORT::C)<<8 | hal::io::GPIO::instance().read(PORT::B);
 	ISR::registerISR(AsyncChannel::getChannel(), MAGIC_NUMBER);
 	thread = std::thread(std::ref(*this));
+	init_events();
 }
 
 SignalGenerator::~SignalGenerator() {
@@ -107,22 +108,20 @@ void SignalGenerator::resetSignalBuffer() {
 	}
 }
 
-const std::vector<const SensorEvent> SignalGenerator::init_events() {
+void SignalGenerator::init_events() {
 	LOG_SCOPE
-	std::vector<const SensorEvent> vector;
-	vector.push_back(BUTTON_START);
-	vector.push_back(BUTTON_STOP);
-	vector.push_back(BUTTON_RESET);
-	vector.push_back(BUTTON_E_STOP);
-	vector.push_back(LIGHT_BARRIER_INPUT);
-	vector.push_back(LIGHT_BARRIER_HEIGHT);
-	vector.push_back(LIGHT_BARRIER_SWITCH);
-	vector.push_back(LIGHT_BARRIER_SLIDE);
-	vector.push_back(LIGHT_BARRIER_OUTPUT);
-	vector.push_back(SENSOR_HEIGHT_MATCH);
-	vector.push_back(SENSOR_METAL_MATCH);
-	vector.push_back(SENSOR_SWITCH_OPEN);
-	return vector;
+	events.push_back(BUTTON_START);
+	events.push_back(BUTTON_STOP);
+	events.push_back(BUTTON_RESET);
+	events.push_back(BUTTON_E_STOP);
+	events.push_back(LIGHT_BARRIER_INPUT);
+	events.push_back(LIGHT_BARRIER_HEIGHT);
+	events.push_back(LIGHT_BARRIER_SWITCH);
+	events.push_back(LIGHT_BARRIER_SLIDE);
+	events.push_back(LIGHT_BARRIER_OUTPUT);
+	events.push_back(SENSOR_HEIGHT_MATCH);
+	events.push_back(SENSOR_METAL_MATCH);
+	events.push_back(SENSOR_SWITCH_OPEN);
 }
 
 
