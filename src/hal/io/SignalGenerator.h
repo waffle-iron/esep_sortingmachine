@@ -11,7 +11,6 @@
 #include "Signals.h"
 #include <thread>
 #include <vector>
-#include <map>
 
 namespace hal {
 namespace io {
@@ -19,17 +18,19 @@ namespace io {
 struct SPair {
 	SPair(Signalname high, Signalname low) :
 	high(high),
-	low(low) {
-
+	low(low)
+	{
+		LOG_SCOPE
 	}
 	Signalname high;
 	Signalname low;
 };
 
 struct SensorEvent {
-	SensorEvent(const int bitmask, std::string name) :
+	SensorEvent(const int bitmask, std::string name, SPair signalPair) :
 	bitmask(bitmask),
-	name(name)
+	name(name),
+	signalPair(signalPair)
 	{
 		LOG_SCOPE
 	}
@@ -38,6 +39,7 @@ struct SensorEvent {
 	}
 	const int bitmask;
 	std::string name;
+	SPair signalPair;
 };
 
 class SignalGenerator {
@@ -54,22 +56,23 @@ public:
 	 */
 	void resetSignalBuffer();
 
-	static SensorEvent BUTTON_START;
-	static SensorEvent BUTTON_STOP;
-	static SensorEvent BUTTON_RESET;
-	static SensorEvent BUTTON_E_STOP;
-	static SensorEvent LIGHT_BARRIER_INPUT;
-	static SensorEvent LIGHT_BARRIER_HEIGHT;
-	static SensorEvent SENSOR_HEIGHT_MATCH;
-	static SensorEvent LIGHT_BARRIER_SWITCH;
-	static SensorEvent SENSOR_METAL_MATCH;
-	static SensorEvent LIGHT_BARRIER_SLIDE;
-	static SensorEvent SENSOR_SWITCH_OPEN;
-	static SensorEvent LIGHT_BARRIER_OUTPUT;
+	static const SensorEvent BUTTON_START;
+	static const SensorEvent BUTTON_STOP;
+	static const SensorEvent BUTTON_RESET;
+	static const SensorEvent BUTTON_E_STOP;
+	static const SensorEvent LIGHT_BARRIER_INPUT;
+	static const SensorEvent LIGHT_BARRIER_HEIGHT;
+	static const SensorEvent SENSOR_HEIGHT_MATCH;
+	static const SensorEvent LIGHT_BARRIER_SWITCH;
+	static const SensorEvent SENSOR_METAL_MATCH;
+	static const SensorEvent LIGHT_BARRIER_SLIDE;
+	static const SensorEvent SENSOR_SWITCH_OPEN;
+	static const SensorEvent LIGHT_BARRIER_OUTPUT;
 
 private:
-	static const std::map<const int, SPair> init_map();
-	static const std::map<const int, SPair> events;
+	static const std::vector<const SensorEvent> init_events();
+
+	static const std::vector<const SensorEvent> events;
 	std::thread thread;
 	bool running;
 	int stored_mask;

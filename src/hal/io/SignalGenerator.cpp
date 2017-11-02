@@ -19,20 +19,32 @@ constexpr int MAGIC_NUMBER = 15;
 namespace hal {
 namespace io {
 
-SensorEvent SignalGenerator::BUTTON_START(		0b00010000<<8, "BUTTON_START");
-SensorEvent SignalGenerator::BUTTON_STOP( 		0b00100000<<8, "BUTTON_STOP");
-SensorEvent SignalGenerator::BUTTON_RESET( 		0b01000000<<8, "BUTTON_RESET");
-SensorEvent SignalGenerator::BUTTON_E_STOP(		0b10000000<<8, "BUTTON_E_STOP");
-SensorEvent SignalGenerator::LIGHT_BARRIER_INPUT( 0b00000001, "LIGHT_BARRIER_INPUT");
-SensorEvent SignalGenerator::LIGHT_BARRIER_HEIGHT(0b00000010, "LIGHT_BARRIER_HEIGHT");
-SensorEvent SignalGenerator::SENSOR_HEIGHT_MATCH(	0b00000100, "SENSOR_HEIGHT_MATCH");
-SensorEvent SignalGenerator::LIGHT_BARRIER_SWITCH(0b00001000, "LIGHT_BARRIER_SWITCH");
-SensorEvent SignalGenerator::SENSOR_METAL_MATCH(	0b00010000, "SENSOR_METAL_MATCH");
-SensorEvent SignalGenerator::SENSOR_SWITCH_OPEN(	0b00100000, "SENSOR_SWITCH_OPEN");
-SensorEvent SignalGenerator::LIGHT_BARRIER_SLIDE(	0b01000000, "LIGHT_BARRIER_SLIDE");
-SensorEvent SignalGenerator::LIGHT_BARRIER_OUTPUT(0b10000000, "LIGHT_BARRIER_OUTPUT");
+const SensorEvent SignalGenerator::BUTTON_START(		0b00010000<<8, "BUTTON_START", SPair(	  Signalname::BUTTON_START_PUSHED,
+				  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	 	  Signalname::BUTTON_START_PULLED));
+const SensorEvent SignalGenerator::BUTTON_STOP( 		0b00100000<<8, "BUTTON_STOP", SPair( 	  Signalname::BUTTON_STOP_PULLED,
+																							 	  Signalname::BUTTON_STOP_PUSHED));
+const SensorEvent SignalGenerator::BUTTON_RESET( 		0b01000000<<8, "BUTTON_RESET", SPair(	  Signalname::BUTTON_RESET_PUSHED,
+																								  Signalname::BUTTON_RESET_PULLED));
+const SensorEvent SignalGenerator::BUTTON_E_STOP(		0b10000000<<8, "BUTTON_E_STOP", SPair(	  Signalname::BUTTON_E_STOP_PULLED,
+																								  Signalname::BUTTON_E_STOP_PUSHED));
+const SensorEvent SignalGenerator::LIGHT_BARRIER_INPUT( 0b00000001, "LIGHT_BARRIER_INPUT", SPair( Signalname::LIGHT_BARRIER_INPUT_NOT_INTERRUPTED,
+																								  Signalname::LIGHT_BARRIER_INPUT_INTERRUPTED));
+const SensorEvent SignalGenerator::LIGHT_BARRIER_HEIGHT(0b00000010, "LIGHT_BARRIER_HEIGHT", SPair(Signalname::LIGHT_BARRIER_HEIGHT_NOT_INTERRUPTED,
+																								  Signalname::LIGHT_BARRIER_HEIGHT_INTERRUPTED));
+const SensorEvent SignalGenerator::SENSOR_HEIGHT_MATCH(	0b00000100, "SENSOR_HEIGHT_MATCH", SPair( Signalname::SENSOR_HEIGHT_MATCH,
+																								  Signalname::SENSOR_HEIGHT_NOT_MATCH));
+const SensorEvent SignalGenerator::LIGHT_BARRIER_SWITCH(0b00001000, "LIGHT_BARRIER_SWITCH", SPair(Signalname::LIGHT_BARRIER_SWITCH_NOT_INTERRUPTED,
+																								  Signalname::LIGHT_BARRIER_SWITCH_INTERRUPTED));
+const SensorEvent SignalGenerator::SENSOR_METAL_MATCH(	0b00010000, "SENSOR_METAL_MATCH", SPair(  Signalname::SENSOR_METAL_MATCH,
+																								  Signalname::SENSOR_METAL_NOT_MATCH));
+const SensorEvent SignalGenerator::SENSOR_SWITCH_OPEN(	0b00100000, "SENSOR_SWITCH_OPEN", SPair(  Signalname::SENSOR_SWITCH_IS_OPEN,
+																								  Signalname::SENSOR_SWITCH_IS_CLOSED));
+const SensorEvent SignalGenerator::LIGHT_BARRIER_SLIDE(	0b01000000, "LIGHT_BARRIER_SLIDE", SPair( Signalname::LIGHT_BARRIER_SLIDE_NOT_INTERRUPTED,
+																								  Signalname::LIGHT_BARRIER_SLIDE_INTERRUPTED));
+const SensorEvent SignalGenerator::LIGHT_BARRIER_OUTPUT(0b10000000, "LIGHT_BARRIER_OUTPUT", SPair(Signalname::LIGHT_BARRIER_OUTPUT_NOT_INTERRUPTED,
+																								  Signalname::LIGHT_BARRIER_OUTPUT_INTERRUPTED));
 
-const map<const int, SPair> SignalGenerator::events = SignalGenerator::init_map();
+const vector<const SensorEvent> SignalGenerator::events = SignalGenerator::init_events();
 
 
 SignalGenerator::SignalGenerator():
@@ -60,11 +72,11 @@ void SignalGenerator::operator()() {
 		int current_mask = (int)message.value;
 		int change = current_mask xor stored_mask;
 		for(const auto &event : events) {
-			if (change & event.first) { // change happend on signal?
-				if (event.first & current_mask) { 	// low -> high
-					signalBuffer.push_back(Signal(1,1,event.second.high));
+			if (change & event.bitmask) { // change happend on event?
+				if (event.bitmask & current_mask) { 	// low -> high
+					signalBuffer.push_back(Signal(1,1,event.signalPair.high));
 				} else {						// high -> low
-					signalBuffer.push_back(Signal(1,1,event.second.low));
+					signalBuffer.push_back(Signal(1,1,event.signalPair.low));
 				}
 			}
 		}
@@ -95,46 +107,22 @@ void SignalGenerator::resetSignalBuffer() {
 	}
 }
 
-const std::map<const int, SPair> SignalGenerator::init_map() {
+const std::vector<const SensorEvent> SignalGenerator::init_events() {
 	LOG_SCOPE
-	map<const int, SPair> map;
-	map.insert({BUTTON_START.bitmask, SPair(
-				Signalname::BUTTON_START_PUSHED,
-				Signalname::BUTTON_START_PULLED)});
-	map.insert({BUTTON_STOP.bitmask, SPair(
-				Signalname::BUTTON_STOP_PULLED,
-				Signalname::BUTTON_STOP_PUSHED)});
-	map.insert({BUTTON_RESET.bitmask, SPair(
-				Signalname::BUTTON_RESET_PUSHED,
-				Signalname::BUTTON_RESET_PULLED)});
-	map.insert({BUTTON_E_STOP.bitmask, SPair(
-				Signalname::BUTTON_E_STOP_PULLED,
-				Signalname::BUTTON_E_STOP_PUSHED)});
-	map.insert({LIGHT_BARRIER_INPUT.bitmask, SPair(
-				Signalname::LIGHT_BARRIER_INPUT_NOT_INTERRUPTED,
-				Signalname::LIGHT_BARRIER_INPUT_INTERRUPTED)});
-	map.insert({LIGHT_BARRIER_HEIGHT.bitmask, SPair(
-				Signalname::LIGHT_BARRIER_HEIGHT_NOT_INTERRUPTED,
-				Signalname::LIGHT_BARRIER_HEIGHT_INTERRUPTED)});
-	map.insert({LIGHT_BARRIER_SWITCH.bitmask, SPair(
-				Signalname::LIGHT_BARRIER_SWITCH_NOT_INTERRUPTED,
-				Signalname::LIGHT_BARRIER_SWITCH_INTERRUPTED)});
-	map.insert({LIGHT_BARRIER_SLIDE.bitmask, SPair(
-				Signalname::LIGHT_BARRIER_SLIDE_NOT_INTERRUPTED,
-				Signalname::LIGHT_BARRIER_SLIDE_INTERRUPTED)});
-	map.insert({LIGHT_BARRIER_OUTPUT.bitmask, SPair(
-				Signalname::LIGHT_BARRIER_OUTPUT_NOT_INTERRUPTED,
-				Signalname::LIGHT_BARRIER_OUTPUT_INTERRUPTED)});
-	map.insert({SENSOR_HEIGHT_MATCH.bitmask, SPair(
-				Signalname::SENSOR_HEIGHT_MATCH,
-				Signalname::SENSOR_HEIGHT_NOT_MATCH)});
-	map.insert({SENSOR_METAL_MATCH.bitmask, SPair(
-				Signalname::SENSOR_METAL_MATCH,
-				Signalname::SENSOR_METAL_NOT_MATCH)});
-	map.insert({SENSOR_SWITCH_OPEN.bitmask, SPair(
-				Signalname::SENSOR_SWITCH_IS_OPEN,
-				Signalname::SENSOR_SWITCH_IS_CLOSED)});
-	return map;
+	std::vector<const SensorEvent> vector;
+	vector.push_back(BUTTON_START);
+	vector.push_back(BUTTON_STOP);
+	vector.push_back(BUTTON_RESET);
+	vector.push_back(BUTTON_E_STOP);
+	vector.push_back(LIGHT_BARRIER_INPUT);
+	vector.push_back(LIGHT_BARRIER_HEIGHT);
+	vector.push_back(LIGHT_BARRIER_SWITCH);
+	vector.push_back(LIGHT_BARRIER_SLIDE);
+	vector.push_back(LIGHT_BARRIER_OUTPUT);
+	vector.push_back(SENSOR_HEIGHT_MATCH);
+	vector.push_back(SENSOR_METAL_MATCH);
+	vector.push_back(SENSOR_SWITCH_OPEN);
+	return vector;
 }
 
 
