@@ -80,12 +80,19 @@ void SignalGenerator::stop() {
 
 Signal SignalGenerator::nextSignal() {
 	LOG_SCOPE
-	LOG_ERROR<<signalBuffer.size()<<endl;
-	Signal signal = signalBuffer.front();
-	LOG_ERROR<<"after signalBuffer.front()"<<endl;
-	signalBuffer.erase(signalBuffer.begin());
-	LOG_ERROR<<"after signalBuffer.erase()"<<endl;
-	return signal;
+	Signal result = signalBuffer.back();
+	if(result.name != Signalname::SIGNAL_BUFFER_EMPTY) {
+		signalBuffer.pop_back();
+	}
+	return result;
+}
+
+void SignalGenerator::resetSignalBuffer() {
+	LOG_SCOPE
+	if(not signalBuffer.empty()){
+		LOG_ERROR<<__FUNCTION__<<": could no empty signalBuffer"<<endl;
+	}
+	signalBuffer.push_back(Signal(0b001,0b000,Signalname::SIGNAL_BUFFER_EMPTY));
 }
 
 const std::map<const int, SPair> SignalGenerator::init_map() {

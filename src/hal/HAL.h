@@ -42,6 +42,11 @@ namespace hal {
 		void switchPointClose();
 
 		Signal getSignal();
+		/*
+		 * @brief removes all signals from Buffer and adds SIGNAL_BUFFER_EMPTY signal
+		 * if removing all signals fails a error message gets logged.
+		 */
+		void resetSignals();
 
 	private:
 		actuators::Motor& _motor;

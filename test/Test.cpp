@@ -209,6 +209,9 @@ void Test::sensorsTest(){
 }
 
 void Test::sensorTestHelper(hal::io::SignalBitmask signalbitmask, Signalname normal, Signalname opposite) {
+
+	_hal->resetSignals();
+
 	while (cin.get() != '\n');
 	cout << "test opposite Signal of " << signalbitmask.name<< endl;
 	if (_hal->getSignal().name == opposite){

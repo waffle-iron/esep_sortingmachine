@@ -49,6 +49,11 @@ public:
 	void stop();
 	Signal nextSignal();
 
+	/*
+	 * @brief deletes all signals in buffers without signal SIGNAL_BUFFER_EMPTY
+	 */
+	void resetSignalBuffer();
+
 	static SignalBitmask BUTTON_START_PUSHED;
 	static SignalBitmask BUTTON_STOP_PULLED;
 	static SignalBitmask BUTTON_RESET_PUSHED;

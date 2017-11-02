@@ -108,4 +108,8 @@ Signal HAL::getSignal() {
 	return signalGenerator.nextSignal();
 }
 
+void HAL::resetSignals() {
+	signalGenerator.resetSignalBuffer();
+}
+
 } /* hal */
