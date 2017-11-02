@@ -215,7 +215,7 @@ void Test::sensorTestHelper(hal::io::SensorEvent signalBitmask, Signalname event
 			triggerCounter++;
 		} else {
 			running = false;
-			if (firstSignal.name == Signalname::SIGNAL_BUFFER_EMPTY) {
+			if (triggerCounter > 0 and firstSignal.name == Signalname::SIGNAL_BUFFER_EMPTY) {
 				success = true;
 			}
 		}
