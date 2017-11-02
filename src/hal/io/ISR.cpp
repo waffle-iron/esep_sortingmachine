@@ -53,7 +53,7 @@ void ISR::clearAllPendingIntFlag() {
 const struct sigevent* ISR::mainISR(void* arg, int id) {
     struct sigevent* event = (struct sigevent*) arg;
     ISR::clearAllPendingIntFlag();
-    event->sigev_value.sival_int = ((GPIO::instance().read(PORT::C)&0xff)<<8) |
+    event->sigev_value.sival_int = ((GPIO::instance().read(PORT::C)&0xf0)<<8) |
     								(GPIO::instance().read(PORT::B)&0xff);
     return event;
 }

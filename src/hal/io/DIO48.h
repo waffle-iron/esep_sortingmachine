@@ -11,7 +11,7 @@
 
 #define DIO_BASE 0x300
 
-// Sehe Manual M104-DIO-48S.A1i, Kap. 5: Programming
+// look manual M104-DIO-48S.A1i, Chapter. 5: Programming
 #define CTRL_REG_GROUP0     (DIO_BASE + 0x03)
 /*
  * PORT A : OUTPUT
@@ -44,9 +44,9 @@
 #define DIO_GROUP0_PC_IRQ_ENABLE		0x04
 
 /*
- * Bit defintion Change-of-state Interrupt Status Register
+ * Bit definition Change-of-state Interrupt Status Register
  *
- * Reading a "1" means Change-of-state occured
+ * Reading a "1" means Change-of-state occurred
  *
  *      Bit 0   Port A, Group 0
  *      Bit 1   Port B, Group 0
