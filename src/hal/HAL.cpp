@@ -108,7 +108,7 @@ Signal HAL::getSignal() {
 	return signalGenerator.nextSignal();
 }
 
-void HAL::resetSignals() {
+void HAL::clearSignalBuffer() {
 	signalGenerator.clearSignalBuffer();
 }
 

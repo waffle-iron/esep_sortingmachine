@@ -198,7 +198,7 @@ void Test::sensorsTest(){
 
 void Test::sensorTestHelper(hal::io::SensorEvent signalBitmask, Signalname eventTriggerStart, Signalname eventTriggerEnd) {
 
-	_hal->resetSignals();
+	_hal->clearSignalBuffer();
 
 	cout <<endl<< "test " << signalBitmask.name << "\n - please trigger sensor one or several times. Hit return key afterwards.";
 

@@ -53,7 +53,7 @@ namespace hal {
 		 *
 		 * if removing all signals fails a error message gets logged.
 		 */
-		void resetSignals();
+		void clearSignalBuffer();
 
 	private:
 		actuators::Motor& _motor;
