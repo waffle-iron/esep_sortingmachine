@@ -1,9 +1,8 @@
 /**
- * Embedded System Engineering SoSe 2017
  * ISR.h
- * This module configures and activates the Interrupt Handler for the FESTO system
- * @author: Nils Schönherr
- * @version: 06.04.2017
+ *
+ *  Created on: 20.10.2017
+ *      Author: abj240
  *
  */
 
@@ -70,10 +69,8 @@ private:
 	ISR();
 	~ISR();
 
-	//real ISR
 	static const struct sigevent* mainISR(void* arg, int id);
 
-	//class Attributes
 	static int isrId;
 	static struct sigevent isrEvent;
 };

@@ -2,10 +2,11 @@
  *
  * The IRQ-Handler checks the DIO48 IRQ-Statusregister.
  * If PortB IRQ is signaled the IRQ-Statusregister is cleared and
- * the event SIGEV_INTR is returned. Else nothing is done and
+ * the event SIGEV_INTR is returned. Elsewise nothing is done and
  * the event SIGEV_NONE is returned.
  *
  */
+
 #include "ISR.h"
 #include <sys/neutrino.h>
 #include <hw/inout.h>
@@ -44,7 +45,7 @@ void ISR::clearPendingIntFlag(int bit) {
 	out8(DIO_BASE + DIO_CHG_STATE_IRQ_STATUS, tmp);
 }
 
-//no debug message allowed, otherwise isr crashes
+// no debug message allowed, otherwise isr crashes
 void ISR::clearAllPendingIntFlag() {
 	out8(DIO_BASE + DIO_CHG_STATE_IRQ_STATUS, 0);
 }
@@ -66,10 +67,10 @@ void ISR::registerISR(AsyncChannel& chan, char msgType){
     // clear any possible pending irq
     ISR::clearAllPendingIntFlag();
 
-	//initialize event structure
+	// initialize event structure
     SIGEV_PULSE_INIT(&isrEvent, chan.getConnectionId(), SIGEV_PULSE_PRIO_INHERIT, (int)msgType, 0);
 
-    // Attach mainISR handler to hardware interrupt
+    // attach mainISR handler to hardware interrupt
     isrId = InterruptAttach(HW_INTERRUPT, ISR::mainISR, &isrEvent, sizeof(isrEvent), 0);
     if (isrId == -1) {
         LOG_ERROR<<"Could not attach mainISR handler to hw interrupt"<<std::endl;
@@ -82,7 +83,7 @@ void ISR::registerISR(AsyncChannel& chan, char msgType){
 
 void ISR::unregisterISR(){
 
-    // Detach interrupt handler
+    // detach interrupt handler
     if( InterruptDetach(isrId) < 0 ){
         LOG_ERROR<<"Could not detach interrupt handler"<<std::endl;
         exit(EXIT_FAILURE);

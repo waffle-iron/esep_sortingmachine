@@ -1,8 +1,8 @@
 /*
  * AsyncChannel.cpp
  *
- *  Created on: 15.05.2017
- *      Author: aca216
+ *  Created on: 20.10.2017
+ *      Author: abj240
  */
 
 #include "AsyncChannel.h"
@@ -17,17 +17,17 @@ namespace io {
 
 AsyncChannel::AsyncChannel() {
 	LOG_SCOPE
-	//creating Channel
+	// creating channel
 	channelId = ChannelCreate_r(0);
-	if(channelId<0){
-		LOG_ERROR<<"Channel create failed. Channel id: "<<channelId;
+	if(channelId < 0) {
+		LOG_ERROR<<"Channel create failed. Channel id: "<< channelId << endl;
 		exit(EXIT_FAILURE);
 	}
 
-	//creating connection to Channel
+	// creating connection to channel
 	connectionId = ConnectAttach_r(0, 0, channelId, 0, 0);
-	if(connectionId<0){
-		LOG_ERROR<<"Connection attach failed. Connection id: "<<connectionId;
+	if(connectionId < 0){
+		LOG_ERROR<<"Connection attach failed. Connection id: " << connectionId << endl;
 		exit(EXIT_FAILURE);
 	}
 
@@ -40,7 +40,7 @@ AsyncChannel::~AsyncChannel() {
 	ConnectDetach(connectionId);
 	ChannelDestroy(channelId);
 
-	LOG_DEBUG<<__FUNCTION__<<" channel destroyed."<<endl;;
+	LOG_DEBUG<<__FUNCTION__ << " channel destroyed." << endl;;
 }
 
 AsyncMsg AsyncChannel::getNextMessage(){
@@ -49,14 +49,14 @@ AsyncMsg AsyncChannel::getNextMessage(){
 	AsyncMsg msg;
 	struct _pulse pulse;
 
-	//wait for next message
+	// wait for next message
 	int ret = MsgReceivePulse_r(channelId, &pulse, sizeof(pulse), NULL);
 	if(ret < 0){
-		LOG_ERROR<<__FUNCTION__<<" MsgReceivePulse failed. Error id: "<<ret<<endl;
+		LOG_ERROR<<__FUNCTION__ << " MsgReceivePulse failed. Error id: " << ret << endl;
 		exit(EXIT_FAILURE);
 	}
 
-	//put data in own structure
+	// put data in own structure
 	msg.type = pulse.code;
 	msg.value = pulse.value.sival_int;
 
@@ -65,7 +65,7 @@ AsyncMsg AsyncChannel::getNextMessage(){
 
 void AsyncChannel::sendMessage(AsyncMsg msg){
 	LOG_SCOPE
-	//send message to channel via connectionId
+	// send message to channel via connectionId
     int ret = MsgSendPulse_r(
 		connectionId,
 		sched_get_priority_max(0),

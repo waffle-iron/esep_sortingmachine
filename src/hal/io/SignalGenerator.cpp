@@ -1,8 +1,8 @@
 /*
  * InterruptHandler.cpp
  *
- *  Created on: Oct 19, 2017
- *      Author: stammtisch
+ *  Created on: 20.10.2017
+ *      Author: abj240
  */
 
 #include "SignalGenerator.h"

@@ -1,8 +1,8 @@
 /*
  * AsyncChannel.h
  *
- *  Created on: 15.05.2017
- *      Author: aca216
+ *  Created on: 20.10.2017
+ *      Author: abj240
  */
 
 #ifndef ASYNCCHANNEL_H_
@@ -22,7 +22,7 @@ private:
 	int connectionId;
 	AsyncChannel();
 
-	//avoid copying of singletons
+	// avoid copying of singletons
 	AsyncChannel& operator=(const AsyncChannel&);
 	AsyncChannel(const AsyncChannel&);
 
