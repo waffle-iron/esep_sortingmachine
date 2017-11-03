@@ -9,9 +9,7 @@
 #include "Header.h"
 #include "AsyncChannel.h"
 #include "ISR.h"
-#include <iostream>
 #include "GPIO.h"
-#include <string>//bugfixing
 
 constexpr int MAGIC_NUMBER = 15;
 

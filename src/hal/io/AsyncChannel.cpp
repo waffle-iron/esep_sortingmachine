@@ -9,8 +9,6 @@
 #include "Header.h"
 
 #include <sys/neutrino.h>
-#include <thread>
-
 
 using namespace std;
 

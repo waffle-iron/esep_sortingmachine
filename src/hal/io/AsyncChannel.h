@@ -8,9 +8,6 @@
 #ifndef ASYNCCHANNEL_H_
 #define ASYNCCHANNEL_H_
 
-#include <string>
-#include "Header.h"
-
 struct AsyncMsg {
 	char type;
 	int value;
