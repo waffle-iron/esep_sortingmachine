@@ -8,6 +8,7 @@
 #ifndef HARDWARELAYER_H_
 #define HARDWARELAYER_H_
 
+#include "Signals.h"
 #include "Motor.h"
 #include "SwitchPoint.h"
 #include "TrafficLight.h"
@@ -20,9 +21,10 @@ namespace hardwareLayer {
 		HardwareLayer();
 		virtual ~HardwareLayer();
 
-		string getSignal();
-
-		string getSignal();
+		Signal getSignal(){
+			// Vorläufiger Rückgabewert
+			return Signal(0,0,Signalname::SIGNAL_BUFFER_EMPTY);
+		}
 
 		void greenLightOn();
 		void greenLightOff();

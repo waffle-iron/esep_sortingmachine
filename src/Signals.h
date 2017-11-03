@@ -118,6 +118,13 @@ enum class Signalname {
  * @param name specific signal name
  */
 struct Signal {
+	Signal() :
+	sender(0),
+	receiver(0),
+	name(Signalname::SIGNAL_BUFFER_EMPTY)
+	{
+		LOG_SCOPE
+	}
 	Signal(char sender, char receiver, Signalname name) :
 	sender(sender),
 	receiver(receiver),

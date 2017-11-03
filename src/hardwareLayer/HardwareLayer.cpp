@@ -7,6 +7,7 @@
 
 #include "HardwareLayer.h"
 #include "GPIO.h"
+#include "Signals.h"
 
 namespace hardwareLayer {
 
@@ -34,11 +35,6 @@ HardwareLayer::~HardwareLayer() {
 	redLightOff();
 	yellowLightOff();
 
-}
-
-
-string HardwareLayer::getSignal() {
-	return "HAL: Here, take my signal, bitch!";
 }
 
 void HardwareLayer::motorStart() {

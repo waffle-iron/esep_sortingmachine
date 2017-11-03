@@ -20,13 +20,18 @@ int main(int argc, char *argv[])
 	LOG_SET_LEVEL(DEBUG);
 	LOG_DEBUG<<"hello world \n";
 
-	hal::HAL hal;
-	logicLayer::test::Test test = logicLayer::test::Test(&hal);
+	hardwareLayer::HardwareLayer hal;
+
+	logicLayer::LogicLayer loLay = logicLayer::LogicLayer(hal);
+	hal.notify_observers();
+
+	/*logicLayer::test::Test test = logicLayer::test::Test(&hal);
 
 	test.actuatorsTest();
 	test.mmiTest();
 	test.threadSafenessInGpioTest();
 	test.singletonThreadSafeTest();
+*/
 
 
 	cout << "Starting Sortingmachine ... done !" << endl;
