@@ -72,7 +72,7 @@ void AsyncChannel::sendMessage(AsyncMsg msg){
     	msg.type,
 		msg.value );
    	if(ret < 0){
-   		LOG_ERROR<<__FUNCTION__<<" MsgReceivePulse failed. Error id: "<<ret<<endl;
+   		LOG_ERROR<<__FUNCTION__<<" MsgSendPulse failed. Error id: "<<ret<<endl;
    		exit(EXIT_FAILURE);
    	}
 }
