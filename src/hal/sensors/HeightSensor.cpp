@@ -18,7 +18,6 @@
 namespace hal {
 namespace sensors {
 
-//constexpr uint16_t baseAddress = 0x320;
 constexpr uint8_t readLowAddressOffset = 0x22;
 constexpr uint8_t startConversionAddressOffset = 0x22;
 constexpr uint8_t readHighAddressOffset = 0x23;
