@@ -43,7 +43,7 @@ AsyncChannel::~AsyncChannel() {
 	LOG_DEBUG<<__FUNCTION__ << " channel destroyed." << endl;;
 }
 
-AsyncMsg AsyncChannel::getNextMessage(){
+AsyncMsg AsyncChannel::nextMessage(){
 	LOG_SCOPE
 
 	AsyncMsg msg;
@@ -82,7 +82,7 @@ int AsyncChannel::getConnectionId(){
 	return connectionId;
 }
 
-AsyncChannel& AsyncChannel::getChannel(){
+AsyncChannel& AsyncChannel::instance(){
 	LOG_SCOPE
 	static AsyncChannel instance;
 	return instance;

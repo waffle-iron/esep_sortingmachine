@@ -17,37 +17,28 @@ namespace hal {
 namespace io {
 
 class AsyncChannel {
-private:
-	int channelId;
-	int connectionId;
-	AsyncChannel();
-
-	// avoid copying of singletons
-	AsyncChannel& operator=(const AsyncChannel&);
-	AsyncChannel(const AsyncChannel&);
 
 public:
+	/*
+	 * @brief: returns meyer's singleton
+	 */
+	static AsyncChannel& instance();
 
 	/*
-	 * @brief: Destructor
-	 * @after: all bound ressources of this channel are being freed
+	 * @brief: Destructor.
+	 * @after: bound resources of this channel are released
 	 */
 	virtual ~AsyncChannel();
 
 	/*
-	 * @brief: gets Instance (if needed creates multiton object and) returns it
+	 * @brief: waits(blocked) for next message and returns it
+	 * @return: received message (first in first out)
 	 */
-	static AsyncChannel& getChannel();
+	AsyncMsg nextMessage();
 
 	/*
-	 * @brief: waits(blocked) for next Message and returns it
-	 * @return: received Message
-	 */
-	AsyncMsg getNextMessage();
-
-	/*
-	 * @brief: sends Message to Channel via single Connection
-	 * @param: msg to send
+	 * @brief: sends message to channel via single connection
+	 * @param: message to send
 	 */
 	void sendMessage(AsyncMsg msg);
 
@@ -55,6 +46,14 @@ public:
 	 * @brief: returns connection id to channel
 	 */
 	int getConnectionId();
+
+private:
+	AsyncChannel();
+	AsyncChannel(const AsyncChannel&);
+	AsyncChannel& operator=(const AsyncChannel&);
+
+	int channelId;
+	int connectionId;
 
 };
 

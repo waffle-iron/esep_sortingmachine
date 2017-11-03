@@ -50,7 +50,7 @@ running(true) {
 	LOG_SCOPE
 	hal::io::GPIO::instance().gainAccess();
 	stored_mask = hal::io::GPIO::instance().read(PORT::C)<<8 | hal::io::GPIO::instance().read(PORT::B);
-	ISR::registerISR(AsyncChannel::getChannel(), MAGIC_NUMBER);
+	ISR::registerISR(AsyncChannel::instance(), MAGIC_NUMBER);
 	thread = std::thread(std::ref(*this));
 	init_events();
 }
@@ -58,7 +58,7 @@ running(true) {
 SignalGenerator::~SignalGenerator() {
 	LOG_SCOPE
 	terminate();
-	AsyncChannel::getChannel().sendMessage({0,0});
+	AsyncChannel::instance().sendMessage({0,0});
 	thread.join();
 	ISR::unregisterISR();
 }
@@ -68,7 +68,7 @@ void SignalGenerator::operator()() {
 
 	while (running) {
 		AsyncMsg message;
-		message = AsyncChannel::getChannel().getNextMessage();
+		message = AsyncChannel::instance().nextMessage();
 		int current_mask = (int)message.value;
 		int change = current_mask xor stored_mask;
 		for(const auto &event : events) {
