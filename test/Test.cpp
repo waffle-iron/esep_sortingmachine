@@ -80,13 +80,7 @@ void Test::mmiTest(){
 	_hal->greenLightOn();
 	if( !nextTest(__FUNCTION__) ) return;
 
-	cout << "test lamps off: red, yellow, green" << endl;
-	_hal->yellowLightOff();
-	_hal->redLightOff();
-	_hal->greenLightOff();
-	if( !nextTest(__FUNCTION__) ) return;
-
-	cout << "test blinking fast: red, yello, green " << endl;
+	cout << "test blinking fast: red, yellow, green " << endl;
 	_hal->blinkGreen(Speed::fast);
 	_hal->blinkRed(Speed::fast);
 	_hal->blinkYellow(Speed::fast);
@@ -114,10 +108,6 @@ void Test::mmiTest(){
 	_hal->yellowLightOff();
 	if( !nextTest(__FUNCTION__) ) return;
 
-	cout << "test blinking slow: nothing" << endl;
-	_hal->greenLightOff();
-	if( !nextTest(__FUNCTION__) ) return;
-
 	cout << "test blinking slow: red, yellow, green" << endl;
 	_hal->blinkGreen(Speed::slow);
 	_hal->blinkYellow(Speed::slow);
@@ -134,6 +124,12 @@ void Test::mmiTest(){
 	_hal->blinkGreen(Speed::slow);
 	_hal->blinkYellow(Speed::slow);
 	_hal->blinkRed(Speed::slow);
+	if( !nextTest(__FUNCTION__) ) return;
+
+	cout << "test blinking: nothing" << endl;
+	_hal->greenLightOff();
+	_hal->yellowLightOff();
+	_hal->redLightOff();
 	if( !nextTest(__FUNCTION__) ) return;
 
 	cout  << __FUNCTION__ << " successful. " << endl;
@@ -250,7 +246,7 @@ void Test::singletonThreadSafeTest(){
 
 	if( !nextTest(__FUNCTION__) ) return;
 
-	cout << __FUNCTION__ << " successful." << endl;
+	cout << __FUNCTION__ << " successful." << endl<<endl;
 
 }
 
@@ -277,7 +273,7 @@ void Test::threadSafenessInGpioTest(){
 
 	if( !nextTest(__FUNCTION__) ) return;
 
-	cout << __FUNCTION__ << " successful." << endl;
+	cout << __FUNCTION__ << " successful." << endl<<endl;
 }
 
 
