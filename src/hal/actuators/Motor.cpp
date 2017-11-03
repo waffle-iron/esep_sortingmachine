@@ -14,7 +14,7 @@ constexpr port_t COUNTERCLOCKWISE_ROTATION 	= 0b00000010;
 constexpr port_t MOTOR_SLOW					= 0b00000100;
 constexpr port_t MOTOR_STOP 				= 0b00001000;
 
-namespace hal {
+namespace hardwareLayer {
 namespace actuators {
 
 

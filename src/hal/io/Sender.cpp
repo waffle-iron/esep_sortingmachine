@@ -7,7 +7,7 @@
 
 #include "Sender.h"
 
-namespace hal {
+namespace hardwareLayer {
 namespace io {
 
 

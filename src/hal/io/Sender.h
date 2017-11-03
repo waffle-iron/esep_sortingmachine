@@ -10,7 +10,7 @@
 
 #include "Serial.h"
 
-namespace hal {
+namespace hardwareLayer {
 namespace io {
 
 

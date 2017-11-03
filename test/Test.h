@@ -10,7 +10,7 @@
 
 #include "GPIO.h"
 #include <string>
-#include "HAL.h"
+#include "HardwareLayer.h"
 
 
 namespace logicLayer{
@@ -18,7 +18,7 @@ namespace test{
 
 class Test {
 public:
-	Test(hal::HAL* hal);
+	Test(hardwareLayer::HardwareLayer* hal);
 	virtual ~Test();
 
 	/**
@@ -47,12 +47,12 @@ public:
 	void threadSafenessInGpioTest();
 private:
 
-	hal::HAL* _hal;
+	hardwareLayer::HardwareLayer* _hal;
 
 	/**
 	 *
 	 */
-	static void writeSomethingElse(hal::io::GPIO *gpio, int difference);
+	static void writeSomethingElse(hardwareLayer::io::GPIO *gpio, int difference);
 
 	/**
 	 *	@brief go to next test

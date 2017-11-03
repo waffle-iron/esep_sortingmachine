@@ -8,7 +8,7 @@
 #ifndef MOTOR_H_
 #define MOTOR_H_
 
-namespace hal {
+namespace hardwareLayer {
 namespace actuators {
 
 class Motor {
