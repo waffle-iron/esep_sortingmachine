@@ -9,7 +9,11 @@
 
 namespace logicLayer {
 
+<<<<<<< HEAD
 LogicLayer::LogicLayer(hal::HAL& hal) :
+=======
+LogicLayer::LogicLayer(hardwareLayer::HardwareLayer& hal) :
+>>>>>>> master
 hal(hal)
 {
 	hal.register_observer(this);

@@ -4,12 +4,11 @@
 #include <iostream>
 #include <thread>
 #include <chrono>
-#include "HAL.h"
 #include "GPIO.h"
 #include "Test.h"
 #include "GpioTesting.h"
+#include "HardwareLayer.h"
 #include "LogicLayer.h"
-#include "HAL.h"
 using namespace std;
 
 int main(int argc, char *argv[])
@@ -20,7 +19,7 @@ int main(int argc, char *argv[])
 	LOG_SET_LEVEL(DEBUG);
 	LOG_DEBUG<<"hello world \n";
 
-	hal::HAL hal;
+	hardwareLayer::HardwareLayer hal;
 
 	logicLayer::test::Test test = logicLayer::test::Test(&hal);
 

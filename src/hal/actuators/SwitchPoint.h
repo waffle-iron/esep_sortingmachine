@@ -12,7 +12,7 @@
  * Switchpoint open
  */
 
-namespace hal {
+namespace hardwareLayer {
 namespace actuators {
 
 class SwitchPoint {

@@ -10,7 +10,7 @@
 
 #include "Header.h"
 
-namespace hal {
+namespace hardwareLayer {
 namespace mmi {
 
 class Blink {

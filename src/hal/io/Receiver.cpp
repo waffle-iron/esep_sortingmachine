@@ -7,7 +7,7 @@
 
 #include "Receiver.h"
 
-namespace hal {
+namespace hardwareLayer {
 namespace io {
 
 

@@ -9,7 +9,7 @@
 #include <iostream>
 #include "Header.h"
 
-namespace hal {
+namespace hardwareLayer {
 namespace mmi {
 
 constexpr port_t PIN_GREEN_LIGHT 	= 0x20;
