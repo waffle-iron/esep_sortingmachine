@@ -11,6 +11,10 @@
 #include "HeightSensor.h"
 
 
+
+
+
+
 using namespace std;
 
 
@@ -25,7 +29,7 @@ int main(int argc, char *argv[])
 	hal::HAL hal;
 	logicLayer::test::Test test = logicLayer::test::Test(&hal);
 	uint16_t heightValue;
-//	test.actuatorsTest();
+	test.actuatorsTest();
 //	test.mmiTest();
 //	test.threadSafenessInGpioTest();
 //	test.singletonThreadSafeTest();

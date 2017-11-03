@@ -35,13 +35,14 @@ void GPIO::gainAccess(){
 }
 
 
-
 void GPIO::write(PORT port, port_t val){
 	out8(DIO_BASE+(port_t)port, val);
+	cout << "p" << endl;
 }
 
 void GPIO::write(uint8_t address, port_t val){
 	out8(DIO_BASE+(uint8_t)address, val);
+	cout << "a" << endl;
 }
 
 uint8_t GPIO::read(uint8_t address){
@@ -49,11 +50,12 @@ uint8_t GPIO::read(uint8_t address){
 }
 
 port_t GPIO::read(PORT port){
-    return GPIO::read((uint8_t)port);
+	return in8(DIO_BASE + port);
 }
 
 void GPIO::setBits(PORT port, port_t bitmask) {
 	gpio_mutex.lock();
+	cout << "p" << endl;
 	port_t storedValue = this->read(port);
 	port_t newValue = storedValue | bitmask;
 	if(newValue != storedValue){
@@ -64,6 +66,7 @@ void GPIO::setBits(PORT port, port_t bitmask) {
 
 void GPIO::setBits(uint8_t address, uint8_t bitmask) {
 	gpio_mutex.lock();
+	cout << "a" << endl;
 	uint8_t storedValue = this->read(address);
 	uint8_t newValue = storedValue | bitmask;
 	if(newValue != storedValue){

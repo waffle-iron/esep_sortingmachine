@@ -13,6 +13,8 @@
 #include <stdint.h>
 #include <unistd.h>
 
+#include <hw/inout.h>
+
 namespace hal {
 namespace sensors {
 
@@ -43,7 +45,7 @@ uint16_t HeightSensor::getHeight(void) {
   uint16_t height;
 
   // write opcode to start conversion
-  io::GPIO::instance().setBits(startConversionAddressOffset,startConversionOpCode);
+  io::GPIO::instance().write(startConversionAddressOffset,startConversionOpCode);
 
   //wait for conversion to complete
   usleep(10);
