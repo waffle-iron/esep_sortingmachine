@@ -12,7 +12,7 @@
 #include "GPIO.h"
 
 
-namespace hal {
+namespace hardwareLayer {
 namespace io {
 
 constexpr int DIO_BASE = 0x300;

@@ -4,13 +4,12 @@
 #include <iostream>
 #include <thread>
 #include <chrono>
-#include "HAL.h"
 #include "GPIO.h"
 #include "Test.h"
 #include "GpioTesting.h"
-
+#include "HardwareLayer.h"
+#include "LogicLayer.h"
 using namespace std;
-
 
 int main(int argc, char *argv[])
 {
@@ -20,16 +19,17 @@ int main(int argc, char *argv[])
 	LOG_SET_LEVEL(DEBUG);
 	LOG_DEBUG<<"hello world \n";
 
-	hal::HAL hal;
+	hardwareLayer::HardwareLayer hal;
+
 	logicLayer::test::Test test = logicLayer::test::Test(&hal);
 
-	test.actuatorsTest();
-	test.mmiTest();
-	test.threadSafenessInGpioTest();
-	test.singletonThreadSafeTest();
-
+	//========= Observer Pattern Test ==================
+	logicLayer::LogicLayer loLay = logicLayer::LogicLayer(hal);
+	hal.notify_observers();
 
 	cout << "Starting Sortingmachine ... done !" << endl;
+
   return EXIT_SUCCESS;
+
 }
 

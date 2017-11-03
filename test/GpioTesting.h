@@ -10,7 +10,7 @@
 
 #include "GPIO.h"
 
-class GpioTesting: public hal::io::GPIO {
+class GpioTesting: public hardwareLayer::io::GPIO {
 public:
 	virtual void write(  PORT port, port_t val) override;
 	static GpioTesting& instance(bool test);

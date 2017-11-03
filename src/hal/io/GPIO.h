@@ -18,7 +18,7 @@ enum class PORT {
     C
 };
 
-namespace hal {
+namespace hardwareLayer {
 namespace io {
 
 

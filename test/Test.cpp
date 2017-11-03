@@ -9,7 +9,7 @@
 #include <iostream>
 #include <thread>
 #include "Test.h"
-#include "HAL.h"
+#include "HardwareLayer.h"
 #include "Header.h"
 #include "GpioTesting.h"
 using namespace std;
@@ -18,7 +18,7 @@ namespace logicLayer{
 namespace test{
 
 
-Test::Test(hal::HAL* hal) {
+Test::Test(hardwareLayer::HardwareLayer* hal) {
 	_hal = hal;
 }
 
@@ -143,7 +143,7 @@ void Test::sensorsTest(){
 
 }
 
-void Test::writeSomethingElse(hal::io::GPIO *gpio, int difference) {
+void Test::writeSomethingElse(hardwareLayer::io::GPIO *gpio, int difference) {
 	port_t port = gpio->read(PORT::A); // read port to write definetly something different so write method gets called
 	gpio->setBits(PORT::A, port + difference);
 }

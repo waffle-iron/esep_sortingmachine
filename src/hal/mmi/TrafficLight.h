@@ -15,7 +15,7 @@
 #include "Blink.h"
 
 
-namespace hal {
+namespace hardwareLayer {
 namespace mmi {
 
 class TrafficLight {

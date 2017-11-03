@@ -1,23 +1,26 @@
 /*
- * HAL.h
+ * HardwareLayer.h
  *
  *  Created on: 16.10.2017
  *      Author: abj240
  */
 
-#ifndef HAL_H_
-#define HAL_H_
+#ifndef HARDWARELAYER_H_
+#define HARDWARELAYER_H_
 
 #include "Motor.h"
 #include "SwitchPoint.h"
 #include "TrafficLight.h"
+#include "Observable.h"
 
-namespace hal {
+namespace hardwareLayer {
 
-	class HAL {
+	class HardwareLayer : public Observable{
 	public:
-		HAL();
-		virtual ~HAL();
+		HardwareLayer();
+		virtual ~HardwareLayer();
+
+		string getSignal();
 
 		void greenLightOn();
 		void greenLightOff();
@@ -49,4 +52,4 @@ namespace hal {
 
 }
 
-#endif /* HAL_H_ */
+#endif /* HARDWARELAYER_H_ */

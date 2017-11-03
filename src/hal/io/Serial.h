@@ -10,7 +10,7 @@
 
 #include <string>
 
-namespace hal {
+namespace hardwareLayer {
 namespace io {
 
 class Serial {
