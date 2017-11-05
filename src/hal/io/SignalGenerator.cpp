@@ -42,17 +42,18 @@ const SensorEvent SignalGenerator::LIGHT_BARRIER_SLIDE(	0b01000000, "LIGHT_BARRI
 const SensorEvent SignalGenerator::LIGHT_BARRIER_OUTPUT(0b10000000, "LIGHT_BARRIER_OUTPUT", SPair(Signalname::LB_OUTPUT_FREED,
 																								  Signalname::LB_OUTPUT_INTERRUPTED));
 
-std::vector<const SensorEvent> SignalGenerator::events;
+std::vector<const SensorEvent> const SignalGenerator::events = init_events();
 
 
 SignalGenerator::SignalGenerator():
-running(true) {
+running(true)
+{
 	LOG_SCOPE
+	init_events();
 	hal::io::GPIO::instance().gainAccess();
 	stored_mask = hal::io::GPIO::instance().read(PORT::C)<<8 | hal::io::GPIO::instance().read(PORT::B);
 	ISR::registerISR(AsyncChannel::instance(), MAGIC_NUMBER);
 	thread = std::thread(std::ref(*this));
-	init_events();
 }
 
 SignalGenerator::~SignalGenerator() {
@@ -107,8 +108,9 @@ void SignalGenerator::clearSignalBuffer() {
 	}
 }
 
-void SignalGenerator::init_events() {
+const std::vector<const SensorEvent> SignalGenerator::init_events() {
 	LOG_SCOPE
+	std::vector<const SensorEvent> events;
 	events.push_back(BUTTON_START);
 	events.push_back(BUTTON_STOP);
 	events.push_back(BUTTON_RESET);
@@ -121,6 +123,7 @@ void SignalGenerator::init_events() {
 	events.push_back(SENSOR_HEIGHT_MATCH);
 	events.push_back(SENSOR_METAL_MATCH);
 	events.push_back(SENSOR_SWITCH_OPEN);
+	return events;
 }
 
 

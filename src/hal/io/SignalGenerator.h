@@ -99,14 +99,14 @@ public:
 
 private:
 	/*
-	 *@brief: initializes class member events
+	 *@brief: initializes and returns const vector<const SensorEvent> events
 	 */
-	static void init_events();
+	static const std::vector<const SensorEvent> init_events();
 
 	/*
 	 * events holds all sensor events
 	 */
-	static std::vector<const SensorEvent> events;
+	static const std::vector<const SensorEvent> events;
 	std::thread thread;
 	bool running;
 	int stored_mask;
