@@ -59,10 +59,10 @@ private:
 class LogScope{
 public:
 	LogScope(const string& s) : logger_(Logger::getLogger()) , functionname_(s){
-		logger_.log("SCOPE")<<"entering "<<functionname_<<" \n";
+		logger_.log("SCOPE")<<"entering "<<functionname_<<endl;
 	}
 	~LogScope(){
-		logger_.log("SCOPE")<<"exiting "<<functionname_<<" \n";
+		logger_.log("SCOPE")<<"exiting "<<functionname_<<endl;
 	}
 private:
 	Logger& logger_;
