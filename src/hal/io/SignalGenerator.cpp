@@ -25,22 +25,22 @@ const SensorEvent SignalGenerator::BUTTON_RESET( 		0b01000000<<8, "BUTTON_RESET"
 																								  Signalname::BUTTON_RESET_PULLED));
 const SensorEvent SignalGenerator::BUTTON_E_STOP(		0b10000000<<8, "BUTTON_E_STOP", SPair(	  Signalname::BUTTON_E_STOP_PULLED,
 																								  Signalname::BUTTON_E_STOP_PUSHED));
-const SensorEvent SignalGenerator::LIGHT_BARRIER_INPUT( 0b00000001, "LIGHT_BARRIER_INPUT", SPair( Signalname::LIGHT_BARRIER_INPUT_NOT_INTERRUPTED,
-																								  Signalname::LIGHT_BARRIER_INPUT_INTERRUPTED));
-const SensorEvent SignalGenerator::LIGHT_BARRIER_HEIGHT(0b00000010, "LIGHT_BARRIER_HEIGHT", SPair(Signalname::LIGHT_BARRIER_HEIGHT_NOT_INTERRUPTED,
-																								  Signalname::LIGHT_BARRIER_HEIGHT_INTERRUPTED));
+const SensorEvent SignalGenerator::LIGHT_BARRIER_INPUT( 0b00000001, "LIGHT_BARRIER_INPUT", SPair( Signalname::LB_INPUT_FREED,
+																								  Signalname::LB_INPUT_INTERRUPTED));
+const SensorEvent SignalGenerator::LIGHT_BARRIER_HEIGHT(0b00000010, "LIGHT_BARRIER_HEIGHT", SPair(Signalname::LB_HEIGHT_FREED,
+																								  Signalname::LB_HEIGHT_INTERRUPTED));
 const SensorEvent SignalGenerator::SENSOR_HEIGHT_MATCH(	0b00000100, "SENSOR_HEIGHT_MATCH", SPair( Signalname::SENSOR_HEIGHT_MATCH,
 																								  Signalname::SENSOR_HEIGHT_NOT_MATCH));
-const SensorEvent SignalGenerator::LIGHT_BARRIER_SWITCH(0b00001000, "LIGHT_BARRIER_SWITCH", SPair(Signalname::LIGHT_BARRIER_SWITCH_NOT_INTERRUPTED,
-																								  Signalname::LIGHT_BARRIER_SWITCH_INTERRUPTED));
+const SensorEvent SignalGenerator::LIGHT_BARRIER_SWITCH(0b00001000, "LIGHT_BARRIER_SWITCH", SPair(Signalname::LB_SWITCH_FREED,
+																								  Signalname::LB_SWITCH_INTERRUPTED));
 const SensorEvent SignalGenerator::SENSOR_METAL_MATCH(	0b00010000, "SENSOR_METAL_MATCH", SPair(  Signalname::SENSOR_METAL_MATCH,
 																								  Signalname::SENSOR_METAL_NOT_MATCH));
 const SensorEvent SignalGenerator::SENSOR_SWITCH_OPEN(	0b00100000, "SENSOR_SWITCH_OPEN", SPair(  Signalname::SENSOR_SWITCH_IS_OPEN,
 																								  Signalname::SENSOR_SWITCH_IS_CLOSED));
-const SensorEvent SignalGenerator::LIGHT_BARRIER_SLIDE(	0b01000000, "LIGHT_BARRIER_SLIDE", SPair( Signalname::LIGHT_BARRIER_SLIDE_NOT_INTERRUPTED,
-																								  Signalname::LIGHT_BARRIER_SLIDE_INTERRUPTED));
-const SensorEvent SignalGenerator::LIGHT_BARRIER_OUTPUT(0b10000000, "LIGHT_BARRIER_OUTPUT", SPair(Signalname::LIGHT_BARRIER_OUTPUT_NOT_INTERRUPTED,
-																								  Signalname::LIGHT_BARRIER_OUTPUT_INTERRUPTED));
+const SensorEvent SignalGenerator::LIGHT_BARRIER_SLIDE(	0b01000000, "LIGHT_BARRIER_SLIDE", SPair( Signalname::LB_SLIDE_FREED,
+																								  Signalname::LB_SLIDE_INTERRUPTED));
+const SensorEvent SignalGenerator::LIGHT_BARRIER_OUTPUT(0b10000000, "LIGHT_BARRIER_OUTPUT", SPair(Signalname::LB_OUTPUT_FREED,
+																								  Signalname::LB_OUTPUT_INTERRUPTED));
 
 std::vector<const SensorEvent> SignalGenerator::events;
 

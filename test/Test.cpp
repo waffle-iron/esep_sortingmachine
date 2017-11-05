@@ -140,24 +140,24 @@ void Test::sensorsTest(){
 	cout << "start " << __FUNCTION__ <<endl;
 
 	sensorTestHelper(	hal::io::SignalGenerator::LIGHT_BARRIER_INPUT,
-						Signalname::LIGHT_BARRIER_INPUT_INTERRUPTED,
-						Signalname::LIGHT_BARRIER_INPUT_NOT_INTERRUPTED);
+						Signalname::LB_INPUT_INTERRUPTED,
+						Signalname::LB_INPUT_FREED);
 
 	sensorTestHelper(	hal::io::SignalGenerator::LIGHT_BARRIER_HEIGHT,
-						Signalname::LIGHT_BARRIER_HEIGHT_INTERRUPTED,
-						Signalname::LIGHT_BARRIER_HEIGHT_NOT_INTERRUPTED);
+						Signalname::LB_HEIGHT_INTERRUPTED,
+						Signalname::LB_HEIGHT_FREED);
 
 	sensorTestHelper(	hal::io::SignalGenerator::LIGHT_BARRIER_SWITCH,
-						Signalname::LIGHT_BARRIER_SWITCH_INTERRUPTED,
-						Signalname::LIGHT_BARRIER_SWITCH_NOT_INTERRUPTED);
+						Signalname::LB_SWITCH_INTERRUPTED,
+						Signalname::LB_SWITCH_FREED);
 
 	sensorTestHelper(	hal::io::SignalGenerator::LIGHT_BARRIER_SLIDE,
-						Signalname::LIGHT_BARRIER_SLIDE_INTERRUPTED,
-						Signalname::LIGHT_BARRIER_SLIDE_NOT_INTERRUPTED);
+						Signalname::LB_SLIDE_INTERRUPTED,
+						Signalname::LB_SLIDE_FREED);
 
 	sensorTestHelper(	hal::io::SignalGenerator::LIGHT_BARRIER_OUTPUT,
-						Signalname::LIGHT_BARRIER_OUTPUT_INTERRUPTED,
-						Signalname::LIGHT_BARRIER_OUTPUT_NOT_INTERRUPTED);
+						Signalname::LB_OUTPUT_INTERRUPTED,
+						Signalname::LB_OUTPUT_FREED);
 
 	sensorTestHelper(	hal::io::SignalGenerator::SENSOR_HEIGHT_MATCH,
 						Signalname::SENSOR_HEIGHT_MATCH,
