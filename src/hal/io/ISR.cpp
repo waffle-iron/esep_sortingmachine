@@ -13,7 +13,9 @@
 #include "DIO48.h"
 #include "GPIO.h"
 
-#define HW_INTERRUPT 11
+constexpr int HW_INTERRUPT = 11;
+constexpr port_t PORT_C_HIGH_MASK = 0xf0;
+constexpr port_t E_STOP_BITMASK = 0b10000000;
 
 using namespace std;
 
@@ -54,8 +56,13 @@ void ISR::clearAllPendingIntFlag() {
 const struct sigevent* ISR::mainISR(void* arg, int id) {
     struct sigevent* event = (struct sigevent*) arg;
     ISR::clearAllPendingIntFlag();
-    event->sigev_value.sival_int = ((GPIO::instance().read(PORT::C)&0xf0)<<8) |
-    								(GPIO::instance().read(PORT::B)&0xff);
+    port_t portB = GPIO::instance().read(PORT::B);
+    port_t portC = GPIO::instance().read(PORT::C) & PORT_C_HIGH_MASK;
+
+    if((!portC) & E_STOP_BITMASK) {
+        event->sigev_priority = sched_get_priority_max(1);
+    }
+    event->sigev_value.sival_int = portB | portC<<8;
     return event;
 }
 

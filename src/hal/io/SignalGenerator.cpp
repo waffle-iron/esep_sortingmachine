@@ -49,7 +49,6 @@ SignalGenerator::SignalGenerator():
 running(true)
 {
 	LOG_SCOPE
-	init_events();
 	hal::io::GPIO::instance().gainAccess();
 	stored_mask = hal::io::GPIO::instance().read(PORT::C)<<8 | hal::io::GPIO::instance().read(PORT::B);
 	ISR::registerISR(AsyncChannel::instance(), MAGIC_NUMBER);
@@ -70,14 +69,17 @@ void SignalGenerator::operator()() {
 	while (running) {
 		AsyncMsg message;
 		message = AsyncChannel::instance().nextMessage();
+		cout<<"..got message."<<endl;
 		int current_mask = (int)message.value;
 		int change = current_mask xor stored_mask;
 		for(const auto &event : events) {
 			if (change & event.bitmask) { // change happend on event?
 				if (event.bitmask & current_mask) { 	// low -> high
 					signalBuffer.push_back(Signal(1,1,event.signalPair.high));
+					cout<<"UP: "<<event.bitmask<<endl;
 				} else {						// high -> low
 					signalBuffer.push_back(Signal(1,1,event.signalPair.low));
+					cout<<"DOWN: "<<event.bitmask<<endl;
 				}
 			}
 		}
@@ -111,10 +113,10 @@ void SignalGenerator::clearSignalBuffer() {
 const std::vector<const SensorEvent> SignalGenerator::init_events() {
 	LOG_SCOPE
 	std::vector<const SensorEvent> events;
+	events.push_back(BUTTON_E_STOP);
 	events.push_back(BUTTON_START);
 	events.push_back(BUTTON_STOP);
 	events.push_back(BUTTON_RESET);
-	events.push_back(BUTTON_E_STOP);
 	events.push_back(LIGHT_BARRIER_INPUT);
 	events.push_back(LIGHT_BARRIER_HEIGHT);
 	events.push_back(LIGHT_BARRIER_SWITCH);
