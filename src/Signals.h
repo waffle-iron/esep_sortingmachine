@@ -9,21 +9,22 @@
 #define SIGNALS_H_
 
 #include "Logger.h"
+#include <cstdint>
 
 // conveyer belts
-constexpr int cb_1 = 0b00000001;
-constexpr int cb_2 = 0b00000010;
-constexpr int cb_3 = 0b00000100;
-constexpr int cb_4 = 0b00001000;
-constexpr int cb_5 = 0b00010000;
-constexpr int cb_6 = 0b00100000;
-constexpr int cb_7 = 0b01000000;
-constexpr int cb_8 = 0b10000000;
+constexpr uint8_t cb_1 = 0b00000001;
+constexpr uint8_t cb_2 = 0b00000010;
+constexpr uint8_t cb_3 = 0b00000100;
+constexpr uint8_t cb_4 = 0b00001000;
+constexpr uint8_t cb_5 = 0b00010000;
+constexpr uint8_t cb_6 = 0b00100000;
+constexpr uint8_t cb_7 = 0b01000000;
+constexpr uint8_t cb_8 = 0b10000000;
 
 
 enum class Speed {fast, slow};
 
-enum class Signalname {
+enum class Signalname : uint16_t {
 	// buttons
 	BUTTON_START_PUSHED,
 	BUTTON_START_PULLED,
@@ -104,16 +105,21 @@ enum class Signalname {
 
 /**
  * @brief next to signal's name a signal has one specific sender and can have several receivers
+ *
+ * Signal consists of Signalname name (uint16_t), sender (uint8_t) and receiver (uint8_t). Compiling
+ * it on GNU 4.7.3, its size is 4 bytes. This means that on this system Signal can be considered as
+ * an atomic type. For sure, this is not platform independent.
+ *
  * @param sender cb_1 as an example for cb_1 as signal's sender. Possible values cb_1-cb_8.
  * @param receiver  cb_1 | cb_2 as an example for cb_1 and cb_2 as receivers of the signal.
  * 					receiver 0 means that the signal is a shadow signal
  * @param name specific signal name
  */
 struct Signal {
-	Signal(char sender, char receiver, Signalname name) :
+	Signal(uint8_t sender, uint8_t receiver, Signalname name) :
+	name(name),
 	sender(sender),
-	receiver(receiver),
-	name(name)
+	receiver(receiver)
 	{
 		LOG_SCOPE
 	}
@@ -121,9 +127,9 @@ struct Signal {
 	{
 		LOG_SCOPE
 	}
-	char sender;
-	char receiver;
 	Signalname name;
+	uint8_t sender;
+	uint8_t receiver;
 };
 
 
