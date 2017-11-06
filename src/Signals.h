@@ -92,8 +92,9 @@ enum class Signalname {
 	MEASURE_VELOCITY_SLOW_START,
 	MEASURE_VELOCITY_SLOW_STOP,
 	//Serial Interface
-	SEND_ITEM,
-	IS_ALIVE
+	SERIAL_SEND_ITEM,
+	SERIAL_ARE_YOU_ALIVE,
+	SERIAL_IM_ALIVE
 };
 
 struct Signal {

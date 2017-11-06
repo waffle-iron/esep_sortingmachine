@@ -8,7 +8,6 @@
 #include "Header.h"
 #include "WatchDog.h"
 #include <thread>
-#include <iostream>
 
 namespace hal {
 namespace io {
@@ -16,9 +15,7 @@ namespace serial {
 
 WatchDog::WatchDog(Serial& serial) :
 		serial_(serial),
-		lastFeeding(NOW){
-
-		}
+		otherDogisAlive(false){}
 
 WatchDog::~WatchDog() {
 	// TODO Auto-generated destructor stub
@@ -28,26 +25,37 @@ WatchDog::~WatchDog() {
 void WatchDog::operator()(){
 	while(true){
 		struct Message msg;
-		msg.signal  = Signalname::IS_ALIVE;
+		msg.signal  = Signalname::SERIAL_ARE_YOU_ALIVE;
 		msg.payload = 42;
 
-		//feed dog of other machine
+
+		//ask other machine if it i alive
 		serial_.send(&msg);
 
-		//check if dog of this machine has not been fed
-		long int diff = std::chrono::duration_cast<std::chrono::milliseconds>(NOW - lastFeeding).count();
-		if( diff > 2000 ){
-			std::cout << "!!!Stecker gezogen!!!" << std::endl;
+		WAIT(1000);
+
+		//check if other machine has send keep alive signal -
+		//if not error signal
+		if(!otherDogisAlive){
+			std::cout << "machine is not connected" << std::endl;
 		}
 
-
-		WAIT(1000);
 	}
 }
 
-void WatchDog::feed(){
+void WatchDog::setOtherDogIsAlive(bool isAlive){
 
-	lastFeeding = NOW;
+	otherDogisAlive = isAlive;
+
+}
+
+void WatchDog::sendImAlive(){
+
+	struct Message msg;
+	msg.signal  = Signalname::SERIAL_IM_ALIVE;
+	msg.payload = 42;
+
+	serial_.send(&msg);
 
 }
 

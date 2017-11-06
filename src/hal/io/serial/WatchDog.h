@@ -20,14 +20,15 @@ namespace serial {
 	class WatchDog {
 
 		private:
-			std::chrono::steady_clock::time_point lastFeeding;
 			Serial& serial_;
+			bool otherDogisAlive;
 
 		public:
 			WatchDog(Serial& serial);
 			virtual ~WatchDog();
 			void operator()();
-			void feed();
+			void setOtherDogIsAlive(bool isAlive);
+			void sendImAlive();
 	};
 
 } /* namespace serial */

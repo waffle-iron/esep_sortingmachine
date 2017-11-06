@@ -20,6 +20,11 @@ namespace serial {
 
 	}
 
+
+
+
+
+
 	void Receiver::operator()(){
 		while(running){
 			struct Message msg;
@@ -28,8 +33,11 @@ namespace serial {
 			serial_.recv(&msg);
 
 			switch (msg.signal) {
-				case Signalname::IS_ALIVE:
-					dog_.feed();
+				case Signalname::SERIAL_IM_ALIVE:
+					dog_.setOtherDogIsAlive(true);
+				break;
+				case Signalname::SERIAL_ARE_YOU_ALIVE:
+					dog_.sendImAlive();
 				break;
 			}
 
