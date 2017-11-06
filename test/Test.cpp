@@ -201,18 +201,19 @@ void Test::sensorTestHelper(hal::io::SensorEvent signalBitmask, Signalname event
 	while (cin.get() != '\n');
 
 	bool running = true;
-	bool success = false;
+	bool success = true;
 	int triggerCounter = 0;
 	do {
 		Signal firstSignal =  _hal->getSignal();
 		Signal secondSignal = _hal->getSignal();
 		if (firstSignal.name == eventTriggerStart and secondSignal.name == eventTriggerEnd) {
-			success = true;
 			triggerCounter++;
+		} else if(firstSignal.name != Signalname::SIGNAL_BUFFER_EMPTY or secondSignal.name != Signalname::SIGNAL_BUFFER_EMPTY) {
+			success = false;
 		} else {
 			running = false;
-			if (triggerCounter > 0 and firstSignal.name == Signalname::SIGNAL_BUFFER_EMPTY) {
-				success = true;
+			if (triggerCounter == 0 and firstSignal.name != Signalname::SIGNAL_BUFFER_EMPTY) {
+				success = false;
 			}
 		}
 	} while(running);
