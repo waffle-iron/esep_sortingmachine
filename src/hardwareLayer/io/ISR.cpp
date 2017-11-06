@@ -17,14 +17,14 @@
 
 using namespace std;
 
-namespace hal {
+namespace hardwareLayer {
 namespace io {
 
 int ISR::isrId;
 struct sigevent ISR::isrEvent;
 
 ISR::ISR() {
-	hal::io::GPIO::instance().gainAccess();
+	GPIO::instance().gainAccess();
 }
 
 int ISR::getPendingIntFlags() {
@@ -97,4 +97,4 @@ void ISR::unregisterISR(){
 }
 
 } /* io */
-} /* hal */
+} /* hardwareLayer */

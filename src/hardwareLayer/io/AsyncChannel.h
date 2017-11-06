@@ -13,7 +13,7 @@ struct AsyncMsg {
 	int value;
 };
 
-namespace hal {
+namespace hardwareLayer {
 namespace io {
 
 class AsyncChannel {
@@ -58,6 +58,6 @@ private:
 };
 
 } /* io */
-} /* hal */
+} /* hardwareLayer */
 
 #endif /* ASYNCCHANNEL_H_ */

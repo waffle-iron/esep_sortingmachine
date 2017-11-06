@@ -12,7 +12,7 @@
 #include <sys/siginfo.h>
 #include "AsyncChannel.h"
 
-namespace hal {
+namespace hardwareLayer {
 namespace io {
 
 
@@ -76,5 +76,5 @@ private:
 };
 
 } /* io */
-} /* hal */
+} /* hardwareLayer */
 #endif /* ISR_H_ */

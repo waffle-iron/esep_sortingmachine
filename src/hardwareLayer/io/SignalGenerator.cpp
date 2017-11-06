@@ -14,7 +14,7 @@
 constexpr int MAGIC_NUMBER = 15;
 
 
-namespace hal {
+namespace hardwareLayer {
 namespace io {
 
 const SensorEvent SignalGenerator::BUTTON_START(		0b00010000<<8, "BUTTON_START", SPair(	  Signalname::BUTTON_START_PUSHED,
@@ -50,8 +50,8 @@ running(true)
 {
 	LOG_SCOPE
 	init_events();
-	hal::io::GPIO::instance().gainAccess();
-	stored_mask = hal::io::GPIO::instance().read(PORT::C)<<8 | hal::io::GPIO::instance().read(PORT::B);
+	GPIO::instance().gainAccess();
+	stored_mask = GPIO::instance().read(PORT::C)<<8 | GPIO::instance().read(PORT::B);
 	ISR::registerISR(AsyncChannel::instance(), MAGIC_NUMBER);
 	thread = std::thread(std::ref(*this));
 }
@@ -128,4 +128,4 @@ const std::vector<const SensorEvent> SignalGenerator::init_events() {
 
 
 } /* namespace io */
-} /* namespace hal */
+} /* namespace hardwareLayer */

@@ -8,10 +8,12 @@
 #include <sys/neutrino.h>
 #include <hw/inout.h>
 #include "Header.h"
+#include <cerrno>
+
 #include "GPIO.h"
 
 
-namespace hal {
+namespace hardwareLayer {
 namespace io {
 
 constexpr int DIO_BASE = 0x300;
@@ -22,7 +24,7 @@ GPIO& GPIO::instance() {
 }
 
 GPIO::GPIO() {
-	LOG_SCOPE
+	LOG_SCOPE;
 }
 
 GPIO::~GPIO() {
@@ -30,7 +32,10 @@ GPIO::~GPIO() {
 }
 
 void GPIO::gainAccess(){
-	ThreadCtl(_NTO_TCTL_IO_PRIV, 0);
+	if (ThreadCtl(_NTO_TCTL_IO_PRIV, 0) == -1){
+		LOG_ERROR<<errno<<" "<<strerror(errno);
+		exit(EXIT_FAILURE);
+	}
 }
 
 void GPIO::write(PORT port, port_t val){
@@ -63,4 +68,4 @@ void GPIO::clearBits(PORT port, port_t bitmask) {
 
 
 } /* namespace gpio */
-} /* namespace hal */
+} /* namespace hardwareLayer */

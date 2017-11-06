@@ -1,13 +1,13 @@
 /*
- * Receiver.cpp
+ * Sender.cpp
  *
  *  Created on: 16.10.2017
  *      Author: aca311
  */
 
-#include "Receiver.h"
+#include "Sender.h"
 
-namespace hal {
+namespace hardwareLayer {
 namespace io {
 
 

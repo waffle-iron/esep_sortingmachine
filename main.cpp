@@ -1,10 +1,11 @@
 #include "Header.h"
 #include <iostream>
-#include "HAL.h"
+
+#include "HardwareLayer.h"
+#include "LogicLayer.h"
 #include "Test.h"
 
 using namespace std;
-
 
 int main(int argc, char *argv[])
 {
@@ -14,7 +15,8 @@ int main(int argc, char *argv[])
 	LOG_SCOPE;
 	LOG_SET_LEVEL(DEBUG);
 
-	hal::HAL hal;
+	hardwareLayer::HardwareLayer hal;
+	logicLayer::LogicLayer loLay = logicLayer::LogicLayer(hal);
 
 	logicLayer::test::Test test = logicLayer::test::Test(&hal);
 	test.mmiTest();
@@ -24,8 +26,8 @@ int main(int argc, char *argv[])
 	test.singletonThreadSafeTest();
 
 
+
 	cout << "Starting Sortingmachine ... done !" << endl;
 
-  return EXIT_SUCCESS;
+	return EXIT_SUCCESS;
 }
-

@@ -9,7 +9,7 @@
 #include <iostream>
 #include <thread>
 #include "Test.h"
-#include "HAL.h"
+#include "HardwareLayer.h"
 #include "Header.h"
 #include "GpioTesting.h"
 
@@ -19,7 +19,7 @@ namespace logicLayer{
 namespace test{
 
 
-Test::Test(hal::HAL* hal) {
+Test::Test(hardwareLayer::HardwareLayer* hal) {
 	_hal = hal;
 }
 
@@ -139,51 +139,51 @@ void Test::mmiTest(){
 void Test::sensorsTest(){
 	cout << "start " << __FUNCTION__ <<endl;
 
-	sensorTestHelper(	hal::io::SignalGenerator::LIGHT_BARRIER_INPUT,
+	sensorTestHelper(	hardwareLayer::io::SignalGenerator::LIGHT_BARRIER_INPUT,
 						Signalname::LB_INPUT_INTERRUPTED,
 						Signalname::LB_INPUT_FREED);
 
-	sensorTestHelper(	hal::io::SignalGenerator::LIGHT_BARRIER_HEIGHT,
+	sensorTestHelper(	hardwareLayer::io::SignalGenerator::LIGHT_BARRIER_HEIGHT,
 						Signalname::LB_HEIGHT_INTERRUPTED,
 						Signalname::LB_HEIGHT_FREED);
 
-	sensorTestHelper(	hal::io::SignalGenerator::LIGHT_BARRIER_SWITCH,
+	sensorTestHelper(	hardwareLayer::io::SignalGenerator::LIGHT_BARRIER_SWITCH,
 						Signalname::LB_SWITCH_INTERRUPTED,
 						Signalname::LB_SWITCH_FREED);
 
-	sensorTestHelper(	hal::io::SignalGenerator::LIGHT_BARRIER_SLIDE,
+	sensorTestHelper(	hardwareLayer::io::SignalGenerator::LIGHT_BARRIER_SLIDE,
 						Signalname::LB_SLIDE_INTERRUPTED,
 						Signalname::LB_SLIDE_FREED);
 
-	sensorTestHelper(	hal::io::SignalGenerator::LIGHT_BARRIER_OUTPUT,
+	sensorTestHelper(	hardwareLayer::io::SignalGenerator::LIGHT_BARRIER_OUTPUT,
 						Signalname::LB_OUTPUT_INTERRUPTED,
 						Signalname::LB_OUTPUT_FREED);
 
-	sensorTestHelper(	hal::io::SignalGenerator::SENSOR_HEIGHT_MATCH,
+	sensorTestHelper(	hardwareLayer::io::SignalGenerator::SENSOR_HEIGHT_MATCH,
 						Signalname::SENSOR_HEIGHT_MATCH,
 						Signalname::SENSOR_HEIGHT_NOT_MATCH);
 
-	sensorTestHelper(	hal::io::SignalGenerator::SENSOR_SWITCH_OPEN,
+	sensorTestHelper(	hardwareLayer::io::SignalGenerator::SENSOR_SWITCH_OPEN,
 						Signalname::SENSOR_SWITCH_IS_OPEN,
 						Signalname::SENSOR_SWITCH_IS_CLOSED);
 
-	sensorTestHelper(	hal::io::SignalGenerator::SENSOR_METAL_MATCH,
+	sensorTestHelper(	hardwareLayer::io::SignalGenerator::SENSOR_METAL_MATCH,
 						Signalname::SENSOR_METAL_MATCH,
 						Signalname::SENSOR_METAL_NOT_MATCH);
 
-	sensorTestHelper(	hal::io::SignalGenerator::BUTTON_START,
+	sensorTestHelper(	hardwareLayer::io::SignalGenerator::BUTTON_START,
 						Signalname::BUTTON_START_PUSHED,
 						Signalname::BUTTON_START_PULLED);
 
-	sensorTestHelper(	hal::io::SignalGenerator::BUTTON_STOP,
+	sensorTestHelper(	hardwareLayer::io::SignalGenerator::BUTTON_STOP,
 						Signalname::BUTTON_STOP_PUSHED,
 						Signalname::BUTTON_STOP_PULLED);
 
-	sensorTestHelper(	hal::io::SignalGenerator::BUTTON_RESET,
+	sensorTestHelper(	hardwareLayer::io::SignalGenerator::BUTTON_RESET,
 						Signalname::BUTTON_RESET_PUSHED,
 						Signalname::BUTTON_RESET_PULLED);
 
-	sensorTestHelper(	hal::io::SignalGenerator::BUTTON_E_STOP,
+	sensorTestHelper(	hardwareLayer::io::SignalGenerator::BUTTON_E_STOP,
 						Signalname::BUTTON_E_STOP_PUSHED,
 						Signalname::BUTTON_E_STOP_PULLED);
 
@@ -192,7 +192,7 @@ void Test::sensorsTest(){
 	cout  << __FUNCTION__ << " successful. " <<endl<<endl;
 }
 
-void Test::sensorTestHelper(hal::io::SensorEvent signalBitmask, Signalname eventTriggerStart, Signalname eventTriggerEnd) {
+void Test::sensorTestHelper(hardwareLayer::io::SensorEvent signalBitmask, Signalname eventTriggerStart, Signalname eventTriggerEnd) {
 
 	_hal->clearSignalBuffer();
 
@@ -227,7 +227,7 @@ void Test::sensorTestHelper(hal::io::SensorEvent signalBitmask, Signalname event
 	}
 }
 
-void Test::writeSomethingElse(hal::io::GPIO *gpio, int difference) {
+void Test::writeSomethingElse(hardwareLayer::io::GPIO *gpio, int difference) {
 	port_t port = gpio->read(PORT::A); // read port to write definetly something different so write method gets called
 	gpio->setBits(PORT::A, port + difference);
 }
