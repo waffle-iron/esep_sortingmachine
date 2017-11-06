@@ -15,11 +15,11 @@ class Observable {
 public:
 	void register_observer(Observer* o) {
 		//check if observer already exists
-		cout << "HAL: now registering observer." << endl;
 		if (observers.size() > 0) {
 			for (auto &observer : observers) {
 				if (observer == o) {
-					LOG_ERROR<<"tried to register observer for second time"<<endl;
+					cout << "Observable: tried double registration. Aborted." << endl;
+					LOG_ERROR<<"tried to register observer for second time";
 					return;
 				}
 			}
@@ -28,8 +28,8 @@ public:
 
 	}
 	void notify_observers() {
-		for (vector<Observer*>::iterator  it = observers.begin(); it != observers.end(); ++it) {
-			(*it)->notify();
+		for (auto &observer : observers) {
+			observer->notify();
 		}
 	}
 private:
