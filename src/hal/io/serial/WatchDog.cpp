@@ -40,6 +40,8 @@ void WatchDog::operator()(){
 			std::cout << "machine is not connected" << std::endl;
 		}
 
+		setOtherDogIsAlive(false);
+
 	}
 }
 
