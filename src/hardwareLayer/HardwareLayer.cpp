@@ -105,6 +105,14 @@ void HardwareLayer::blinkRed(Speed speed) {
 	_trafficLight.blinkRed(speed);
 }
 
+io::SignalGenerator& HardwareLayer::getSignalGenerator() {
+	return signalGenerator;
+}
+
+void HardwareLayer::newSignalGenerator() {
+	//signalGenerator = io::SignalGenerator();
+}
+
 Signal HardwareLayer::getSignal() {
 	return signalGenerator.nextSignal();
 }

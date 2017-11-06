@@ -59,7 +59,6 @@ running(true)
 SignalGenerator::~SignalGenerator() {
 	LOG_SCOPE
 	terminate();
-	AsyncChannel::instance().sendMessage({0,0});
 	thread.join();
 	ISR::unregisterISR();
 }
@@ -91,6 +90,15 @@ void SignalGenerator::operator()() {
 void SignalGenerator::terminate() {
 	LOG_SCOPE
 	running = false;
+	AsyncChannel::instance().sendMessage({0,0});
+}
+
+void SignalGenerator::restart() {
+	LOG_SCOPE
+	terminate();
+	running = true;
+	GPIO::instance().gainAccess();
+	thread2 = std::thread(std::ref(*this));
 }
 
 Signal SignalGenerator::nextSignal() {

@@ -65,10 +65,14 @@ public:
 	void operator()();
 
 	/*
-	 *@brief: terminates thread that listens on AsyncChannel within the next message
-	 *@brief: that gets read after calling this method
+	 *@brief: terminates thread that listens on AsyncChannel
 	 */
 	void terminate();
+
+	/*
+	 *@brief: restarts thread that listens on AsyncChannel
+	 */
+	void restart();
 
 	/*
 	 *@brief: returns nextSignal in signalBuffer.
@@ -108,6 +112,7 @@ private:
 	 */
 	static const std::vector<const SensorEvent> events;
 	std::thread thread;
+	std::thread thread2;
 	bool running;
 	int stored_mask;
 	std::vector<Signal> signalBuffer;

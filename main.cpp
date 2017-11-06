@@ -31,36 +31,45 @@ int main(int argc, char *argv[])
 //	newEvent->sigev_value.sival_int = 0b1111000011111111;
 //	event = *newEvent;
 
-	MsgSendPulse_r(
-					hal::io::AsyncChannel::instance().getConnectionId(),
-					sched_get_priority_max(0),
-			    	2,
-			    	0b1111000011111111 );
-	MsgSendPulse_r(
-					hal::io::AsyncChannel::instance().getConnectionId(),
-					sched_get_priority_max(0),
-			    	2,
-			    	0b1111000011111111 );
-	MsgSendPulse_r(
-					hal::io::AsyncChannel::instance().getConnectionId(),
-					sched_get_priority_max(0),
-			    	2,
-			    	0b1111000011111111 );
-	MsgSendPulse_r(
-					hal::io::AsyncChannel::instance().getConnectionId(),
-					15,
-					2,
-					0b1111000011101111 );
-
-	cout<<"SIGEV_PULSE_PRIO_INHERIT: "<<(int)SIGEV_PULSE_PRIO_INHERIT<<endl;
-	cout<<"sched_get_priority_max(0): "<<(int)sched_get_priority_max(0)<<endl;
-	cout<<"sched_get_priority_max(1): "<<(int)sched_get_priority_max(1)<<endl;
+//	MsgSendPulse_r(
+//					hal::io::AsyncChannel::instance().getConnectionId(),
+//					sched_get_priority_max(0),
+//			    	2,
+//			    	0b1111000011111111 );
+//	MsgSendPulse_r(
+//					hal::io::AsyncChannel::instance().getConnectionId(),
+//					sched_get_priority_max(0),
+//			    	2,
+//			    	0b1111000011111111 );
+//	MsgSendPulse_r(
+//					hal::io::AsyncChannel::instance().getConnectionId(),
+//					sched_get_priority_max(0),
+//			    	2,
+//			    	0b1111000011111111 );
+//	MsgSendPulse_r(
+//					hal::io::AsyncChannel::instance().getConnectionId(),
+//					15,
+//					2,
+//					0b1111000011101111 );
+//
+//	cout<<"SIGEV_PULSE_PRIO_INHERIT: "<<(int)SIGEV_PULSE_PRIO_INHERIT<<endl;
+//	cout<<"sched_get_priority_max(0): "<<(int)sched_get_priority_max(0)<<endl;
+//	cout<<"sched_get_priority_max(1): "<<(int)sched_get_priority_max(1)<<endl;
 
 
 	hardwareLayer::HardwareLayer hal;
 	logicLayer::LogicLayer loLay = logicLayer::LogicLayer(hal);
 
-	WAIT(500);
+	while (cin.get() != '\n');
+
+
+	hal.getSignalGenerator().terminate();
+
+	while (cin.get() != '\n');
+
+	hal.getSignalGenerator().restart();
+
+	while (cin.get() != '\n');
 
 
 //	logicLayer::test::Test test = logicLayer::test::Test(&hal);
