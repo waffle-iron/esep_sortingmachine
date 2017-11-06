@@ -123,6 +123,13 @@ struct Signal {
 	{
 		LOG_SCOPE
 	}
+	Signal() :
+		name(Signalname::BUTTON_START_PUSHED),
+		sender(0),
+		receiver(0)
+	{
+		LOG_SCOPE
+	}
 	~Signal()
 	{
 		LOG_SCOPE

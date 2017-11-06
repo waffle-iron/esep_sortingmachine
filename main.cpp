@@ -21,15 +21,17 @@ int main(int argc, char *argv[])
 
 	hardwareLayer::HardwareLayer hal;
 
-	logicLayer::test::Test test = logicLayer::test::Test(&hal);
-
-	//========= Observer Pattern Test ==================
 	logicLayer::LogicLayer loLay = logicLayer::LogicLayer(hal);
 	hal.notify_observers();
 
+	logicLayer::test::Test test = logicLayer::test::Test(&hal);
+	test.actuatorsTest();
+	test.mmiTest();
+	test.threadSafenessInGpioTest();
+	test.singletonThreadSafeTest();
+
+
+
 	cout << "Starting Sortingmachine ... done !" << endl;
-
-  return EXIT_SUCCESS;
-
+	return EXIT_SUCCESS;
 }
-
