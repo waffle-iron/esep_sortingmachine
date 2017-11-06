@@ -34,7 +34,7 @@ namespace serial {
 			serial_.recv(&msg);
 			std::cout << "Receiver running" << std::endl;
 
-			/*switch (msg.signal) {
+			switch (msg.signal) {
 				case Signalname::SERIAL_IM_ALIVE:
 					std::cout << "receive signal: SERIAL_IM_ALIVE" << std::endl;
 					dog_.setOtherDogIsAlive(true);
@@ -47,7 +47,7 @@ namespace serial {
 				default:
 					std::cout << "receive signal: UNKNOWN SIGNAL" << std::endl;
 				break;
-			}*/
+			}
 
 		}
 	}
