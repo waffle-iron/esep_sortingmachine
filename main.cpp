@@ -20,9 +20,7 @@ int main(int argc, char *argv[])
 	LOG_DEBUG<<"hello world \n";
 
 	hardwareLayer::HardwareLayer hal;
-
 	logicLayer::LogicLayer loLay = logicLayer::LogicLayer(hal);
-	hal.notify_observers();
 
 	logicLayer::test::Test test = logicLayer::test::Test(&hal);
 	test.actuatorsTest();
