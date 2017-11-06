@@ -2,7 +2,7 @@
  * Receiver.cpp
  *
  *  Created on: 16.10.2017
- *      Author: aca311
+ *      Author: Flo <florian.heuer@haw-hamburg.de>
  */
 
 #include <iostream>
@@ -30,9 +30,11 @@ namespace serial {
 			struct Message msg;
 
 			//blocking io
-			serial_.recv(&msg);
 
-			switch (msg.signal) {
+			serial_.recv(&msg);
+			std::cout << "Receiver running" << std::endl;
+
+			/*switch (msg.signal) {
 				case Signalname::SERIAL_IM_ALIVE:
 					std::cout << "receive signal: SERIAL_IM_ALIVE" << std::endl;
 					dog_.setOtherDogIsAlive(true);
@@ -42,7 +44,10 @@ namespace serial {
 					std::cout << "send answer" << std::endl;
 					dog_.sendImAlive();
 				break;
-			}
+				default:
+					std::cout << "receive signal: UNKNOWN SIGNAL" << std::endl;
+				break;
+			}*/
 
 		}
 	}
