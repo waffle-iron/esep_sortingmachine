@@ -32,7 +32,6 @@ namespace serial {
 			//blocking io
 
 			serial_.recv(&msg);
-			std::cout << "Receiver running" << std::endl;
 
 			switch (msg.signal) {
 				case Signalname::SERIAL_IM_ALIVE:
