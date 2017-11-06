@@ -31,6 +31,8 @@ class Serial {
 		int send(Message *msg);
 		int recv(Message *msg);
 
+		void flush(void);
+
 	private:
 		Serial(const Serial& other);
 		Serial& operator=(const Serial& other);

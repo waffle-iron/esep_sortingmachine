@@ -46,6 +46,7 @@ namespace serial {
 				break;
 				default:
 					std::cout << "receive signal: UNKNOWN SIGNAL" << std::endl;
+					serial_.flush();
 				break;
 			}
 

@@ -100,6 +100,10 @@ int Serial::recv( Message *msg ){
 	return -1;
 }
 
+void Serial::flush(){
+	tcflush(this->fdesc_, TCIOFLUSH);
+}
+
 
 
 
