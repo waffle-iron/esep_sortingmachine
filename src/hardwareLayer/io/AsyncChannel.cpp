@@ -12,7 +12,7 @@
 
 using namespace std;
 
-namespace hal {
+namespace hardwareLayer {
 namespace io {
 
 AsyncChannel::AsyncChannel() {
@@ -89,4 +89,4 @@ AsyncChannel& AsyncChannel::instance(){
 }
 
 } /* io */
-} /* hal */
+} /* hardwareLayer */

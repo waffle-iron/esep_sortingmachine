@@ -12,7 +12,7 @@
 #include <thread>
 #include <vector>
 
-namespace hal {
+namespace hardwareLayer {
 namespace io {
 
 /*
@@ -114,5 +114,5 @@ private:
 };
 
 } /* namespace io */
-} /* namespace hal */
+} /* namespace hardwareLayer */
 #endif /* INTERRUPTHANDLER_H_ */

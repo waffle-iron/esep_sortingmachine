@@ -10,7 +10,7 @@
 
 #include "Header.h"
 
-namespace hal {
+namespace hardwareLayer {
 namespace mmi {
 
 class Blink {
@@ -50,5 +50,5 @@ private:
 };
 
 } /* namespace mmi */
-} /* namespace hal */
+} /* namespace hardwareLayer */
 #endif /* BLINK_H_ */

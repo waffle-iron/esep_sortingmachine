@@ -1,6 +1,8 @@
 #include "Header.h"
 #include <iostream>
-#include "HAL.h"
+
+#include "HardwareLayer.h"
+#include "LogicLayer.h"
 #include "Test.h"
 
 #include "AsyncChannel.h"
@@ -55,7 +57,8 @@ int main(int argc, char *argv[])
 	cout<<"sched_get_priority_max(1): "<<(int)sched_get_priority_max(1)<<endl;
 
 
-	hal::HAL hal;
+	hardwareLayer::HardwareLayer hal;
+	logicLayer::LogicLayer loLay = logicLayer::LogicLayer(hal);
 
 	WAIT(500);
 
@@ -68,8 +71,8 @@ int main(int argc, char *argv[])
 //	test.singletonThreadSafeTest();
 
 
+
 	cout << "Starting Sortingmachine ... done !" << endl;
 
-  return EXIT_SUCCESS;
+	return EXIT_SUCCESS;
 }
-

@@ -11,7 +11,7 @@
 
 constexpr port_t SWITCHPOINT_OPEN = 0b00010000;
 
-namespace hal {
+namespace hardwareLayer {
 namespace actuators {
 
 
@@ -38,4 +38,4 @@ namespace actuators {
 
 
 } /* namespace actuators */
-} /* namespace hal */
+} /* namespace hardwareLayer */
