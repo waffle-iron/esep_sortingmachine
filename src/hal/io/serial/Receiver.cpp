@@ -34,9 +34,12 @@ namespace serial {
 
 			switch (msg.signal) {
 				case Signalname::SERIAL_IM_ALIVE:
+					std::cout << "receive signal: SERIAL_IM_ALIVE" << std::endl;
 					dog_.setOtherDogIsAlive(true);
 				break;
 				case Signalname::SERIAL_ARE_YOU_ALIVE:
+					std::cout << "receive signal: SERIAL_ARE_YOU_ALIVE" << std::endl;
+					std::cout << "send answer" << std::endl;
 					dog_.sendImAlive();
 				break;
 			}

@@ -31,13 +31,15 @@ void WatchDog::operator()(){
 
 		//ask other machine if it i alive
 		serial_.send(&msg);
-
+		std::cout << "send signal: SERIAL_ARE_YOU_ALIVE" << std::endl;
+		std::cout << "wait for answer" << std::endl;
 		WAIT(1000);
+		std::cout << "waiting done" << std::endl;
 
 		//check if other machine has send keep alive signal -
 		//if not error signal
 		if(!otherDogisAlive){
-			std::cout << "machine is not connected" << std::endl;
+			std::cout << "!!!machine is not connected" << std::endl;
 		}
 
 		setOtherDogIsAlive(false);
@@ -58,6 +60,8 @@ void WatchDog::sendImAlive(){
 	msg.payload = 42;
 
 	serial_.send(&msg);
+
+	std::cout << "signal sended: SERIAL_IM_ALIVE" << std::endl;
 
 }
 
