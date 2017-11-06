@@ -6,6 +6,15 @@
  */
 
 #include "LogicLayer.h"
+#include "Signals.h"
+
+Signal::Signal() :
+	name(Signalname::BUTTON_START_PUSHED),
+	sender(0b10101010),
+	receiver(0b01010101)
+{
+	LOG_SCOPE
+}
 
 namespace logicLayer {
 
