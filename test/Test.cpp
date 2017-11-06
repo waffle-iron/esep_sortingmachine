@@ -200,28 +200,30 @@ void Test::sensorTestHelper(hal::io::SensorEvent signalBitmask, Signalname event
 
 	while (cin.get() != '\n');
 
-	bool running = true;
-	bool success = true;
-	int triggerCounter = 0;
-	do {
-		Signal firstSignal =  _hal->getSignal();
-		Signal secondSignal = _hal->getSignal();
+	int successCounter = 0;
+	int failureCounter = 0;
+	Signal firstSignal =  _hal->getSignal();
+	Signal secondSignal =  _hal->getSignal();
+
+	while (firstSignal.name != Signalname::SIGNAL_BUFFER_EMPTY) {
+
 		if (firstSignal.name == eventTriggerStart and secondSignal.name == eventTriggerEnd) {
-			triggerCounter++;
-		} else if(firstSignal.name != Signalname::SIGNAL_BUFFER_EMPTY or secondSignal.name != Signalname::SIGNAL_BUFFER_EMPTY) {
-			success = false;
+			successCounter++;
 		} else {
-			running = false;
-			if (triggerCounter == 0 and firstSignal.name != Signalname::SIGNAL_BUFFER_EMPTY) {
-				success = false;
-			}
+			failureCounter++;
 		}
-	} while(running);
+
+		firstSignal =  _hal->getSignal();
+		secondSignal = _hal->getSignal();
+	}
+
+	bool success = failureCounter == 0 && successCounter > 0;
 
 	if ( success ){
-		cout << "test successful. (triggered " << triggerCounter << " time(s))"<<endl;
+		cout << "triggered successfully "   << successCounter << " time(s))" << endl;
 	} else {
-		cout << "test NOT successful. (triggered " << triggerCounter << " time(s))" << endl;
+		cout << "triggered UNsuccessfully " << failureCounter << " time(s))\n" <<
+				"triggered successfully "   << successCounter << " time(s))" << endl;
 	}
 }
 
