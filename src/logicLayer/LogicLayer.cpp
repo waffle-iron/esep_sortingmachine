@@ -6,7 +6,7 @@
  */
 
 #include "LogicLayer.h"
-#include "Signals.h"
+
 
 namespace logicLayer {
 
@@ -14,8 +14,7 @@ LogicLayer::LogicLayer(hardwareLayer::HardwareLayer& hal) :
 hal(hal)
 {
 	hal.register_observer(this);
-	hal.register_observer(this);
- }
+}
 
 LogicLayer::~LogicLayer() {
 	// TODO Auto-generated destructor stub
@@ -29,6 +28,5 @@ void LogicLayer::notify(){
 	}
 	cout << "LogicLayer: I have been notified! All signals read." << endl;
 	//cout << hal.getSignal().name << endl;
-
 }
 } /* namespace logicLayer */
