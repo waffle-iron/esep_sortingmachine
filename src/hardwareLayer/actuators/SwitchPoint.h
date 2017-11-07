@@ -40,6 +40,6 @@ private:
 };
 
 } /* namespace actuators */
-} /* namespace hal */
+} /* namespace hardwareLayer */
 
 #endif /* SWITCHPOINT_H_ */

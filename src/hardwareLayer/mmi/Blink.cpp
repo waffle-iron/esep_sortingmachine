@@ -70,4 +70,4 @@ void Blink::terminate() {
 }
 
 } /* namespace mmi */
-} /* namespace hal */
+} /* namespace hardwareLayer */

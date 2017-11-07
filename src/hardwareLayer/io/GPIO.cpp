@@ -7,7 +7,7 @@
 
 #include <sys/neutrino.h>
 #include <hw/inout.h>
-#include "header.h"
+#include "Header.h"
 #include <cerrno>
 
 #include "GPIO.h"
@@ -68,4 +68,4 @@ void GPIO::clearBits(PORT port, port_t bitmask) {
 
 
 } /* namespace gpio */
-} /* namespace hal */
+} /* namespace hardwareLayer */

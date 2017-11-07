@@ -53,6 +53,6 @@ private:
 };
 
 } /* namespace actuators */
-} /* namespace hal */
+} /* namespace hardwareLayer */
 
 #endif /* MOTOR_H_ */
