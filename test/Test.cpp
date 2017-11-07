@@ -9,17 +9,16 @@
 #include <iostream>
 #include <thread>
 #include "Test.h"
-#include "HAL.h"
+#include "HardwareLayer.h"
 #include "Header.h"
 #include "GpioTesting.h"
-#include "SingletonTest.h"
 using namespace std;
 
 namespace logicLayer{
 namespace test{
 
 
-Test::Test(hal::HAL* hal) {
+Test::Test(hardwareLayer::HardwareLayer* hal) {
 	_hal = hal;
 }
 
@@ -144,20 +143,21 @@ void Test::sensorsTest(){
 
 }
 
-void Test::writeSomethingElse(hal::io::GPIO *gpio, int difference) {
+void Test::writeSomethingElse(hardwareLayer::io::GPIO *gpio, int difference) {
 	port_t port = gpio->read(PORT::A); // read port to write definetly something different so write method gets called
 	gpio->setBits(PORT::A, port + difference);
 }
 
 void createInstance(){
-	SingletonTest& instance = SingletonTest::instance();
+	GpioTesting& instance = GpioTesting::instance(true);
+	instance.helloWorld();
 }
 
 
 void Test::singletonThreadSafeTest(){
 	cout << "start " << __FUNCTION__ << endl;
 
-	cout << "Get just on singleton created?"<<endl;
+	cout << "Get one singleton created and Two Hello Worlds?"<<endl;
 	thread t1(&createInstance);
 	thread t2(&createInstance);
 	t1.join();
@@ -182,7 +182,7 @@ void Test::threadSafenessInGpioTest(){
 	cout << "# rmw-cycle finished #" 	<< endl;
 	cout << "# ================== #" 	<< endl;
 
-	GpioTesting *gpio = new GpioTesting;
+	GpioTesting *gpio = new GpioTesting();
 	gpio->gainAccess();
 	thread t1(&writeSomethingElse, gpio, 1);
 	thread t2(&writeSomethingElse, gpio, 2);

@@ -5,12 +5,13 @@
  *      Author: abj240
  */
 
-#include "HAL.h"
+#include "HardwareLayer.h"
 #include "GPIO.h"
+#include "Signals.h"
 
-namespace hal {
+namespace hardwareLayer {
 
-HAL::HAL() :
+HardwareLayer::HardwareLayer() :
 _motor(actuators::Motor::instance()),
 _switchPoint(actuators::SwitchPoint::instance()),
 _trafficLight(mmi::TrafficLight::instance())
@@ -25,7 +26,7 @@ _trafficLight(mmi::TrafficLight::instance())
 	yellowLightOff();
 }
 
-HAL::~HAL() {
+HardwareLayer::~HardwareLayer() {
 	LOG_SCOPE;
 
 	motorStop();
@@ -36,71 +37,71 @@ HAL::~HAL() {
 
 }
 
-void HAL::motorStart() {
+void HardwareLayer::motorStart() {
 	_motor.start();
 }
 
-void HAL::motorStop() {
+void HardwareLayer::motorStop() {
 	_motor.stop();
 }
 
-void HAL::motorSlow() {
+void HardwareLayer::motorSlow() {
 	_motor.setSlow();
 }
 
-void HAL::motorFast() {
+void HardwareLayer::motorFast() {
 	_motor.clearSlow();
 }
 
-void HAL::motorRotateClockwise() {
+void HardwareLayer::motorRotateClockwise() {
 	_motor.setClockwiseRotation();
 }
 
-void HAL::motorRotateCounterclockwise() {
+void HardwareLayer::motorRotateCounterclockwise() {
 	_motor.setCounterclockwiseRotation();
 }
 
-void HAL::switchPointOpen(){
+void HardwareLayer::switchPointOpen(){
 	_switchPoint.open();
 }
 
-void HAL::switchPointClose(){
+void HardwareLayer::switchPointClose(){
 	_switchPoint.close();
 }
 
-void HAL::greenLightOn(){
+void HardwareLayer::greenLightOn(){
 	_trafficLight.greenLightOn();
 }
 
-void HAL::greenLightOff(){
+void HardwareLayer::greenLightOff(){
 	_trafficLight.greenLightOff();
 }
 
-void HAL::yellowLightOn(){
+void HardwareLayer::yellowLightOn(){
 	_trafficLight.yellowLightOn();
 }
 
-void HAL::yellowLightOff(){
+void HardwareLayer::yellowLightOff(){
 	_trafficLight.yellowLightOff();
 }
 
-void HAL::redLightOn(){
+void HardwareLayer::redLightOn(){
 	_trafficLight.redLightOn();
 }
 
-void HAL::redLightOff(){
+void HardwareLayer::redLightOff(){
 	_trafficLight.redLightOff();
 }
 
-void HAL::blinkGreen(Speed speed) {
+void HardwareLayer::blinkGreen(Speed speed) {
 	_trafficLight.blinkGreen(speed);
 }
 
-void HAL::blinkYellow(Speed speed) {
+void HardwareLayer::blinkYellow(Speed speed) {
 	_trafficLight.blinkYellow(speed);
 }
 
-void HAL::blinkRed(Speed speed) {
+void HardwareLayer::blinkRed(Speed speed) {
 	_trafficLight.blinkRed(speed);
 }
 

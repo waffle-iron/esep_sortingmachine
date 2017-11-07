@@ -13,6 +13,7 @@
 #include <ctime>
 #include <string>
 
+
 #define LOG_DEBUG \
     if(Logger::getLogger().getLoggingLevel() < DEBUG); \
 	else Logger::getLogger().log("DEBUG")
@@ -37,7 +38,7 @@ public:
 		return Instance;
 	}
     ofstream& log(string s){// return ofstream, so cascading <<..<<..<< is possible.
-   		logfile_<<time(NULL)<<" "<<s<<" ";// time ticks in seconds. Check OS for more accurate timer.
+   		logfile_<<time(NULL)<<" "<<s<<" "<<endl;// time ticks in seconds. Check OS for more accurate timer.
     	return logfile_;
     }
     void setLoggingLevel(LEVEL level){
@@ -59,10 +60,10 @@ private:
 class LogScope{
 public:
 	LogScope(const string& s) : logger_(Logger::getLogger()) , functionname_(s){
-		logger_.log("SCOPE")<<"entering "<<functionname_<<" \n";
+		logger_.log("SCOPE")<<"entering "<<functionname_<<endl;
 	}
 	~LogScope(){
-		logger_.log("SCOPE")<<"exiting "<<functionname_<<" \n";
+		logger_.log("SCOPE")<<"exiting "<<functionname_<<endl;
 	}
 private:
 	Logger& logger_;

@@ -4,7 +4,6 @@
 #include <iostream>
 #include <thread>
 #include <chrono>
-#include "HAL.h"
 #include "GPIO.h"
 #include "Test.h"
 #include "GpioTesting.h"
@@ -13,11 +12,13 @@
 #include "Sender.h"
 #include "Receiver.h"
 
-using namespace std;
 
+using namespace std;
 
 int main(int argc, char *argv[])
 {
+
+
 
 
 	//connect to serial
