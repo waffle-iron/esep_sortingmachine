@@ -24,9 +24,13 @@ namespace io {
 
 int ISR::isrId;
 struct sigevent ISR::isrEvent;
+bool ISR::eStoppPulled = true;
+int ISR::prioStandard = 9;
+int ISR::prioHigh = 10;
 
 ISR::ISR() {
 	GPIO::instance().gainAccess();
+//	eStoppPulled = GPIO::instance().read(PORT::C) & E_STOP_BITMASK;
 }
 
 int ISR::getPendingIntFlags() {
@@ -59,9 +63,15 @@ const struct sigevent* ISR::mainISR(void* arg, int id) {
     port_t portB = GPIO::instance().read(PORT::B);
     port_t portC = GPIO::instance().read(PORT::C) & PORT_C_HIGH_MASK;
 
-    if((~portC) & E_STOP_BITMASK) {
-        event->sigev_priority = event->sigev_priority+1;
-    }
+    if(((~portC) & E_STOP_BITMASK) and eStoppPulled) {
+    	event->sigev_priority = prioHigh;
+		eStoppPulled = false;
+	} else if(portC & E_STOP_BITMASK){
+		eStoppPulled = true;
+		event->sigev_priority = prioStandard;
+	} else {
+		event->sigev_priority = prioStandard;
+	}
 	event->sigev_value.sival_int = portB | portC<<8;
 
 

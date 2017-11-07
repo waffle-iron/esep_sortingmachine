@@ -15,6 +15,12 @@ using namespace std;
 namespace hardwareLayer {
 namespace io {
 
+AsyncChannel& AsyncChannel::instance(){
+	LOG_SCOPE
+	static AsyncChannel instance;
+	return instance;
+}
+
 AsyncChannel::AsyncChannel() {
 	LOG_SCOPE
 	// creating channel
@@ -80,12 +86,6 @@ void AsyncChannel::sendMessage(AsyncMsg msg){
 int AsyncChannel::getConnectionId(){
 	LOG_SCOPE
 	return connectionId;
-}
-
-AsyncChannel& AsyncChannel::instance(){
-	LOG_SCOPE
-	static AsyncChannel instance;
-	return instance;
 }
 
 } /* io */

@@ -73,6 +73,9 @@ private:
 
 	static int isrId;
 	static struct sigevent isrEvent;
+	static bool eStoppPulled;
+	static int prioStandard;
+	static int prioHigh;
 };
 
 } /* io */

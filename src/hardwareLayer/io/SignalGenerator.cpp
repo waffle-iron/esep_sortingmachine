@@ -44,6 +44,8 @@ const SensorEvent SignalGenerator::LIGHT_BARRIER_OUTPUT(0b10000000, "LIGHT_BARRI
 
 std::vector<const SensorEvent> const SignalGenerator::events = init_events();
 
+int SignalGenerator::stored_mask = 0;
+
 
 SignalGenerator::SignalGenerator():
 running(true)
@@ -51,8 +53,8 @@ running(true)
 	LOG_SCOPE
 	init_events();
 	GPIO::instance().gainAccess();
-	stored_mask = GPIO::instance().read(PORT::C)<<8 | GPIO::instance().read(PORT::B);
 	ISR::registerISR(AsyncChannel::instance(), MAGIC_NUMBER);
+	stored_mask = GPIO::instance().read(PORT::C)<<8 | GPIO::instance().read(PORT::B);
 	thread = std::thread(std::ref(*this));
 }
 
@@ -90,7 +92,7 @@ void SignalGenerator::operator()() {
 void SignalGenerator::terminate() {
 	LOG_SCOPE
 	running = false;
-	AsyncChannel::instance().sendMessage({0,0});
+	AsyncChannel::instance().sendMessage({0,stored_mask});
 }
 
 void SignalGenerator::restart() {

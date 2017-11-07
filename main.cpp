@@ -60,11 +60,12 @@ int main(int argc, char *argv[])
 	hardwareLayer::HardwareLayer hal;
 	logicLayer::LogicLayer loLay = logicLayer::LogicLayer(hal);
 
+	cout<<"hit enter to shut down SignalGenerator thread"<<endl;
 	while (cin.get() != '\n');
-
-
 	hal.getSignalGenerator().terminate();
 
+	cout<<"now trigger different sensors and afterwards E Stop button and hit enter to start a new SignalGenerator thread"<<endl;
+	cout<<"first message should be DOWN: 32768"<<endl;
 	while (cin.get() != '\n');
 
 	hal.getSignalGenerator().restart();

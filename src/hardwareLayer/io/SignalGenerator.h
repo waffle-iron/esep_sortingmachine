@@ -101,6 +101,9 @@ public:
 	static const SensorEvent SENSOR_SWITCH_OPEN;
 	static const SensorEvent LIGHT_BARRIER_OUTPUT;
 
+	static int stored_mask;
+
+
 private:
 	/*
 	 *@brief: initializes and returns const vector<const SensorEvent> events
@@ -114,7 +117,6 @@ private:
 	std::thread thread;
 	std::thread thread2;
 	bool running;
-	int stored_mask;
 	std::vector<Signal> signalBuffer;
 };
 
