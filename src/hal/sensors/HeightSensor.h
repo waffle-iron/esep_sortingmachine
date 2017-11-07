@@ -15,7 +15,15 @@ namespace hal {
 namespace sensors {
 class HeightSensor {
 public:
+	/**
+	* @brief creates singleton instance on first call, otherwise returns instance
+	* @return singleton instance
+	*/
 	static HeightSensor& instance();
+	/**
+	* @brief reads the height value
+	* @return height value
+	*/
 	uint16_t getHeight(void);
 
 private:
