@@ -64,4 +64,4 @@ uint16_t HeightSensor::getHeight(void) {
 
 
 }/*sensors*/
-}/*hardwareLayer/*
+}/*hardwareLayer*/

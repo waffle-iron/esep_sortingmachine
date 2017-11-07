@@ -13,6 +13,7 @@
 
 namespace hardwareLayer {
 namespace sensors {
+
 class HeightSensor {
 public:
 	/**
@@ -34,7 +35,7 @@ private:
 };
 
 
-}/*sensors*/
-}/*hardwareLayer/*
+} /*sensors*/
+} /*hardwareLayer*/
 
 #endif /* HEIGHTSENSOR_H_ */
