@@ -1,21 +1,22 @@
 /*
- * Receiver.h
+ * Sender.h
  *
  *  Created on: 16.10.2017
  *      Author: aca311
  */
 
-#ifndef RECEIVER_H_
-#define RECEIVER_H_
+#ifndef SENDER_H_
+#define SENDER_H_
 
 #include "Serial.h"
 
 namespace hardwareLayer {
 namespace io {
+namespace serial {
 
-class Receiver {
+class Sender {
 public:
-    Receiver(Serial& serial);
+    Sender(Serial& serial);
     void operator()();
     void stop();
 
@@ -24,8 +25,8 @@ private:
     bool running;
 };
 
-}
-}
+} /* namespace serial */
+} /* namespace io */
+} /* namespace hal */
 
-
-#endif /* RECEIVER_H_ */
+#endif /* SENDER_H_ */

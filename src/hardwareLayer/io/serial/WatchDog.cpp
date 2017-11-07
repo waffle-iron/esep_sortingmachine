@@ -9,7 +9,7 @@
 #include "WatchDog.h"
 #include <thread>
 
-namespace hal {
+namespace hardwareLayer {
 namespace io {
 namespace serial {
 

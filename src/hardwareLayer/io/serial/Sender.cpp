@@ -10,7 +10,7 @@
 #include "Header.h"
 #include "Sender.h"
 
-namespace hal {
+namespace hardwareLayer {
 namespace io {
 namespace serial {
 

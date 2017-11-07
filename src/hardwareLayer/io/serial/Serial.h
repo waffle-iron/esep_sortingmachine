@@ -9,9 +9,11 @@
 #define SERIAL_H_
 
 #include <string>
+#include <Message.h>
 
 namespace hardwareLayer {
 namespace io {
+namespace serial {
 
 class Serial {
 	private:
@@ -22,8 +24,14 @@ class Serial {
 		Serial(std::string dev, int baud);
 		~Serial();
 		void init(int baud);
+
 		int send(char* buffer, unsigned char numBytes);
 		int recv(char* p);
+
+		int send(Message *msg);
+		int recv(Message *msg);
+
+		void flush(void);
 
 	private:
 		Serial(const Serial& other);
@@ -31,6 +39,8 @@ class Serial {
 	};
 
 
-}
-}
+} /* namespace serial */
+} /* namespace io */
+} /* namespace hal */
+
 #endif /* SERIAL_H_ */

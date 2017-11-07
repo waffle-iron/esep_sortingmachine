@@ -13,7 +13,7 @@
 
 using namespace std;
 
-namespace hal {
+namespace hardwareLayer {
 namespace io {
 namespace serial {
 

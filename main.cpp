@@ -9,7 +9,6 @@
 #include "GpioTesting.h"
 
 #include "Serial.h"
-#include "Sender.h"
 #include "Receiver.h"
 
 
@@ -22,14 +21,14 @@ int main(int argc, char *argv[])
 
 
 	//connect to serial
-	hal::io::serial::Serial ser1("/dev/ser1");
-	hal::io::serial::Serial ser2("/dev/ser2");
+	hardwareLayer::io::serial::Serial ser1("/dev/ser1");
+	hardwareLayer::io::serial::Serial ser2("/dev/ser2");
 
 	//sender object
-	hal::io::serial::WatchDog dog(ser1);
+	hardwareLayer::io::serial::WatchDog dog(ser1);
 
 	//receiver object
-	hal::io::serial::Receiver receiver(ser2, dog);
+	hardwareLayer::io::serial::Receiver receiver(ser2, dog);
 
 	//start threads
 	std::thread th_sender(std::ref(dog));

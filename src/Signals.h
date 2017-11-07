@@ -103,10 +103,10 @@ enum class Signalname : uint16_t {
 	//Serial Interface
 	SERIAL_SEND_ITEM,
 	SERIAL_ARE_YOU_ALIVE,
-	SERIAL_IM_ALIVE
+	SERIAL_IM_ALIVE,
 
 	// signal generator
-	SIGNAL_BUFFER_EMPTY,
+	SIGNAL_BUFFER_EMPTY
 
 };
 
