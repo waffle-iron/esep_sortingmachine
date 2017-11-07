@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include "Receiver.h"
+#include "TrafficLight.h"
 
 namespace hardwareLayer {
 namespace io {
@@ -20,27 +21,25 @@ namespace serial {
 
 	}
 
-
-
-
-
-
 	void Receiver::operator()(){
 		while(running){
 			struct Message msg;
 
 			//blocking io
-
 			serial_.recv(&msg);
 
 			//check sum is correct
-			if(msg.checkNumber == 0 ){
+			if(msg.checkNumber == 654321 ){
+
 				switch (msg.signal.name) {
 					case Signalname::SERIAL_IM_ALIVE:
 						dog_.setOtherDogIsAlive(true);
 					break;
 					case Signalname::SERIAL_ARE_YOU_ALIVE:
 						dog_.sendImAlive();
+					break;
+					case Signalname::SIGNAL_DUMMY:
+						hardwareLayer::mmi::TrafficLight::instance().blinkGreen(Speed::fast);
 					break;
 					default:
 						//default signal

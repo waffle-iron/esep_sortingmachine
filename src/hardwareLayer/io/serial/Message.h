@@ -14,7 +14,7 @@
 
 struct Message {
 	Message() :
-		checkNumber( 0 )
+		checkNumber( 654321 )
 	{
 
 	}
