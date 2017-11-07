@@ -75,9 +75,9 @@ void SignalGenerator::operator()() {
 		for(const auto &event : events) {
 			if (change & event.bitmask) { // change happend on event?
 				if (event.bitmask & current_mask) { 	// low -> high
-					signalBuffer.push_back(Signal(1,1,event.signalPair.high));
+					pushBackOnSignalBuffer(Signal(1,1,event.signalPair.high));
 				} else {						// high -> low
-					signalBuffer.push_back(Signal(1,1,event.signalPair.low));
+					pushBackOnSignalBuffer(Signal(1,1,event.signalPair.low));
 				}
 			}
 		}
@@ -98,6 +98,10 @@ Signal SignalGenerator::nextSignal() {
 		signalBuffer.erase(signalBuffer.begin());
 	}
 	return signal;
+}
+
+void SignalGenerator::pushBackOnSignalBuffer(Signal signal) {
+	signalBuffer.push_back(signal);
 }
 
 void SignalGenerator::clearSignalBuffer() {

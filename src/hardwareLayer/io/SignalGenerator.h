@@ -78,6 +78,12 @@ public:
 	Signal nextSignal();
 
 	/*
+	 *@brief: pushs back Signal on signalBuffer.
+	 *@param: signal Signal
+	 */
+	void pushBackOnSignalBuffer(Signal signal);
+
+	/*
 	 *@brief clears signalBuffer
 	 */
 	void clearSignalBuffer();
