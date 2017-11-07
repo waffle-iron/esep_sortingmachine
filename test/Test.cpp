@@ -9,16 +9,17 @@
 #include <iostream>
 #include <thread>
 #include "Test.h"
-#include "HAL.h"
+#include "HardwareLayer.h"
 #include "Header.h"
 #include "GpioTesting.h"
+
 using namespace std;
 
 namespace logicLayer{
 namespace test{
 
 
-Test::Test(hal::HAL* hal) {
+Test::Test(hardwareLayer::HardwareLayer* hal) {
 	_hal = hal;
 }
 
@@ -79,13 +80,7 @@ void Test::mmiTest(){
 	_hal->greenLightOn();
 	if( !nextTest(__FUNCTION__) ) return;
 
-	cout << "test lamps off: red, yellow, green" << endl;
-	_hal->yellowLightOff();
-	_hal->redLightOff();
-	_hal->greenLightOff();
-	if( !nextTest(__FUNCTION__) ) return;
-
-	cout << "test blinking fast: red, yello, green " << endl;
+	cout << "test blinking fast: red, yellow, green " << endl;
 	_hal->blinkGreen(Speed::fast);
 	_hal->blinkRed(Speed::fast);
 	_hal->blinkYellow(Speed::fast);
@@ -113,10 +108,6 @@ void Test::mmiTest(){
 	_hal->yellowLightOff();
 	if( !nextTest(__FUNCTION__) ) return;
 
-	cout << "test blinking slow: nothing" << endl;
-	_hal->greenLightOff();
-	if( !nextTest(__FUNCTION__) ) return;
-
 	cout << "test blinking slow: red, yellow, green" << endl;
 	_hal->blinkGreen(Speed::slow);
 	_hal->blinkYellow(Speed::slow);
@@ -135,15 +126,108 @@ void Test::mmiTest(){
 	_hal->blinkRed(Speed::slow);
 	if( !nextTest(__FUNCTION__) ) return;
 
+	cout << "test blinking: nothing" << endl;
+	_hal->greenLightOff();
+	_hal->yellowLightOff();
+	_hal->redLightOff();
+	if( !nextTest(__FUNCTION__) ) return;
+
 	cout  << __FUNCTION__ << " successful. " << endl;
 }
 
 
 void Test::sensorsTest(){
+	cout << "start " << __FUNCTION__ <<endl;
 
+	sensorTestHelper(	hardwareLayer::io::SignalGenerator::LIGHT_BARRIER_INPUT,
+						Signalname::LB_INPUT_INTERRUPTED,
+						Signalname::LB_INPUT_FREED);
+
+	sensorTestHelper(	hardwareLayer::io::SignalGenerator::LIGHT_BARRIER_HEIGHT,
+						Signalname::LB_HEIGHT_INTERRUPTED,
+						Signalname::LB_HEIGHT_FREED);
+
+	sensorTestHelper(	hardwareLayer::io::SignalGenerator::LIGHT_BARRIER_SWITCH,
+						Signalname::LB_SWITCH_INTERRUPTED,
+						Signalname::LB_SWITCH_FREED);
+
+	sensorTestHelper(	hardwareLayer::io::SignalGenerator::LIGHT_BARRIER_SLIDE,
+						Signalname::LB_SLIDE_INTERRUPTED,
+						Signalname::LB_SLIDE_FREED);
+
+	sensorTestHelper(	hardwareLayer::io::SignalGenerator::LIGHT_BARRIER_OUTPUT,
+						Signalname::LB_OUTPUT_INTERRUPTED,
+						Signalname::LB_OUTPUT_FREED);
+
+	sensorTestHelper(	hardwareLayer::io::SignalGenerator::SENSOR_HEIGHT_MATCH,
+						Signalname::SENSOR_HEIGHT_MATCH,
+						Signalname::SENSOR_HEIGHT_NOT_MATCH);
+
+	sensorTestHelper(	hardwareLayer::io::SignalGenerator::SENSOR_SWITCH_OPEN,
+						Signalname::SENSOR_SWITCH_IS_OPEN,
+						Signalname::SENSOR_SWITCH_IS_CLOSED);
+
+	sensorTestHelper(	hardwareLayer::io::SignalGenerator::SENSOR_METAL_MATCH,
+						Signalname::SENSOR_METAL_MATCH,
+						Signalname::SENSOR_METAL_NOT_MATCH);
+
+	sensorTestHelper(	hardwareLayer::io::SignalGenerator::BUTTON_START,
+						Signalname::BUTTON_START_PUSHED,
+						Signalname::BUTTON_START_PULLED);
+
+	sensorTestHelper(	hardwareLayer::io::SignalGenerator::BUTTON_STOP,
+						Signalname::BUTTON_STOP_PUSHED,
+						Signalname::BUTTON_STOP_PULLED);
+
+	sensorTestHelper(	hardwareLayer::io::SignalGenerator::BUTTON_RESET,
+						Signalname::BUTTON_RESET_PUSHED,
+						Signalname::BUTTON_RESET_PULLED);
+
+	sensorTestHelper(	hardwareLayer::io::SignalGenerator::BUTTON_E_STOP,
+						Signalname::BUTTON_E_STOP_PUSHED,
+						Signalname::BUTTON_E_STOP_PULLED);
+
+	if( !nextTest(__FUNCTION__) ) return;
+
+	cout  << __FUNCTION__ << " successful. " <<endl<<endl;
 }
 
-void Test::writeSomethingElse(hal::io::GPIO *gpio, int difference) {
+void Test::sensorTestHelper(hardwareLayer::io::SensorEvent signalBitmask, Signalname eventTriggerStart, Signalname eventTriggerEnd) {
+
+	_hal->clearSignalBuffer();
+
+	cout <<endl<< "test " << signalBitmask.name << "\n - please trigger sensor one or several times. Hit return key afterwards.";
+
+	while (cin.get() != '\n');
+
+	int successCounter = 0;
+	int failureCounter = 0;
+	Signal firstSignal =  _hal->getSignal();
+	Signal secondSignal =  _hal->getSignal();
+
+	while (firstSignal.name != Signalname::SIGNAL_BUFFER_EMPTY) {
+
+		if (firstSignal.name == eventTriggerStart and secondSignal.name == eventTriggerEnd) {
+			successCounter++;
+		} else {
+			failureCounter++;
+		}
+
+		firstSignal =  _hal->getSignal();
+		secondSignal = _hal->getSignal();
+	}
+
+	bool success = failureCounter == 0 && successCounter > 0;
+
+	if ( success ){
+		cout << "triggered successfully "   << successCounter << " time(s))" << endl;
+	} else {
+		cout << "triggered UNsuccessfully " << failureCounter << " time(s))\n" <<
+				"triggered successfully "   << successCounter << " time(s))" << endl;
+	}
+}
+
+void Test::writeSomethingElse(hardwareLayer::io::GPIO *gpio, int difference) {
 	port_t port = gpio->read(PORT::A); // read port to write definetly something different so write method gets called
 	gpio->setBits(PORT::A, port + difference);
 }
@@ -165,7 +249,7 @@ void Test::singletonThreadSafeTest(){
 
 	if( !nextTest(__FUNCTION__) ) return;
 
-	cout << __FUNCTION__ << " successful." << endl;
+	cout << __FUNCTION__ << " successful." << endl<<endl;
 
 }
 
@@ -192,12 +276,12 @@ void Test::threadSafenessInGpioTest(){
 
 	if( !nextTest(__FUNCTION__) ) return;
 
-	cout << __FUNCTION__ << " successful." << endl;
+	cout << __FUNCTION__ << " successful." << endl<<endl;
 }
 
 
 bool Test::nextTest(string functionName){
-	cout << "Was the test successful and do you want to go on?\n"<<
+	cout <<endl<< "Was the test successful and do you want to go on?\n"<<
 			"  yes: hit return\n"<<
 			"  no : hit any key followed by return" << endl;
 	if (cin.get() == '\n'){
