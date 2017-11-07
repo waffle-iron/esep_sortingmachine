@@ -14,7 +14,8 @@ namespace hardwareLayer {
 HardwareLayer::HardwareLayer() :
 _motor(actuators::Motor::instance()),
 _switchPoint(actuators::SwitchPoint::instance()),
-_trafficLight(mmi::TrafficLight::instance())
+_trafficLight(mmi::TrafficLight::instance()),
+_heightSensor(sensors::HeightSensor::instance())
 {
 	LOG_SCOPE;
 
@@ -111,6 +112,10 @@ Signal HardwareLayer::getSignal() {
 
 void HardwareLayer::clearSignalBuffer() {
 	signalGenerator.clearSignalBuffer();
+}
+
+uint16_t HardwareLayer::getHeight() {
+	return _heightSensor.getHeight();
 }
 
 } /* hardwareLayer */

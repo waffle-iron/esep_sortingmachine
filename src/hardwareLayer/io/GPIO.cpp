@@ -38,8 +38,17 @@ void GPIO::gainAccess(){
 	}
 }
 
+
 void GPIO::write(PORT port, port_t val){
 	out8(DIO_BASE+(port_t)port, val);
+}
+
+void GPIO::write(uint8_t address, port_t val){
+	out8(DIO_BASE+(uint8_t)address, val);
+}
+
+uint8_t GPIO::read(uint8_t address){
+	return in8(DIO_BASE + address);
 }
 
 port_t GPIO::read(PORT port){
@@ -47,21 +56,29 @@ port_t GPIO::read(PORT port){
 }
 
 void GPIO::setBits(PORT port, port_t bitmask) {
+	setBits((uint8_t)port,bitmask);
+}
+
+void GPIO::setBits(uint8_t address, uint8_t bitmask) {
 	gpio_mutex.lock();
-	port_t storedValue = this->read(port);
-	port_t newValue = storedValue | bitmask;
+	uint8_t storedValue = this->read(address);
+	uint8_t newValue = storedValue | bitmask;
 	if(newValue != storedValue){
-		this->write(port, newValue);
+		this->write(address, newValue);
 	}
 	gpio_mutex.unlock();
 }
 
 void GPIO::clearBits(PORT port, port_t bitmask) {
+	clearBits((uint8_t)port,bitmask);
+}
+
+void GPIO::clearBits(uint8_t address, port_t bitmask) {
 	gpio_mutex.lock();
-	port_t storedValue = this->read(port);
+	port_t storedValue = this->read(address);
 	port_t newValue = storedValue & ~bitmask;
 	if(newValue != storedValue){
-		this->write(port, newValue);
+		this->write(address, newValue);
 	}
 	gpio_mutex.unlock();
 }

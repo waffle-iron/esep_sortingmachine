@@ -22,17 +22,17 @@ public:
 	virtual ~Test();
 
 	/**
-	 *
+	 *  @brief test actuators
 	 */
 	void actuatorsTest();
 
 	/**
-	 *
+	 *  @brief test mmi
 	 */
 	void mmiTest();
 
 	/**
-	 *
+	 *  @brief test sensors
 	 */
 	void sensorsTest();
 

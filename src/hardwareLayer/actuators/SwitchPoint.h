@@ -17,7 +17,10 @@ namespace actuators {
 
 class SwitchPoint {
 public:
-
+	/**
+	* @brief creates singleton instance on first call, otherwise returns instance
+	* @return singleton instance
+	*/
 	static SwitchPoint& instance();
 
 	/**
