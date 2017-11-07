@@ -42,5 +42,5 @@ protected:
 };
 
 } /* namespace gpio */
-} /* namespace hal */
+} /* namespace hardwareLayer */
 #endif /* GPIO_H_ */

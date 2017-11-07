@@ -38,4 +38,4 @@ namespace actuators {
 
 
 } /* namespace actuators */
-} /* namespace hal */
+} /* namespace hardwareLayer */

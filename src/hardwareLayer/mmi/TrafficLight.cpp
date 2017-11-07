@@ -79,4 +79,4 @@ void TrafficLight::blinkRed(Speed speed) {
 }
 
 } /* namespace hmi */
-} /* namespace hal */
+} /* namespace hardwareLayer */

@@ -50,5 +50,5 @@ private:
 };
 
 } /* namespace mmi */
-} /* namespace hal */
+} /* namespace hardwareLayer */
 #endif /* BLINK_H_ */

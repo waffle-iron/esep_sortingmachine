@@ -80,6 +80,6 @@ private:
 
 };
 } /* namespace mmi */
-} /* namespace hal */
+} /* namespace hardwareLayer */
 
 #endif /* TRAFFICLIGHT_H_ */

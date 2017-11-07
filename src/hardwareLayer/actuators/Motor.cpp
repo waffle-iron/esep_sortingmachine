@@ -58,5 +58,5 @@ void Motor::setCounterclockwiseRotation() {
 }
 
 } /* namespace actuators */
-} /* namespace hal */
+} /* namespace hardwareLayer */
 
