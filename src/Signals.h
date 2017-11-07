@@ -106,7 +106,10 @@ enum class Signalname : uint16_t {
 	SERIAL_IM_ALIVE,
 
 	// signal generator
-	SIGNAL_BUFFER_EMPTY
+	SIGNAL_BUFFER_EMPTY,
+
+	// default signal
+	SIGNAL_DUMMY
 
 };
 
@@ -131,7 +134,7 @@ struct Signal {
 		LOG_SCOPE
 	}
 	Signal() :
-		name(Signalname::BUTTON_START_PUSHED),
+		name(Signalname::SIGNAL_DUMMY),
 		sender(0),
 		receiver(0)
 	{

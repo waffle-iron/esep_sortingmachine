@@ -23,11 +23,9 @@ namespace serial {
 
 	void Sender::operator()(){
 		while(running){
-			struct Message msg;
-			msg.signal  = Signalname::SERIAL_SEND_ITEM;
-			msg.payload = 42;
 
-			serial_.send(&msg);
+
+			//serial_.send(&msg);
 			std::cout << "Message send!" << std::endl;
 			WAIT(1000);
 		}

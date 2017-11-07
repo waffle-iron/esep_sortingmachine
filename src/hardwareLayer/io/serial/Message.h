@@ -8,11 +8,19 @@
 #ifndef MESSAGE_H_
 #define MESSAGE_H_
 
+#include "Header.h"
+#include "Item.h"
 #include "Signals.h"
 
-struct Message{
-	Signalname signal;
-	int payload;
+struct Message {
+	Message() :
+		checkNumber( 0 )
+	{
+
+	}
+	int checkNumber;
+	Signal signal;
+	Item payload;
 };
 
 

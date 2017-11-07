@@ -24,9 +24,14 @@ WatchDog::~WatchDog() {
 
 void WatchDog::operator()(){
 	while(true){
+
 		struct Message msg;
-		msg.signal  = Signalname::SERIAL_ARE_YOU_ALIVE;
-		msg.payload = 42;
+		msg.signal.name   	= Signalname::SERIAL_ARE_YOU_ALIVE;
+		msg.signal.sender 	= 0;
+		msg.signal.receiver = 1;
+		msg.payload.das 	= 42;
+		msg.payload.dies	= 42;
+		msg.payload.jenes 	= 42;
 
 
 		//ask other machine if it i alive
@@ -55,8 +60,12 @@ void WatchDog::setOtherDogIsAlive(bool isAlive){
 void WatchDog::sendImAlive(){
 
 	struct Message msg;
-	msg.signal  = Signalname::SERIAL_IM_ALIVE;
-	msg.payload = 42;
+	msg.signal.name   	= Signalname::SERIAL_IM_ALIVE;
+	msg.signal.sender 	= 0;
+	msg.signal.receiver = 1;
+	msg.payload.das 	= 42;
+	msg.payload.dies	= 42;
+	msg.payload.jenes 	= 42;
 
 	serial_.send(&msg);
 

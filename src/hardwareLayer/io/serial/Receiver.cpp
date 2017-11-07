@@ -33,16 +33,23 @@ namespace serial {
 
 			serial_.recv(&msg);
 
-			switch (msg.signal) {
-				case Signalname::SERIAL_IM_ALIVE:
-					dog_.setOtherDogIsAlive(true);
-				break;
-				case Signalname::SERIAL_ARE_YOU_ALIVE:
-					dog_.sendImAlive();
-				break;
-				default:
-					serial_.flush();
-				break;
+			//check sum is correct
+			if(msg.checkNumber == 0 ){
+				switch (msg.signal.name) {
+					case Signalname::SERIAL_IM_ALIVE:
+						dog_.setOtherDogIsAlive(true);
+					break;
+					case Signalname::SERIAL_ARE_YOU_ALIVE:
+						dog_.sendImAlive();
+					break;
+					default:
+						//default signal
+					break;
+				}
+			}
+			else{
+				//if not
+				serial_.flush();
 			}
 
 		}
