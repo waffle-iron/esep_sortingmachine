@@ -85,6 +85,16 @@ void GPIO::clearBits(PORT port, port_t bitmask) {
 	gpio_mutex.unlock();
 }
 
+void GPIO::clearBits(uint8_t address, port_t bitmask) {
+	gpio_mutex.lock();
+	port_t storedValue = this->read(address);
+	port_t newValue = storedValue & ~bitmask;
+	if(newValue != storedValue){
+		this->write(address, newValue);
+	}
+	gpio_mutex.unlock();
+}
+
 
 } /* namespace gpio */
 } /* namespace hardwareLayer */

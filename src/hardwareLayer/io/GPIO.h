@@ -42,10 +42,6 @@ public:
 	*/
 	uint8_t read(uint8_t address);
 	/**
-	* @brief sets 8-bit value val on the specified address
-	*/
-	void write(  uint8_t address, uint8_t val);
-	/**
 	* @brief sets bits from bitmask on the specified port
 	*/
 	void setBits(PORT port, port_t bitmask);
@@ -63,14 +59,18 @@ public:
 	void clearBits(uint8_t address, port_t bitmask);
 
 protected:
-	/**
-	* @brief sets 8-bit value val on the specified port
-	*/
-	virtual void write(  PORT port, port_t val);
 	GPIO();
 	GPIO(GPIO const&);
 	GPIO& operator=(GPIO const&);
 	~GPIO();
+	/**
+	* @brief sets 8-bit value val on the specified port
+	*/
+	virtual void write(  PORT port, port_t val);
+	/**
+	* @brief sets 8-bit value val on the specified address
+	*/
+	void write(  uint8_t address, uint8_t val);
 
 
 	std::mutex gpio_mutex;

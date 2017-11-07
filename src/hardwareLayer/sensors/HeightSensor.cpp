@@ -44,7 +44,8 @@ uint16_t HeightSensor::getHeight(void) {
   uint16_t height;
 
   // write opcode to start conversion
-  io::GPIO::instance().write(startConversionAddressOffset,startConversionOpCode);
+  io::GPIO::instance().clearBits(startConversionAddressOffset,startConversionOpCode);
+  io::GPIO::instance().setBits(startConversionAddressOffset,startConversionOpCode);
 
   //wait for conversion to complete
   usleep(10);
