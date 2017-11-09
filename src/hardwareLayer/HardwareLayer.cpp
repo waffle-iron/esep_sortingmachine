@@ -15,6 +15,12 @@ HardwareLayer::HardwareLayer() :
 _motor(actuators::Motor::instance()),
 _switchPoint(actuators::SwitchPoint::instance()),
 _trafficLight(mmi::TrafficLight::instance()),
+_serialSender("/dev/ser1"),
+_serialReceiver("/dev/ser2"),
+_watchDog(_serialSender),
+_receiver(_serialReceiver, _watchDog),
+_th_watchDog(std::ref(_watchDog)),
+_th_receiver(std::ref(_receiver)),
 _heightSensor(sensors::HeightSensor::instance())
 {
 	LOG_SCOPE;
@@ -25,6 +31,7 @@ _heightSensor(sensors::HeightSensor::instance())
 	greenLightOff();
 	redLightOff();
 	yellowLightOff();
+
 }
 
 HardwareLayer::~HardwareLayer() {
@@ -112,6 +119,12 @@ Signal HardwareLayer::getSignal() {
 
 void HardwareLayer::clearSignalBuffer() {
 	signalGenerator.clearSignalBuffer();
+}
+
+void HardwareLayer::sendSerialMsg(Message *msg) {
+
+	_serialSender.send(msg);
+
 }
 
 uint16_t HardwareLayer::getHeight() {
