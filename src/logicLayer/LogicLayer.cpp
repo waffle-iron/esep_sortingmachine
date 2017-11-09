@@ -24,6 +24,9 @@ LogicLayer::~LogicLayer() {
 
 void LogicLayer::notify(){
 	Signal signal;
+
+	cout << "notify called";
+
 	while((signal = hal.getSignal()).name != Signalname::SIGNAL_BUFFER_EMPTY) {
 		cout << "LogicLayer: I have been notified! Now I go get the Signal." << endl;
 

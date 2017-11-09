@@ -101,7 +101,9 @@ Signal SignalGenerator::nextSignal() {
 }
 
 void SignalGenerator::pushBackOnSignalBuffer(Signal signal) {
+	std::cout << "push back" << std::endl;
 	signalBuffer.push_back(signal);
+	std::cout << "push back" << std::endl;
 	notify_observers();
 }
 

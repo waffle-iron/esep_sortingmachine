@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
 	LOG_SET_LEVEL(DEBUG);
 
 	hardwareLayer::HardwareLayer hal;
-
+	logicLayer::LogicLayer loLay = logicLayer::LogicLayer(hal);
 
 
 	Message msg;
@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
 
 
 
-//	logicLayer::LogicLayer loLay = logicLayer::LogicLayer(hal);
+
 //
 //	logicLayer::test::Test test = logicLayer::test::Test(&hal);
 //	test.mmiTest();

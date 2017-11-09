@@ -40,6 +40,7 @@ namespace serial {
 						dog_.sendImAlive();
 					break;
 					default:
+						std::cout << "default receive" << std::endl;
 						sgen_.pushBackOnSignalBuffer(msg.signal);
 					break;
 				}
