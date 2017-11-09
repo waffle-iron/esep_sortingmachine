@@ -13,7 +13,8 @@ namespace logicLayer {
 LogicLayer::LogicLayer(hardwareLayer::HardwareLayer& hal) :
 hal(hal)
 {
-	hal.register_observer(this);
+	//hal.register_observer(this);
+	hal.getSignalGenerator().register_observer(this); //listen to SignalGenerator
 }
 
 LogicLayer::~LogicLayer() {
@@ -25,6 +26,18 @@ void LogicLayer::notify(){
 	Signal signal;
 	while((signal = hal.getSignal()).name != Signalname::SIGNAL_BUFFER_EMPTY) {
 		cout << "LogicLayer: I have been notified! Now I go get the Signal." << endl;
+
+		switch(signal.name){
+			case Signalname::BLINK_GREEN_FAST:
+				hal.blinkGreen(Speed::fast);
+			break;
+			case Signalname::CONNECTION_LOST:
+				hal.blinkRed(Speed::slow);
+			break;
+			default:
+			break;
+		}
+
 	}
 	cout << "LogicLayer: I have been notified! All signals read." << endl;
 	//cout << hal.getSignal().name << endl;

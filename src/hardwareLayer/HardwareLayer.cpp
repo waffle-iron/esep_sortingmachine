@@ -17,8 +17,8 @@ _switchPoint(actuators::SwitchPoint::instance()),
 _trafficLight(mmi::TrafficLight::instance()),
 _serialSender("/dev/ser1"),
 _serialReceiver("/dev/ser2"),
-_watchDog(_serialSender),
-_receiver(_serialReceiver, _watchDog),
+_watchDog(_serialSender, signalGenerator),
+_receiver(_serialReceiver, _watchDog, signalGenerator),
 _th_watchDog(std::ref(_watchDog)),
 _th_receiver(std::ref(_receiver)),
 _heightSensor(sensors::HeightSensor::instance())
@@ -129,6 +129,10 @@ void HardwareLayer::sendSerialMsg(Message *msg) {
 
 uint16_t HardwareLayer::getHeight() {
 	return _heightSensor.getHeight();
+}
+
+io::SignalGenerator& HardwareLayer::getSignalGenerator(){
+	return this->signalGenerator;
 }
 
 } /* hardwareLayer */

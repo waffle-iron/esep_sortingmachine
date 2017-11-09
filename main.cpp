@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
 
 
 	Message msg;
-	msg.signal.name = Signalname::SIGNAL_DUMMY;
+	msg.signal.name = Signalname::BLINK_GREEN_FAST;
 
 	hal.sendSerialMsg(&msg);
 

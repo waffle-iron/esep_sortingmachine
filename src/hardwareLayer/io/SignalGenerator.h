@@ -11,6 +11,7 @@
 #include "Signals.h"
 #include <thread>
 #include <vector>
+#include "Observable.h"
 
 namespace hardwareLayer {
 namespace io {
@@ -54,7 +55,7 @@ struct SensorEvent {
 	SPair signalPair;
 };
 
-class SignalGenerator {
+class SignalGenerator : public Observable {
 public:
 	SignalGenerator();
 	virtual ~SignalGenerator();

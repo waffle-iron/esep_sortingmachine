@@ -11,6 +11,7 @@
 
 #include <chrono>
 #include "Serial.h"
+#include "SignalGenerator.h"
 
 
 namespace hardwareLayer {
@@ -21,10 +22,11 @@ namespace serial {
 
 		private:
 			Serial& serial_;
+			SignalGenerator& sgen_;
 			bool otherDogisAlive;
 
 		public:
-			WatchDog(Serial& serial);
+			WatchDog(Serial& serial, SignalGenerator& sgen);
 			virtual ~WatchDog();
 			void operator()();
 			void setOtherDogIsAlive(bool isAlive);

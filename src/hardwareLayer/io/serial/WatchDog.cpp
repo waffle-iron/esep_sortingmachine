@@ -13,8 +13,9 @@ namespace hardwareLayer {
 namespace io {
 namespace serial {
 
-WatchDog::WatchDog(Serial& serial) :
+WatchDog::WatchDog(Serial& serial, SignalGenerator& sgen) :
 		serial_(serial),
+		sgen_(sgen),
 		otherDogisAlive(false){}
 
 WatchDog::~WatchDog() {
@@ -43,7 +44,10 @@ void WatchDog::operator()(){
 		//check if other machine has send keep alive signal -
 		//if not error signal
 		if(!otherDogisAlive){
-			std::cout << "!!!machine is not connected" << std::endl;
+			//std::cout << "!!!machine is not connected" << std::endl;
+			Signal sig;
+			sig.name = Signalname::CONNECTION_LOST;
+			sgen_.pushBackOnSignalBuffer(sig);
 		}
 
 		setOtherDogIsAlive(false);

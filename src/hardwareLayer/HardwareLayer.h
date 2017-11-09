@@ -71,6 +71,9 @@ namespace hardwareLayer {
 		 */
 		void clearSignalBuffer();
 
+		//GETTER
+		io::SignalGenerator& getSignalGenerator();
+
 	private:
 		actuators::Motor& _motor;
 		actuators::SwitchPoint& _switchPoint;

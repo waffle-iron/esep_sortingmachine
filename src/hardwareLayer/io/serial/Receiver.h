@@ -10,6 +10,7 @@
 
 #include "Serial.h"
 #include "WatchDog.h"
+#include "SignalGenerator.h"
 
 
 namespace hardwareLayer {
@@ -18,13 +19,14 @@ namespace serial {
 
 class Receiver {
 public:
-    Receiver(Serial& serial, WatchDog& dog);
+    Receiver(Serial& serial, WatchDog& dog, SignalGenerator& sgen );
     void operator()();
     void stop();
 
 private:
     Serial& serial_;
     WatchDog& dog_;
+    SignalGenerator& sgen_;
     bool running;
 };
 

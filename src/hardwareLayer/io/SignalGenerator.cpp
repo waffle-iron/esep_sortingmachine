@@ -102,6 +102,7 @@ Signal SignalGenerator::nextSignal() {
 
 void SignalGenerator::pushBackOnSignalBuffer(Signal signal) {
 	signalBuffer.push_back(signal);
+	notify_observers();
 }
 
 void SignalGenerator::clearSignalBuffer() {
