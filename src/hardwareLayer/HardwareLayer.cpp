@@ -7,7 +7,7 @@
 
 #include "HardwareLayer.h"
 #include "GPIO.h"
-#include "Signals.h"
+#include "Header.h"
 
 namespace hardwareLayer {
 
@@ -31,7 +31,6 @@ _heightSensor(sensors::HeightSensor::instance())
 	greenLightOff();
 	redLightOff();
 	yellowLightOff();
-
 }
 
 HardwareLayer::~HardwareLayer() {

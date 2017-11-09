@@ -29,9 +29,8 @@ public:
 	* @return singleton instance
 	*/
 	static GPIO& instance();
-	/**
-	* @brief allows to make QNX-specific changes to a thread
-	*/
+	virtual ~GPIO();
+
 	void gainAccess();
 	/**
 	* @brief reads an 8-bit value from the specified port
@@ -62,7 +61,6 @@ protected:
 	GPIO();
 	GPIO(GPIO const&);
 	GPIO& operator=(GPIO const&);
-	~GPIO();
 	/**
 	* @brief sets 8-bit value val on the specified port
 	*/

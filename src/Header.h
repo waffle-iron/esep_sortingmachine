@@ -6,6 +6,7 @@
  */
 #include "Signals.h"
 #include "Logger.h"
+#include "Parameter.h"
 
 #include <cstdint>
 
@@ -20,6 +21,5 @@
 #define NOW std::chrono::steady_clock::now()
 
 typedef uint8_t port_t;
-
 
 #endif /* HEADER_H_ */

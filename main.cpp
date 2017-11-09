@@ -3,6 +3,7 @@
 
 #include "Serial.h"
 #include "Receiver.h"
+#include "Parameter.h"
 
 #include "HardwareLayer.h"
 #include "LogicLayer.h"
@@ -22,14 +23,23 @@ int main(int argc, char *argv[])
 	LOG_SCOPE;
 	LOG_SET_LEVEL(DEBUG);
 
+	string textInput;
+	do {
+	cout<<"Are you conveyor belt 1? (yes/no):"<<endl;
+	cin >> textInput;
+	} while(!(textInput.compare("yes") xor textInput.compare("no")));
+
+	if(!textInput.compare("yes")) {
+		cb_this =  Parameter<uint8_t>(cb_1, "Conveyer belt 1");
+	}
+
+	cb_this.parameterList.showParameters();
+
+
 	hardwareLayer::HardwareLayer hal;
 	logicLayer::LogicLayer loLay = logicLayer::LogicLayer(hal);
 
 
-	Message msg;
-	msg.signal.name = Signalname::BLINK_GREEN_FAST;
-
-	hal.sendSerialMsg(&msg);
 
 	while(1);
 
