@@ -88,6 +88,8 @@ public:
 	 */
 	void clearSignalBuffer();
 
+	bool dealWithClatter();
+
 	// sensor events for higher byte of PORT C
 	static const SensorEvent BUTTON_START;
 	static const SensorEvent BUTTON_STOP;

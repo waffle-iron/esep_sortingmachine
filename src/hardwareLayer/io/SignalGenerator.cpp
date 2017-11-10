@@ -10,6 +10,11 @@
 #include "AsyncChannel.h"
 #include "ISR.h"
 #include "GPIO.h"
+#include <iostream>
+#include <iomanip>
+#include <ctime>
+#include <chrono>
+#include "Signals.h"
 
 constexpr int MAGIC_NUMBER = 15;
 
@@ -43,6 +48,7 @@ const SensorEvent SignalGenerator::LIGHT_BARRIER_OUTPUT(0b10000000, "LIGHT_BARRI
 																								  Signalname::LB_OUTPUT_INTERRUPTED));
 
 std::vector<const SensorEvent> const SignalGenerator::events = init_events();
+std::chrono::steady_clock::time_point time;
 
 
 SignalGenerator::SignalGenerator():
@@ -54,6 +60,7 @@ running(true)
 	stored_mask = GPIO::instance().read(PORT::C)<<8 | GPIO::instance().read(PORT::B);
 	ISR::registerISR(AsyncChannel::instance(), MAGIC_NUMBER);
 	thread = std::thread(std::ref(*this));
+	time = std::chrono::system_clock::now();
 }
 
 SignalGenerator::~SignalGenerator() {
@@ -100,8 +107,27 @@ Signal SignalGenerator::nextSignal() {
 	return signal;
 }
 
+bool SignalGenerator::dealWithClatter(){
+	auto timeSinceLastInterrupt = std::chrono::duration_cast <std::chrono::milliseconds> (std::chrono::steady_clock::now() - time);
+	time = std::chrono::system_clock::now();
+	if (timeSinceLastInterrupt.count() <= 100){
+		return false;
+	}
+	else{
+		return true;
+	}
+
+}
+
 void SignalGenerator::pushBackOnSignalBuffer(Signal signal) {
+	if (signal.name == Signalname::SENSOR_SWITCH_IS_OPEN){
+		if(dealWithClatter()){
+			signalBuffer.push_back(signal);
+		}
+	}
+	else{
 	signalBuffer.push_back(signal);
+	}
 }
 
 void SignalGenerator::clearSignalBuffer() {
