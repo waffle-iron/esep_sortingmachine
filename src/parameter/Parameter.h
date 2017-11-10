@@ -39,7 +39,6 @@ public:
 	}
 
 	const Parameter<T>& operator=(const Parameter<T>& other) {
-		cout<<"BLUBB"<<endl;
 		ParameterBase::operator =(other);
 		value = other.value;
 		return *this;

@@ -31,7 +31,11 @@ int main(int argc, char *argv[])
 
 	if(!textInput.compare("yes")) {
 		cb_this =  Parameter<uint8_t>(cb_1, "Conveyer belt 1");
+	} else {
+		cb_this = Parameter<uint8_t>(cb_2, "Conveyer belt 2");
 	}
+
+	cb_last = Parameter<uint8_t>(cb_2, "Conveyer belt 2");
 
 	cb_this.parameterList.showParameters();
 
