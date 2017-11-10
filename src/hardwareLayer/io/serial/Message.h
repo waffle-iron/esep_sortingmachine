@@ -14,7 +14,13 @@
 
 struct Message {
 	Message() :
-		checkNumber( 654321 )
+	checkNumber( 654321 )
+	{
+
+	}
+	Message(Signal signal) :
+	checkNumber(654321),
+	signal(signal)
 	{
 
 	}
