@@ -35,7 +35,7 @@ void Test::actuatorsTest(){
 	_hal->motorStart();
 	_hal->sendSerialMsg(Message(Signal(cb_this, 0xff, Signalname::MOTOR_START)));
 	_hal->motorRotateCounterclockwise();
-	_hal->sendSerialMsg(Message(Signal(cb_this, 0xff, Signalname::MOTOR_ROTATE_CLOCKWISE)));
+	_hal->sendSerialMsg(Message(Signal(cb_this, 0xff, Signalname::MOTOR_ROTATE_COUNTER_CLOCKWISE)));
 	_hal->motorFast();
 	_hal->sendSerialMsg(Message(Signal(cb_this, 0xff, Signalname::MOTOR_FAST)));
 	if( !nextTest(__FUNCTION__) ) return;
