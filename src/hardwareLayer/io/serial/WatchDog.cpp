@@ -58,9 +58,11 @@ void WatchDog::operator()(){
 void WatchDog::setOtherDogIsAlive(bool isAlive){
 
 	otherDogisAlive = isAlive;
-	Signal sig;
-	sig.name = Signalname::CONNECTION_CONNECTED;
-	sgen_.pushBackOnSignalBuffer(sig);
+	if ( isAlive ) {
+		Signal sig;
+		sig.name = Signalname::CONNECTION_CONNECTED;
+		sgen_.pushBackOnSignalBuffer(sig);
+	}
 
 }
 
