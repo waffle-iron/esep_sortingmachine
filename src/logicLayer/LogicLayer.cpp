@@ -28,8 +28,6 @@ void LogicLayer::notify(){
 	cout << "notify called";
 
 	while((signal = hal.getSignal()).name != Signalname::SIGNAL_BUFFER_EMPTY) {
-		cout << "LogicLayer: I have been notified! Now I go get the Signal." << endl;
-
 		switch(signal.name){
 			case Signalname::BLINK_GREEN_FAST:
 				hal.blinkGreen(Speed::fast);
@@ -45,7 +43,6 @@ void LogicLayer::notify(){
 		}
 
 	}
-	cout << "LogicLayer: I have been notified! All signals read." << endl;
 	//cout << hal.getSignal().name << endl;
 }
 } /* namespace logicLayer */

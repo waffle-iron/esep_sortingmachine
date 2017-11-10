@@ -45,22 +45,15 @@ int main(int argc, char *argv[])
 
 	hal.sendSerialMsg( Message( Signal(cb_this, cb_last, Signalname::BLINK_GREEN_FAST) ) );
 
+	logicLayer::test::Test test = logicLayer::test::Test(&hal);
 
-
-
-
-	while(1);
-
-
-
-
-//
-//	logicLayer::test::Test test = logicLayer::test::Test(&hal);
-//	test.mmiTest();
-//	test.actuatorsTest();
-//	test.sensorsTest();
-//	test.threadSafenessInGpioTest();
-//	test.singletonThreadSafeTest();
+	if (cb_this == cb_1) {
+		test.mmiTest();
+		test.actuatorsTest();
+		test.sensorsTest();
+		test.threadSafenessInGpioTest();
+		test.singletonThreadSafeTest();
+	}
 
 
 
