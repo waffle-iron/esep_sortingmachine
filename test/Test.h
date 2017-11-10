@@ -18,7 +18,7 @@ namespace test{
 
 class Test {
 public:
-	Test(hardwareLayer::HardwareLayer* hal);
+	Test( hardwareLayer::HardwareLayer* hal);
 	virtual ~Test();
 
 	/**
