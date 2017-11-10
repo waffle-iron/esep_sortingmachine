@@ -56,7 +56,7 @@ int main(int argc, char *argv[])
 	}
 
 
-
+	while(true);
 	cout << "Starting Sortingmachine ... done !" << endl;
 
 	return EXIT_SUCCESS;
