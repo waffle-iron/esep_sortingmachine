@@ -85,8 +85,8 @@ int Serial::recv(char* p){
 /**
  *  @brief write ... to serial interface
  */
-int Serial::send( Message *msg ){
-	write(this->fdesc_, msg, sizeof(Message));
+int Serial::send( Message msg ){
+	write(this->fdesc_, &msg, sizeof(Message));
 	return 0;
 }
 

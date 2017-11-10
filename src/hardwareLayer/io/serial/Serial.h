@@ -28,7 +28,7 @@ class Serial {
 		int send(char* buffer, unsigned char numBytes);
 		int recv(char* p);
 
-		int send(Message *msg);
+		int send(Message msg);
 		int recv(Message *msg);
 
 		void flush(void);

@@ -120,7 +120,7 @@ void HardwareLayer::clearSignalBuffer() {
 	signalGenerator.clearSignalBuffer();
 }
 
-void HardwareLayer::sendSerialMsg(Message *msg) {
+void HardwareLayer::sendSerialMsg(Message msg) {
 
 	_serialSender.send(msg);
 

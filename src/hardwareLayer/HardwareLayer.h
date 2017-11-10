@@ -55,7 +55,7 @@ namespace hardwareLayer {
 		/**
 		 *  @brief Sends messages via serial interface to other machine
 		 */
-		void sendSerialMsg(Message*);
+		void sendSerialMsg(Message);
 
 		/**
 		 * @brief 	If a pending signal exists

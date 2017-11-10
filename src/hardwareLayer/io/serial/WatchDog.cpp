@@ -36,7 +36,7 @@ void WatchDog::operator()(){
 
 
 		//ask other machine if it i alive
-		serial_.send(&msg);
+		serial_.send(msg);
 
 		WAIT(1000);
 
@@ -76,7 +76,7 @@ void WatchDog::sendImAlive(){
 	msg.payload.dies	= 42;
 	msg.payload.jenes 	= 42;
 
-	serial_.send(&msg);
+	serial_.send(msg);
 
 }
 
