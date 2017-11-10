@@ -28,6 +28,10 @@ class Serial {
 		int send(char* buffer, unsigned char numBytes);
 		int recv(char* p);
 
+		/*
+		 *@brief: #TODO check if msg gets send asynchronous or synchronous.
+		 *@brief: if asynchronous we need to refactor this method
+		 */
 		int send(Message msg);
 		int recv(Message *msg);
 
