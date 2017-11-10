@@ -8,6 +8,10 @@
 #ifndef BUTTONLEDS_H_
 #define BUTTONLEDS_H_
 
+#include "GPIO.h"
+
+
+
 namespace hardwareLayer {
 namespace mmi {
 

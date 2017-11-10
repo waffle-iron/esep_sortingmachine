@@ -15,7 +15,8 @@ HardwareLayer::HardwareLayer() :
 _motor(actuators::Motor::instance()),
 _switchPoint(actuators::SwitchPoint::instance()),
 _trafficLight(mmi::TrafficLight::instance()),
-_heightSensor(sensors::HeightSensor::instance())
+_heightSensor(sensors::HeightSensor::instance()),
+_ButtonLEDs(mmi::ButtonLEDs::instance())
 {
 	LOG_SCOPE;
 
@@ -106,6 +107,37 @@ void HardwareLayer::blinkRed(Speed speed) {
 	_trafficLight.blinkRed(speed);
 }
 
+void HardwareLayer::StartLEDOn(){
+	_ButtonLEDs.LEDStartOn();
+}
+
+void HardwareLayer::StartLEDOff(){
+	_ButtonLEDs.LEDStartOff();
+}
+
+void HardwareLayer::ResetLEDOn(){
+	_ButtonLEDs.LEDResetOn();
+}
+
+void HardwareLayer::ResetLEDOff(){
+	_ButtonLEDs.LEDResetOff();
+}
+
+void HardwareLayer::Q1LEDOn(){
+	_ButtonLEDs.LEDQ1On();
+}
+
+void HardwareLayer::Q1LEDOff(){
+	_ButtonLEDs.LEDQ1Off();
+}
+
+void HardwareLayer::Q2LEDOn(){
+	_ButtonLEDs.LEDQ2On();
+}
+void HardwareLayer::Q2LEDOff(){
+	_ButtonLEDs.LEDQ2Off();
+}
+
 Signal HardwareLayer::getSignal() {
 	return signalGenerator.nextSignal();
 }
@@ -117,5 +149,7 @@ void HardwareLayer::clearSignalBuffer() {
 uint16_t HardwareLayer::getHeight() {
 	return _heightSensor.getHeight();
 }
+
+
 
 } /* hardwareLayer */
