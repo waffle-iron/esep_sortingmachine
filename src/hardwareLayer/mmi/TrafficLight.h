@@ -20,6 +20,10 @@ namespace mmi {
 
 class TrafficLight {
 public:
+	/**
+	* @brief creates singleton instance on first call, otherwise returns instance
+	* @return singleton instance
+	*/
 	static TrafficLight& instance();
 
 	/**
