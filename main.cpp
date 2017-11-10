@@ -43,6 +43,12 @@ int main(int argc, char *argv[])
 	hardwareLayer::HardwareLayer hal;
 	logicLayer::LogicLayer loLay = logicLayer::LogicLayer(hal);
 
+	Signal s = Signal(cb_this, cb_last, Signalname::BLINK_GREEN_FAST);
+	Message* m = new Message(s);
+	hal.sendSerialMsg(m);
+
+
+
 
 
 	while(1);
