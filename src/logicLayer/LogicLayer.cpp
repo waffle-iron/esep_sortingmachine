@@ -37,6 +37,9 @@ void LogicLayer::notify(){
 			case Signalname::CONNECTION_LOST:
 				hal.blinkRed(Speed::slow);
 			break;
+			case Signalname::CONNECTION_CONNECTED:
+				hal.redLightOff();
+			break;
 			default:
 			break;
 		}

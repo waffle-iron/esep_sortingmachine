@@ -124,6 +124,7 @@ enum class Signalname : uint16_t {
 
 	//CONNECTION
 	CONNECTION_LOST,
+	CONNECTION_CONNECTED,
 
 	// signal generator
 	SIGNAL_BUFFER_EMPTY,
