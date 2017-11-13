@@ -4,6 +4,7 @@
 #include "HardwareLayer.h"
 #include "LogicLayer.h"
 #include "Test.h"
+#include "Semaphore2.h"
 
 #include "HeightSensor.h"
 
