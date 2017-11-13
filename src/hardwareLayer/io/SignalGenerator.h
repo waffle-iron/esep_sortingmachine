@@ -88,7 +88,12 @@ public:
 	 */
 	void clearSignalBuffer();
 
-	bool dealWithClatter();
+	/*
+	*@brief: deals with the Clutter of the Switch and the Buttons; Sensors just get triggered once, if they get triggered multiple times in a short defined timeframe
+	*@param: Signal signal
+	*@return: false if clutter
+	*/
+	bool dealWithClatter(Signal signal);
 
 	// sensor events for higher byte of PORT C
 	static const SensorEvent BUTTON_START;

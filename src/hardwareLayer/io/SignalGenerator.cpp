@@ -47,6 +47,9 @@ const SensorEvent SignalGenerator::LIGHT_BARRIER_SLIDE(	0b01000000, "LIGHT_BARRI
 const SensorEvent SignalGenerator::LIGHT_BARRIER_OUTPUT(0b10000000, "LIGHT_BARRIER_OUTPUT", SPair(Signalname::LB_OUTPUT_FREED,
 																								  Signalname::LB_OUTPUT_INTERRUPTED));
 
+constexpr int SWITCH_BUTTON_CLUTTER_TIME = 50;
+constexpr int E_STOP_CLUTTER_TIME = 650;
+
 std::vector<const SensorEvent> const SignalGenerator::events = init_events();
 std::chrono::steady_clock::time_point time;
 
@@ -107,21 +110,26 @@ Signal SignalGenerator::nextSignal() {
 	return signal;
 }
 
-bool SignalGenerator::dealWithClatter(){
+bool SignalGenerator::dealWithClatter(Signal signal){
 	auto timeSinceLastInterrupt = std::chrono::duration_cast <std::chrono::milliseconds> (std::chrono::steady_clock::now() - time);
 	time = std::chrono::system_clock::now();
-	if (timeSinceLastInterrupt.count() <= 100){
+	if  (signal.name == Signalname::BUTTON_E_STOP_PUSHED){
+		if (timeSinceLastInterrupt.count() <= E_STOP_CLUTTER_TIME){
+			return false;
+		}
+	}
+	else if (timeSinceLastInterrupt.count() <= SWITCH_BUTTON_CLUTTER_TIME){
 		return false;
 	}
+
 	else{
 		return true;
 	}
-
 }
 
 void SignalGenerator::pushBackOnSignalBuffer(Signal signal) {
-	if (signal.name == Signalname::SENSOR_SWITCH_IS_OPEN){
-		if(dealWithClatter()){
+	if (signal.name == Signalname::SENSOR_SWITCH_IS_OPEN || signal.name == Signalname::BUTTON_START_PUSHED || signal.name == Signalname::BUTTON_RESET_PUSHED || signal.name == Signalname::BUTTON_STOP_PUSHED || signal.name == Signalname::BUTTON_E_STOP_PUSHED){
+		if(dealWithClatter(signal)){
 			signalBuffer.push_back(signal);
 		}
 	}
