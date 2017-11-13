@@ -12,7 +12,6 @@
 
 namespace logicLayer {
 
-
 class Dispatcher {
 public:
 	explicit Dispatcher(Channel&);

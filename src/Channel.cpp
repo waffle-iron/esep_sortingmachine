@@ -14,6 +14,11 @@ Channel::Channel(const size_t max_size)
 , mtx_ {}
 {}
 
+Channel::~Channel()
+{// ...
+}
+
+
 size_t Channel::size(void) const {
 	return sem_size_.get_value();
 }

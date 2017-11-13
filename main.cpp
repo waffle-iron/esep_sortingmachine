@@ -1,14 +1,15 @@
-#include "Header.h"
 #include <iostream>
+#include <thread>
 
+#include "Header.h"
 #include "HardwareLayer.h"
 #include "LogicLayer.h"
 #include "Test.h"
 #include "Semaphore2.h"
-#include <thread>
 #include "HeightSensor.h"
 #include "Channel.h"
 #include "Timer.h"
+#include "Dispatcher.h"
 
 using namespace std;
 
@@ -24,14 +25,14 @@ int main(int argc, char *argv[])
 	logicLayer::LogicLayer loLay = logicLayer::LogicLayer(hal);
 
 	Channel c(5);// create a communication channel
-	thread ReceiverThread( (Timer(c)) );// create thread. Pass functor object with channel as argument
-		thread SenderThread( (Dispatcher(c)) );// create another thread. Pass functor with channel.
-		SenderThread.join();// stop here until SenderThread has come to an end.
-		ReceiverThread.join();//stop here until ReceiverThread has come to an end.
-		c.destroy();//clean up the channel
+	logicLayer::Timer timer = logicLayer::Timer(c);
+	thread ReceiverThread(ref(timer));// create thread. Pass functor object with channel as argument
+	logicLayer::Dispatcher dispatcher = logicLayer::Dispatcher(c);
+	thread SenderThread(ref(dispatcher));// create another thread. Pass functor with channel.
+	SenderThread.join();// stop here until SenderThread has come to an end.
+	ReceiverThread.join();//stop here until ReceiverThread has come to an end.
+	c.destroy();//clean up the channel
 	return 0;
-
-
 
 
 

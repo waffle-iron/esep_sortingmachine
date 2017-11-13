@@ -21,8 +21,8 @@ public:
 	~Channel();
 	size_t size(void) const;
 	size_t max_size(void) const;
-	inline Signal dequeue(void);
-	inline void enqueue(const Signal);
+	Signal dequeue(void);
+	void enqueue(const Signal);
 	void operator<<(const Signal);
 	Signal friend operator<<(Signal& target, Channel& source) { return target = source.dequeue();}
 	void friend operator<<(Channel& target, Channel& source) { target.enqueue(source.dequeue());}

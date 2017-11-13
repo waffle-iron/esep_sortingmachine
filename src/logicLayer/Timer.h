@@ -21,6 +21,6 @@ private:
 	Channel& channel;
 };
 
-#endif /* TIMER_H_ */
-
 } // end namespace
+
+#endif /* TIMER_H_ */
