@@ -25,11 +25,11 @@ size_t Channel::max_size(void) const {
 Signal Channel::dequeue(void) {
 	sem_size_.wait();
 	mtx_.lock();
-	auto return__ = queue_.front();
+	Signal signal = queue_.front();
 	queue_.pop();
 	mtx_.unlock();
 	sem_free_spaces_.post();
-	return return__;
+	return signal;
 }
 
 void Channel::enqueue(const Signal element) {

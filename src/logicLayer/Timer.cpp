@@ -6,12 +6,25 @@
  */
 
 #include "Timer.h"
+#include "Signals.h"
 
 namespace logicLayer {
 
-Timer::Timer() {
-	// TODO Auto-generated constructor stub
+Timer::Timer(Channel& ch) :
+channel(ch)
+{
+}
 
+void Timer::operator()(){
+	Signal lastRead;
+	while(1){
+		lastRead<<channel;
+		if (lastRead.name == Signalname::START_TIMERS_INPUT) {
+			cout << (int)lastRead.name <<endl;
+		} else {
+			cout << "Timer: kein richtiges signal erhalten" << endl;
+		}
+	}
 }
 
 Timer::~Timer() {
