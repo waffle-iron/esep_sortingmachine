@@ -7,77 +7,63 @@
 
 #include "Header.h"
 #include "WatchDog.h"
-#include <thread>
 
 namespace hardwareLayer {
 namespace io {
 namespace serial {
 
+constexpr int period = 250;
+
 WatchDog::WatchDog(Serial& serial, SignalGenerator& sgen) :
-		serial_(serial),
-		sgen_(sgen),
-		otherDogisAlive(false){}
+serial_(serial),
+sgen_(sgen),
+watchdog(std::ref(*this)),
+dogWasFed(false),
+status(Connection::LOST),
+running(true)
+{
+
+}
 
 WatchDog::~WatchDog() {
-	// TODO Auto-generated destructor stub
+	terminate();
+	watchdog.join();
 }
 
 
 void WatchDog::operator()(){
-	while(true){
 
-		struct Message msg;
-		msg.signal.name   	= Signalname::SERIAL_ARE_YOU_ALIVE;
-		msg.signal.sender 	= 0;
-		msg.signal.receiver = 1;
-		msg.payload.das 	= 42;
-		msg.payload.dies	= 42;
-		msg.payload.jenes 	= 42;
+	Message token( Signal(cb_1, cb_all, Signalname::SERIAL_WATCHDOG_TOKEN) );
 
+	Signal connectionLost(cb_this,cb_this, Signalname::CONNECTION_LOST);
+	Signal connectionConnected(cb_this,cb_this, Signalname::CONNECTION_CONNECTED);
 
-		//ask other machine if it i alive
-		serial_.send(msg);
+	while(running) {
 
-		WAIT(1000);
+		dogWasFed = false;
 
+		if(cb_this == cb_1) serial_.send(token);
+		WAIT(period);
+		if(cb_this == cb_1) serial_.send(token);
+		WAIT(period);
 
-		//check if other machine has send keep alive signal -
-		//if not error signal
-		if(!otherDogisAlive){
-			std::cout << "!!!machine is not connected" << std::endl;
-			Signal sig;
-			sig.name = Signalname::CONNECTION_LOST;
-			sgen_.pushBackOnSignalBuffer(sig);
+		if(status == Connection::LOST && dogWasFed){
+			status = Connection::CONNECTED;
+			sgen_.pushBackOnSignalBuffer(connectionConnected);
 		}
-
-		setOtherDogIsAlive(false);
-
+		else if(status == Connection::CONNECTED && !dogWasFed){
+			status = Connection::LOST;
+			sgen_.pushBackOnSignalBuffer(connectionLost);
+		}
 	}
 }
 
-void WatchDog::setOtherDogIsAlive(bool isAlive){
-
-	otherDogisAlive = isAlive;
-	if ( isAlive ) {
-		Signal sig;
-		sig.name = Signalname::CONNECTION_CONNECTED;
-		sgen_.pushBackOnSignalBuffer(sig);
-	}
-
+void WatchDog::terminate() {
+	running = false;
 }
 
-void WatchDog::sendImAlive(){
-
-	struct Message msg;
-	msg.signal.name   	= Signalname::SERIAL_IM_ALIVE;
-	msg.signal.sender 	= 0;
-	msg.signal.receiver = 1;
-	msg.payload.das 	= 42;
-	msg.payload.dies	= 42;
-	msg.payload.jenes 	= 42;
-
-	serial_.send(msg);
-
+void WatchDog::feed(){
+	dogWasFed = true;
 }
 
 } /* namespace serial */

@@ -18,7 +18,8 @@ using namespace std;
 template <class T>
 class Parameter : public ParameterBase {
 public:
-	explicit Parameter()
+	explicit Parameter() :
+	value(0)
 	{
 		parameterList.parameters.push_back(this);
 	}
@@ -39,6 +40,9 @@ public:
 	}
 
 	const Parameter<T>& operator=(const Parameter<T>& other) {
+		if(other == *this) {
+			return *this;
+		}
 		ParameterBase::operator =(other);
 		value = other.value;
 		return *this;
@@ -46,7 +50,7 @@ public:
 
 	void showValue()
 	{
-		cout<<name<<": "<<value<<endl;
+		cout<<name<<": "<<(int)value<<endl;
 	}
 
 	T value;
@@ -54,5 +58,7 @@ public:
 
 extern Parameter<uint8_t> cb_this;
 extern Parameter<uint8_t> cb_last;
+extern Parameter<uint8_t> cb_all;
+extern Parameter<uint8_t> cb_available;
 
 #endif /* PARAMETER_H_ */

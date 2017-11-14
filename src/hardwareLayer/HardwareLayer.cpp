@@ -19,7 +19,6 @@ _serialSender("/dev/ser1"),
 _serialReceiver("/dev/ser2"),
 _watchDog(_serialSender, signalGenerator),
 _receiver(_serialReceiver, _watchDog, signalGenerator),
-_th_watchDog(std::ref(_watchDog)),
 _th_receiver(std::ref(_receiver)),
 _heightSensor(sensors::HeightSensor::instance()),
 _ButtonLEDs(mmi::ButtonLEDs::instance())

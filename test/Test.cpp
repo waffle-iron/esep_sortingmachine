@@ -89,11 +89,25 @@ void Test::mmiTest(){
 	cout << "start " << __FUNCTION__ << endl;
 	cout<< "testButtonLEDs on: Reset,Start,Q1,Q2" <<endl;
 	_hal->Q1LEDOn();
+	_hal->sendSerialMsg(Message(Signal(cb_this, 0xff, Signalname::Q1_LED_ON)));
 	_hal->Q2LEDOn();
+	_hal->sendSerialMsg(Message(Signal(cb_this, 0xff, Signalname::Q2_LED_ON)));
 	_hal->ResetLEDOn();
+	_hal->sendSerialMsg(Message(Signal(cb_this, 0xff, Signalname::RESET_LED_ON)));
 	_hal->StartLEDOn();
+	_hal->sendSerialMsg(Message(Signal(cb_this, 0xff, Signalname::START_LED_ON)));
 	if( !nextTest(__FUNCTION__) ) return;
 
+	cout<< "testButtonLEDs off: Reset,Start,Q1,Q2" <<endl;
+	_hal->Q1LEDOff();
+	_hal->sendSerialMsg(Message(Signal(cb_this, 0xff, Signalname::Q1_LED_OFF)));
+	_hal->Q2LEDOff();
+	_hal->sendSerialMsg(Message(Signal(cb_this, 0xff, Signalname::Q2_LED_OFF)));
+	_hal->ResetLEDOff();
+	_hal->sendSerialMsg(Message(Signal(cb_this, 0xff, Signalname::RESET_LED_OFF)));
+	_hal->StartLEDOff();
+	_hal->sendSerialMsg(Message(Signal(cb_this, 0xff, Signalname::START_LED_OFF)));
+	if( !nextTest(__FUNCTION__) ) return;
 
 	cout << "test lamps on: red, yellow, green" << endl;
 	_hal->yellowLightOn();

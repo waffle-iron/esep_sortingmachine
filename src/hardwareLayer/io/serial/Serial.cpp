@@ -22,7 +22,7 @@ Serial::Serial(string dev){
 	// Open File descriptor
 	fdesc_ = open(dev.c_str(), O_RDWR);
 	if(this->fdesc_ == -1){
-		cout << "error opening serial " << dev << endl;
+		LOG_ERROR << __FUNCTION__ << " error opening serial " << dev;
 		exit(EXIT_FAILURE);
 	}
 
@@ -33,7 +33,7 @@ Serial::Serial(string dev, int baud){
 	// Open File descriptor
 	fdesc_ = open(dev.c_str(), O_RDWR);
 	if(this->fdesc_ == -1){
-		cout << "error opening serial " << dev << endl;
+		LOG_ERROR << __FUNCTION__ << " error opening serial " << dev;
 		exit(EXIT_FAILURE);
 	}
 	// initialize settings for Serial Interface
@@ -43,7 +43,7 @@ Serial::Serial(string dev, int baud){
 Serial::~Serial(){
 	// Close File descriptor
 	if( close(this->fdesc_) < 0 ){
-		cout << "error closing serial " << endl;
+		LOG_ERROR << __FUNCTION__ << " error closing serial ";
 		exit(EXIT_FAILURE);
 	}
 }
@@ -85,8 +85,10 @@ int Serial::recv(char* p){
 /**
  *  @brief write ... to serial interface
  */
-int Serial::send( Message msg ){
+int Serial::send( Message msg ) {
+	serial_mutex.lock();
 	write(this->fdesc_, &msg, sizeof(Message));
+	serial_mutex.unlock();
 	return 0;
 }
 
@@ -100,8 +102,11 @@ int Serial::recv( Message *msg ){
 	return -1;
 }
 
-void Serial::flush(){
+void Serial::flush() {
+	LOG_WARNING << __FUNCTION__ << " perform flush.";
+	serial_mutex.lock();
 	tcflush(this->fdesc_, TCIOFLUSH);
+	serial_mutex.unlock();
 }
 
 

@@ -101,14 +101,16 @@ Signal SignalGenerator::nextSignal() {
 }
 
 void SignalGenerator::pushBackOnSignalBuffer(Signal signal) {
-	std::cout << "push back" << std::endl;
+	LOG_SCOPE
+
 	signalBuffer.push_back(signal);
-	std::cout << "push back" << std::endl;
+	LOG_DEBUG << "signal pushed";
 	notify_observers();
 }
 
 void SignalGenerator::clearSignalBuffer() {
 	LOG_SCOPE
+
 	signalBuffer.clear();
 	if(signalBuffer.size() != 0){
 		LOG_ERROR<<__FUNCTION__<<": could not clear signalBuffer"<<endl;

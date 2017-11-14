@@ -10,15 +10,14 @@
 
 #include <string>
 #include <Message.h>
+#include <mutex>
+
 
 namespace hardwareLayer {
 namespace io {
 namespace serial {
 
 class Serial {
-	private:
-		int fdesc_;
-
 	public:
 		Serial(std::string dev);
 		Serial(std::string dev, int baud);
@@ -40,6 +39,9 @@ class Serial {
 	private:
 		Serial(const Serial& other);
 		Serial& operator=(const Serial& other);
+
+		int fdesc_;
+		std::mutex serial_mutex;
 	};
 
 

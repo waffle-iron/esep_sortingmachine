@@ -17,12 +17,9 @@ namespace serial {
 class Sender {
 public:
     Sender(Serial& serial);
-    void operator()();
-    void stop();
 
 private:
     Serial& serial_;
-    bool running;
 };
 
 } /* namespace serial */

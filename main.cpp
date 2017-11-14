@@ -31,32 +31,32 @@ int main(int argc, char *argv[])
 
 	if(!textInput.compare("yes")) {
 		cb_this =  Parameter<uint8_t>(cb_1, "Conveyer belt 1");
-	} else {
-		cb_this = Parameter<uint8_t>(cb_2, "Conveyer belt 2");
 	}
+	cin.get(); // get rid of extra return
 
-	cb_last = Parameter<uint8_t>(cb_2, "Conveyer belt 2");
-
-	cb_this.parameterList.showParameters();
+	cb_all = Parameter<uint8_t>(0xff, "All possible conveyer belts.");
 
 
 	hardwareLayer::HardwareLayer hal;
 	logicLayer::LogicLayer loLay = logicLayer::LogicLayer(hal);
 
-	hal.sendSerialMsg( Message( Signal(cb_this, cb_last, Signalname::BLINK_GREEN_FAST) ) );
+	WAIT(5000);
+	cout<<"READY FOR TESTING"<<endl;
 
 	logicLayer::test::Test test = logicLayer::test::Test(&hal);
 
 	if (cb_this == cb_1) {
-		test.mmiTest();
 		test.actuatorsTest();
+		test.mmiTest();
 		test.sensorsTest();
 		test.threadSafenessInGpioTest();
 		test.singletonThreadSafeTest();
 	}
 
+	cout<<"Shut down?"<<endl;
+	cin.get(); // get rid of extra return
 
-	while(true);
+
 	cout << "Starting Sortingmachine ... done !" << endl;
 
 	return EXIT_SUCCESS;

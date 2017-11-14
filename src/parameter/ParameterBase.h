@@ -22,7 +22,6 @@ public:
 	virtual ~ParameterBase();
 
 	const ParameterBase& operator=(const ParameterBase& other) {
-		cout<<"BLUBB"<<endl;
 		name = other.name;
 		return *this;
 	}

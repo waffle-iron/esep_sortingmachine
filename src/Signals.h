@@ -65,7 +65,8 @@ enum class Signalname : uint16_t {
 	//switch
 	SWITCH_OPEN,
 	SWITCH_CLOSE,
-	//traffic light
+	// mmi
+	// traffic light
 	GREEN_LIGHT_ON,
 	GREEN_LIGHT_OFF,
 	YELLOW_LIGHT_ON,
@@ -78,6 +79,15 @@ enum class Signalname : uint16_t {
 	BLINK_YELLOW_SLOW,
 	BLINK_RED_FAST,
 	BLINK_RED_SLOW,
+	// leds
+	Q1_LED_ON,
+	Q1_LED_OFF,
+	Q2_LED_ON,
+	Q2_LED_OFF,
+	RESET_LED_ON,
+	RESET_LED_OFF,
+	START_LED_ON,
+	START_LED_OFF,
 	// serial
 	CONVEYOR_BELT_BUSY,
 	CONVEYOR_BELT_READY,
@@ -119,8 +129,8 @@ enum class Signalname : uint16_t {
 
 	//Serial Interface
 	SERIAL_SEND_ITEM,
-	SERIAL_ARE_YOU_ALIVE,
-	SERIAL_IM_ALIVE,
+	SERIAL_WATCHDOG_TOKEN,
+	SERIAL_WATCHDOG_FEED,
 
 	//CONNECTION
 	CONNECTION_LOST,

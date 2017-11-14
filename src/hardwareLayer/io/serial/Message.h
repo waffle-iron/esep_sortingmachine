@@ -14,7 +14,7 @@
 
 struct Message {
 	Message() :
-	checkNumber( 654321 )
+	Message(Signal())
 	{
 
 	}
@@ -23,7 +23,9 @@ struct Message {
 	signal(signal)
 	{
 
+
 	}
+
 	int checkNumber;
 	Signal signal;
 	Item payload;

@@ -25,14 +25,36 @@ LogicLayer::~LogicLayer() {
 void LogicLayer::notify(){
 	Signal signal;
 
-	cout << "notify called";
+//	cout << "notify called";
 
 	while((signal = hal.getSignal()).name != Signalname::SIGNAL_BUFFER_EMPTY) {
-		cout << "LogicLayer: I have been notified! Now I go get the Signal."
-				<< endl;
+
+		if(cb_this != cb_1 && signal.receiver > cb_this) {
+			hal.sendSerialMsg(Message(signal));
+		}
 
 		switch (signal.name) {
-		// LIGHTS
+		// serial
+		case Signalname::CONNECTION_LOST:
+			cout<<"CONNECTION LOST"<<endl;
+			hal.blinkRed(Speed::slow);
+			hal.greenLightOff();
+			cb_this.parameterList.showParameters();
+			break;
+		case Signalname::CONNECTION_CONNECTED:
+			cout<<"CONNECTION CONNECTED"<<endl;
+			hal.blinkGreen(Speed::slow);
+			hal.redLightOff();
+			cb_this.parameterList.showParameters();
+			break;
+		case Signalname::SERIAL_WATCHDOG_TOKEN:
+			hal.sendSerialMsg(Message(signal));
+			break;
+		case Signalname::SERIAL_WATCHDOG_FEED:
+			hal.sendSerialMsg(Message(signal));
+			break;
+		// mmi
+		// traffic lights
 		case Signalname::YELLOW_LIGHT_ON:
 			hal.yellowLightOn();
 			break;
@@ -69,25 +91,63 @@ void LogicLayer::notify(){
 		case Signalname::GREEN_LIGHT_OFF:
 			hal.greenLightOff();
 			break;
-
-			// MOTOR
+		// leds
+		case Signalname::Q1_LED_ON:
+			hal.Q1LEDOn();
+			break;
+		case Signalname::Q1_LED_OFF:
+			hal.Q1LEDOff();
+			break;
+		case Signalname::Q2_LED_ON:
+			hal.Q2LEDOn();
+			break;
+		case Signalname::Q2_LED_OFF:
+			hal.Q2LEDOff();
+			break;
+		case Signalname::RESET_LED_ON:
+			hal.ResetLEDOn();
+			break;
+		case Signalname::RESET_LED_OFF:
+			hal.ResetLEDOff();
+			break;
+		case Signalname::START_LED_ON:
+			hal.StartLEDOn();
+			break;
+		case Signalname::START_LED_OFF:
+			hal.StartLEDOff();
+			break;
+		// motor
 		case Signalname::MOTOR_START:
+			LOG_DEBUG << "call MOTOR start ";
 			hal.motorStart();
+			LOG_DEBUG << "MOTOR started ";
 			break;
 		case Signalname::MOTOR_STOP:
+			LOG_DEBUG << "call MOTOR stop ";
 			hal.motorStop();
+			LOG_DEBUG << "call MOTOR stopped ";
 			break;
 		case Signalname::MOTOR_FAST:
+			LOG_DEBUG << "call MOTOR fast ";
 			hal.motorFast();
+			LOG_DEBUG << "end MOTOR  fast";
+			break;
+		case Signalname::MOTOR_SLOW:
+			LOG_DEBUG << "call MOTOR slow ";
+			hal.motorSlow();
+			LOG_DEBUG << "end MOTOR  slow";
 			break;
 		case Signalname::MOTOR_ROTATE_CLOCKWISE:
+			LOG_DEBUG << "call MOTOR clockwise ";
 			hal.motorRotateClockwise();
+			LOG_DEBUG << "end MOTOR  clockwise";
 			break;
 		case Signalname::MOTOR_ROTATE_COUNTER_CLOCKWISE:
+			LOG_DEBUG << "call MOTOR counter clockwise ";
 			hal.motorRotateCounterclockwise();
+			LOG_DEBUG << "end MOTOR  clockwise";
 			break;
-
-			// SWITCH
+		// switch
 		case Signalname::SWITCH_OPEN:
 			hal.switchPointOpen();
 			break;
@@ -95,19 +155,12 @@ void LogicLayer::notify(){
 			hal.switchPointClose();
 			break;
 
-
-		case Signalname::CONNECTION_LOST:
-			hal.blinkRed(Speed::slow);
-			break;
-		case Signalname::CONNECTION_CONNECTED:
-			hal.redLightOff();
-			break;
 		default:
+			LOG_ERROR<<__FUNCTION__<<" unknown signal occurred.";
+			cout<<__FUNCTION__<<" unknown signal occurred."<<endl;
 			break;
 		}
 
 	}
-	cout << "LogicLayer: I have been notified! All signals read." << endl;
-	//cout << hal.getSignal().name << endl;
 }
 } /* namespace logicLayer */

@@ -96,7 +96,6 @@ namespace hardwareLayer {
 		io::serial::WatchDog _watchDog;
 		io::serial::Receiver _receiver;
 
-		std::thread _th_watchDog;
 		std::thread _th_receiver;
 
 		sensors::HeightSensor &_heightSensor;
