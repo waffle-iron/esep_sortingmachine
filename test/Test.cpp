@@ -87,6 +87,14 @@ void Test::actuatorsTest(){
 void Test::mmiTest(){
 
 	cout << "start " << __FUNCTION__ << endl;
+	cout<< "testButtonLEDs on: Reset,Start,Q1,Q2" <<endl;
+	_hal->Q1LEDOn();
+	_hal->Q2LEDOn();
+	_hal->ResetLEDOn();
+	_hal->StartLEDOn();
+	if( !nextTest(__FUNCTION__) ) return;
+
+
 	cout << "test lamps on: red, yellow, green" << endl;
 	_hal->yellowLightOn();
 	_hal->sendSerialMsg(Message(Signal(cb_this, 0xff, Signalname::YELLOW_LIGHT_ON)));

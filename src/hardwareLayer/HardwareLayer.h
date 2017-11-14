@@ -20,6 +20,7 @@
 #include "WatchDog.h"
 #include "Receiver.h"
 #include "HeightSensor.h"
+#include "ButtonLEDs.h"
 
 
 namespace hardwareLayer {
@@ -35,6 +36,15 @@ namespace hardwareLayer {
 		void yellowLightOff();
 		void redLightOn();
 		void redLightOff();
+
+		void StartLEDOn();
+		void StartLEDOff();
+		void ResetLEDOn();
+		void ResetLEDOff();
+		void Q1LEDOn();
+		void Q1LEDOff();
+		void Q2LEDOn();
+		void Q2LEDOff();
 
 		void blinkGreen(Speed speed);
 		void blinkRed(Speed speed);
@@ -90,7 +100,7 @@ namespace hardwareLayer {
 		std::thread _th_receiver;
 
 		sensors::HeightSensor &_heightSensor;
-
+		mmi::ButtonLEDs& _ButtonLEDs;
 };
 
 

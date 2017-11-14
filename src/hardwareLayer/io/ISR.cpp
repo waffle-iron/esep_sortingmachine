@@ -32,11 +32,11 @@ int ISR::getPendingIntFlags() {
 }
 
 void ISR::disableInterrupts() {
-	return out8(DIO_BASE + DIO_CHG_STATE_IRQ_ENABLE, 0xff);
+	 out8(DIO_BASE + DIO_CHG_STATE_IRQ_ENABLE, 0xff);
 }
 
 void ISR::enableInterrupts(int mask) {
-	return out8(DIO_BASE + DIO_CHG_STATE_IRQ_ENABLE, ~(mask));
+	 out8(DIO_BASE + DIO_CHG_STATE_IRQ_ENABLE, ~(mask));
 }
 
 void ISR::clearPendingIntFlag(int bit) {

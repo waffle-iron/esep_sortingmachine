@@ -21,7 +21,8 @@ _watchDog(_serialSender, signalGenerator),
 _receiver(_serialReceiver, _watchDog, signalGenerator),
 _th_watchDog(std::ref(_watchDog)),
 _th_receiver(std::ref(_receiver)),
-_heightSensor(sensors::HeightSensor::instance())
+_heightSensor(sensors::HeightSensor::instance()),
+_ButtonLEDs(mmi::ButtonLEDs::instance())
 {
 	LOG_SCOPE;
 
@@ -110,6 +111,37 @@ void HardwareLayer::blinkYellow(Speed speed) {
 
 void HardwareLayer::blinkRed(Speed speed) {
 	_trafficLight.blinkRed(speed);
+}
+
+void HardwareLayer::StartLEDOn(){
+	_ButtonLEDs.LEDStartOn();
+}
+
+void HardwareLayer::StartLEDOff(){
+	_ButtonLEDs.LEDStartOff();
+}
+
+void HardwareLayer::ResetLEDOn(){
+	_ButtonLEDs.LEDResetOn();
+}
+
+void HardwareLayer::ResetLEDOff(){
+	_ButtonLEDs.LEDResetOff();
+}
+
+void HardwareLayer::Q1LEDOn(){
+	_ButtonLEDs.LEDQ1On();
+}
+
+void HardwareLayer::Q1LEDOff(){
+	_ButtonLEDs.LEDQ1Off();
+}
+
+void HardwareLayer::Q2LEDOn(){
+	_ButtonLEDs.LEDQ2On();
+}
+void HardwareLayer::Q2LEDOff(){
+	_ButtonLEDs.LEDQ2Off();
 }
 
 Signal HardwareLayer::getSignal() {
