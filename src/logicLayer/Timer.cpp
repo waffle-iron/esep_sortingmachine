@@ -10,15 +10,16 @@
 
 namespace logicLayer {
 
-Timer::Timer(Channel& ch) :
-channel(ch)
+Timer::Timer() :
+SignalReceiver::SignalReceiver()
 {
+
 }
 
 void Timer::operator()(){
 	Signal lastRead;
 	while(1){
-		lastRead<<channel;
+		lastRead<<channel_;
 		if (lastRead.name == Signalname::START_TIMERS_INPUT) {
 			cout << (int)lastRead.name <<endl;
 		} else {

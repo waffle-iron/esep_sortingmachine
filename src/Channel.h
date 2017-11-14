@@ -13,6 +13,9 @@
 #include "Signals.h"
 #include "Semaphore2.h"
 
+constexpr int channelSize = 100;
+
+
 using namespace std;
 
 class Channel {

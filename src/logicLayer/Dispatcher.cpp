@@ -15,6 +15,7 @@ Dispatcher::Dispatcher(Channel& ch) : channel(ch) {
 
 void Dispatcher::operator()(){
 	Signal signal = Signal(0,0,Signalname::START_TIMERS_INPUT);
+
 	channel<<signal;
 }
 

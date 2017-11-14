@@ -24,14 +24,19 @@ int main(int argc, char *argv[])
 	hardwareLayer::HardwareLayer hal;
 	logicLayer::LogicLayer loLay = logicLayer::LogicLayer(hal);
 
-	Channel c(5);// create a communication channel
-	logicLayer::Timer timer = logicLayer::Timer(c);
-	thread ReceiverThread(ref(timer));// create thread. Pass functor object with channel as argument
-	logicLayer::Dispatcher dispatcher = logicLayer::Dispatcher(c);
-	thread SenderThread(ref(dispatcher));// create another thread. Pass functor with channel.
-	SenderThread.join();// stop here until SenderThread has come to an end.
-	ReceiverThread.join();//stop here until ReceiverThread has come to an end.
-	c.destroy();//clean up the channel
+
+//
+//
+//	logicLayer::Timer timer = logicLayer::Timer();
+//	thread ReceiverThread(ref(timer));
+//
+//	logicLayer::Dispatcher dispatcher = logicLayer::Dispatcher(c);
+//	thread SenderThread(ref(dispatcher));
+//
+//	SenderThread.join();
+//	ReceiverThread.join();
+//	c.destroy();
+
 	return 0;
 
 
