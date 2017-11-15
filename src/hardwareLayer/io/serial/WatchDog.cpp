@@ -14,7 +14,7 @@ namespace serial {
 
 constexpr int period = 250;
 
-WatchDog::WatchDog(Serial& serial, SignalGenerator& sgen) :
+WatchDog::WatchDog(Interface& serial, SignalGenerator& sgen) :
 serial_(serial),
 sgen_(sgen),
 watchdog(std::ref(*this)),

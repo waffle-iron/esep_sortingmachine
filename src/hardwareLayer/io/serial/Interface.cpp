@@ -17,7 +17,7 @@ namespace hardwareLayer {
 namespace io {
 namespace serial {
 
-Serial::Serial(string dev){
+Interface::Interface(string dev){
 
 	// Open File descriptor
 	fdesc_ = open(dev.c_str(), O_RDWR);
@@ -29,7 +29,7 @@ Serial::Serial(string dev){
 	// initialize settings for Serial Interface
 	init(B19200);
 }
-Serial::Serial(string dev, int baud){
+Interface::Interface(string dev, int baud){
 	// Open File descriptor
 	fdesc_ = open(dev.c_str(), O_RDWR);
 	if(this->fdesc_ == -1){
@@ -40,7 +40,7 @@ Serial::Serial(string dev, int baud){
 	init(baud);
 }
 
-Serial::~Serial(){
+Interface::~Interface(){
 	// Close File descriptor
 	if( close(this->fdesc_) < 0 ){
 		LOG_ERROR << __FUNCTION__ << " error closing serial ";
@@ -48,7 +48,7 @@ Serial::~Serial(){
 	}
 }
 
-void Serial::init(int baud){
+void Interface::init(int baud){
     struct termios ts;
     tcflush(this->fdesc_, TCIOFLUSH);
     tcgetattr(this->fdesc_, &ts);
@@ -66,7 +66,7 @@ void Serial::init(int baud){
 /**
  *  @brief write simple char messages to serial interface
  */
-int Serial::send(char* buffer, unsigned char numBytes){
+int Interface::send(char* buffer, unsigned char numBytes){
 	write(this->fdesc_, buffer, numBytes);
 	return 0;
 }
@@ -74,7 +74,7 @@ int Serial::send(char* buffer, unsigned char numBytes){
 /**
  *  @brief read simple char messages from serial interface
  */
-int Serial::recv(char* p){
+int Interface::recv(char* p){
 	if( readcond(this->fdesc_, p, sizeof(char), sizeof(char),0,10000) > 0) {
 		return 0;
 	}
@@ -85,7 +85,7 @@ int Serial::recv(char* p){
 /**
  *  @brief write ... to serial interface
  */
-int Serial::send( Message msg ) {
+int Interface::send( Message msg ) {
 	serial_mutex.lock();
 	write(this->fdesc_, &msg, sizeof(Message));
 	serial_mutex.unlock();
@@ -95,14 +95,14 @@ int Serial::send( Message msg ) {
 /**
  *  @brief read ... from serial interface
  */
-int Serial::recv( Message *msg ){
+int Interface::recv( Message *msg ){
 	if( readcond(this->fdesc_, msg, sizeof(Message), sizeof(Message),0,10000) > 0) {
 		return 0;
 	}
 	return -1;
 }
 
-void Serial::flush() {
+void Interface::flush() {
 	LOG_WARNING << __FUNCTION__ << " perform flush.";
 	serial_mutex.lock();
 	tcflush(this->fdesc_, TCIOFLUSH);

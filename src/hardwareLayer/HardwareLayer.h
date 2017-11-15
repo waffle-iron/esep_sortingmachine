@@ -91,8 +91,8 @@ namespace hardwareLayer {
 		mmi::TrafficLight& _trafficLight;
 
 		io::SignalGenerator signalGenerator;
-		io::serial::Serial _serialSender;
-		io::serial::Serial _serialReceiver;
+		io::serial::Interface _serialSender;
+		io::serial::Interface _serialReceiver;
 		io::serial::WatchDog _watchDog;
 		io::serial::Receiver _receiver;
 

@@ -19,12 +19,12 @@ namespace serial {
 
 class Receiver {
 public:
-    Receiver(Serial& serial, WatchDog& dog, SignalGenerator& sgen );
+    Receiver(Interface& serial, WatchDog& dog, SignalGenerator& sgen );
     void operator()();
     void stop();
 
 private:
-    Serial& serial_;
+    Interface& serial_;
     WatchDog& dog_;
     SignalGenerator& sgen_;
     bool running;

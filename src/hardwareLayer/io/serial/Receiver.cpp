@@ -11,7 +11,7 @@ namespace hardwareLayer {
 namespace io {
 namespace serial {
 
-	Receiver::Receiver(Serial& serial, WatchDog& dog, SignalGenerator& sgen ):
+	Receiver::Receiver(Interface& serial, WatchDog& dog, SignalGenerator& sgen ):
 	serial_(serial),
 	dog_(dog),
 	sgen_(sgen),

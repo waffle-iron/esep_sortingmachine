@@ -11,7 +11,7 @@ namespace hardwareLayer {
 namespace io {
 namespace serial {
 
-Sender::Sender(Serial& serial):
+Sender::Sender(Interface& serial):
 serial_(serial)
 {
 

@@ -16,10 +16,10 @@ namespace serial {
 
 class Sender {
 public:
-    Sender(Serial& serial);
+    Sender(Interface& serial);
 
 private:
-    Serial& serial_;
+    Interface& serial_;
 };
 
 } /* namespace serial */

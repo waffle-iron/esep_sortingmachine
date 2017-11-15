@@ -17,11 +17,11 @@ namespace hardwareLayer {
 namespace io {
 namespace serial {
 
-class Serial {
+class Interface {
 	public:
-		Serial(std::string dev);
-		Serial(std::string dev, int baud);
-		~Serial();
+		Interface(std::string dev);
+		Interface(std::string dev, int baud);
+		~Interface();
 		void init(int baud);
 
 		int send(char* buffer, unsigned char numBytes);
@@ -37,8 +37,8 @@ class Serial {
 		void flush(void);
 
 	private:
-		Serial(const Serial& other);
-		Serial& operator=(const Serial& other);
+		Interface(const Interface& other);
+		Interface& operator=(const Interface& other);
 
 		int fdesc_;
 		std::mutex serial_mutex;
