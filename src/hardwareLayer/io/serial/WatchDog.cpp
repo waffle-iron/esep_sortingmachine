@@ -19,7 +19,7 @@ serial_(serial),
 sgen_(sgen),
 watchdog(std::ref(*this)),
 dogWasFed(false),
-status(Connection::LOST),
+status(Connection::CONNECTED),
 running(true)
 {
 
