@@ -12,14 +12,10 @@
 namespace hardwareLayer {
 
 HardwareLayer::HardwareLayer() :
+serial(signalGenerator),
 _motor(actuators::Motor::instance()),
 _switchPoint(actuators::SwitchPoint::instance()),
 _trafficLight(mmi::TrafficLight::instance()),
-_serialSender("/dev/ser1"),
-_serialReceiver("/dev/ser2"),
-_watchDog(_serialSender, signalGenerator),
-_receiver(_serialReceiver, _watchDog, signalGenerator),
-_th_receiver(std::ref(_receiver)),
 _heightSensor(sensors::HeightSensor::instance()),
 _ButtonLEDs(mmi::ButtonLEDs::instance())
 {
@@ -152,9 +148,7 @@ void HardwareLayer::clearSignalBuffer() {
 }
 
 void HardwareLayer::sendSerialMsg(Message msg) {
-
-	_serialSender.send(msg);
-
+	serial.send(msg);
 }
 
 uint16_t HardwareLayer::getHeight() {

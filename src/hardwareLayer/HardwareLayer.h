@@ -9,16 +9,14 @@
 #define HARDWARELAYER_H_
 
 #include <thread>
+#include "Observable.h"
 #include "Signals.h"
+
+#include "SignalGenerator.h"
+#include "Serial.h"
 #include "Motor.h"
 #include "SwitchPoint.h"
 #include "TrafficLight.h"
-#include "SignalGenerator.h"
-#include "Observable.h"
-#include "Message.h"
-#include "Interface.h"
-#include "WatchDog.h"
-#include "Receiver.h"
 #include "HeightSensor.h"
 #include "ButtonLEDs.h"
 
@@ -85,19 +83,11 @@ namespace hardwareLayer {
 		io::SignalGenerator& getSignalGenerator();
 
 	private:
+		io::SignalGenerator signalGenerator;
+		io::serial::Serial serial;
 		actuators::Motor& _motor;
 		actuators::SwitchPoint& _switchPoint;
-
 		mmi::TrafficLight& _trafficLight;
-
-		io::SignalGenerator signalGenerator;
-		io::serial::Interface _serialSender;
-		io::serial::Interface _serialReceiver;
-		io::serial::WatchDog _watchDog;
-		io::serial::Receiver _receiver;
-
-		std::thread _th_receiver;
-
 		sensors::HeightSensor &_heightSensor;
 		mmi::ButtonLEDs& _ButtonLEDs;
 };
