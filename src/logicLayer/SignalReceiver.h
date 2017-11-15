@@ -18,10 +18,11 @@ public:
 	SignalReceiver();
 	virtual ~SignalReceiver();
 	Channel& getChannel();
-	void operator()();
+	virtual void operator()();
 
 protected:
 	Channel channel_;
+	bool running;
 
 private:
 	std::thread receiver_;

@@ -101,6 +101,9 @@ enum class Signalname : uint16_t {
 	MEASURE_VELOCITY_SLOW_STOP,
 	// signal generator
 	SIGNAL_BUFFER_EMPTY,
+
+	//test signal
+	TEST
 };
 
 /**

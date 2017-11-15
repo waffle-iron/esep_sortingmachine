@@ -1,0 +1,22 @@
+/*
+ * TypeIdentification.h
+ *
+ *  Created on: 15.11.2017
+ *      Author: abx724
+ */
+
+#ifndef TYPEIDENTIFICATION_H_
+#define TYPEIDENTIFICATION_H_
+
+#include "SignalReceiver.h"
+
+namespace logicLayer {
+
+class TypeIdentification: public logicLayer::SignalReceiver {
+public:
+	TypeIdentification();
+	virtual ~TypeIdentification();
+};
+
+} /* namespace logicLayer */
+#endif /* TYPEIDENTIFICATION_H_ */

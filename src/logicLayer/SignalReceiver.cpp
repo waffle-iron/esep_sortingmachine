@@ -13,13 +13,14 @@ namespace logicLayer {
 
 	SignalReceiver::SignalReceiver() :
 			channel_(channelSize),
+			running(true),
 			receiver_(std::ref(*this))
 	{
 
 	}
 
 	void SignalReceiver::operator()(){
-		while(1);
+		//silence is golden...
 	}
 
 	SignalReceiver::~SignalReceiver() {
