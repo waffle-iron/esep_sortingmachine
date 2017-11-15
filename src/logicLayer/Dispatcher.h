@@ -8,17 +8,20 @@
 #ifndef DISPATCHER_H_
 #define DISPATCHER_H_
 
-#include "LogicLayer.h"
+#include <thread>
 
 namespace logicLayer {
 
+class LogicLayer;
+
 class Dispatcher {
 public:
-	explicit Dispatcher(LogicLayer&);
+	Dispatcher(LogicLayer& lol);
 	virtual ~Dispatcher();
-	void operator ()();
+	virtual void operator()();
 private:
 	LogicLayer& lol_;
+//	std::thread listing4Thread_;
 };
 
 } // end namespace

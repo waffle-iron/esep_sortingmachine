@@ -6,11 +6,15 @@
  */
 
 #include "Dispatcher.h"
+#include "LogicLayer.h"
 #include "Signals.h"
 
 namespace logicLayer {
 
-Dispatcher::Dispatcher(LogicLayer& lol) : lol_(lol) {
+Dispatcher::Dispatcher(LogicLayer& lol) :
+		lol_(lol)
+//		listingThread_(std::ref(*this))
+{
 }
 
 void Dispatcher::operator()(){

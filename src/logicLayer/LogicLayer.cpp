@@ -11,7 +11,8 @@
 namespace logicLayer {
 
 LogicLayer::LogicLayer(hardwareLayer::HardwareLayer& hal) :
-hal(hal)
+hal(hal),
+dispatcher_(*this)
 {
 	hal.register_observer(this);
 }
