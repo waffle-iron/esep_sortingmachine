@@ -1,7 +1,7 @@
 #include "Header.h"
 #include <iostream>
 
-#include "Serial.h"
+#include "Interface.h"
 #include "Receiver.h"
 #include "Parameter.h"
 

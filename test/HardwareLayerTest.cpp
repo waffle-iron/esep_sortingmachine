@@ -6,7 +6,7 @@
  */
 
 #include "HardwareLayer.h"
-#include "Serial.h"
+#include "Interface.h"
 
 namespace hardwareLayer {
 

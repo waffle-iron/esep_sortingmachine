@@ -8,7 +8,7 @@
 #ifndef SENDER_H_
 #define SENDER_H_
 
-#include "Serial.h"
+#include "Interface.h"
 
 namespace hardwareLayer {
 namespace io {

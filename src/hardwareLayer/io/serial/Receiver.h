@@ -8,7 +8,7 @@
 #ifndef RECEIVER_H_
 #define RECEIVER_H_
 
-#include "Serial.h"
+#include "Interface.h"
 #include "WatchDog.h"
 #include "SignalGenerator.h"
 

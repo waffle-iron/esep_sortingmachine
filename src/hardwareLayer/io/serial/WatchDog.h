@@ -9,7 +9,7 @@
 #define WATCHDOG_H_
 
 
-#include "Serial.h"
+#include "Interface.h"
 #include "SignalGenerator.h"
 #include <thread>
 

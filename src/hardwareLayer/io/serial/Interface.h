@@ -5,8 +5,8 @@
  *      Author: aca311
  */
 
-#ifndef SERIAL_H_
-#define SERIAL_H_
+#ifndef INTERFACE_H_
+#define INTERFACE_H_
 
 #include <string>
 #include <Message.h>
@@ -49,4 +49,4 @@ class Serial {
 } /* namespace io */
 } /* namespace hal */
 
-#endif /* SERIAL_H_ */
+#endif /* INTERFACE_H_ */

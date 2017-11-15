@@ -16,7 +16,7 @@
 #include "SignalGenerator.h"
 #include "Observable.h"
 #include "Message.h"
-#include "Serial.h"
+#include "Interface.h"
 #include "WatchDog.h"
 #include "Receiver.h"
 #include "HeightSensor.h"

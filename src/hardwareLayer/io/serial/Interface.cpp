@@ -5,7 +5,7 @@
  *      Author: aca216
  */
 
-#include "Serial.h"
+#include "Interface.h"
 
 #include <fcntl.h>
 #include <termios.h>
