@@ -10,13 +10,11 @@
 
 namespace logicLayer {
 
-Dispatcher::Dispatcher(Channel& ch) : channel(ch) {
+Dispatcher::Dispatcher(LogicLayer& lol) : lol_(lol) {
 }
 
 void Dispatcher::operator()(){
-	Signal signal = Signal(0,0,Signalname::START_TIMERS_INPUT);
 
-	channel<<signal;
 }
 
 Dispatcher::~Dispatcher() {

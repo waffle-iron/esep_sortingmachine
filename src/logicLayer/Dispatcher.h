@@ -8,17 +8,17 @@
 #ifndef DISPATCHER_H_
 #define DISPATCHER_H_
 
-#include "Channel.h"
+#include "LogicLayer.h"
 
 namespace logicLayer {
 
 class Dispatcher {
 public:
-	explicit Dispatcher(Channel&);
+	explicit Dispatcher(LogicLayer&);
 	virtual ~Dispatcher();
 	void operator ()();
 private:
-	Channel& channel;
+	LogicLayer& lol_;
 };
 
 } // end namespace
