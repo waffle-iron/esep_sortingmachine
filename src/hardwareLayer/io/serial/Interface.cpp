@@ -23,7 +23,7 @@ struct termios termino_send;
 struct termios termino_read;
 
 constexpr int STANDARD_BAUD_RATE = B19200;
-constexpr int TIMEOUT_1_SECOND = 10;
+constexpr int TIMEOUT_2_SECONDS = 20;
 
 Interface::Interface(std::string dev_send, std::string dev_read) :
 Interface(dev_send, dev_read, STANDARD_BAUD_RATE)
@@ -109,7 +109,7 @@ int Interface::send(Message& message) {
 
 int Interface::recv( Message *msg ) {
 	LOG_SCOPE
-	int ret = readcond(this->fd_read, msg, sizeof(Message), sizeof(Message),0,TIMEOUT_1_SECOND);
+	int ret = readcond(this->fd_read, msg, sizeof(Message), sizeof(Message),0,TIMEOUT_2_SECONDS);
 	if(ret == -1) {
 		LOG_ERROR << __FUNCTION__ << ": error while reading Message from file descriptor occured."<<endl;
 		LOG_ERROR<<errno<<" "<<strerror(errno)<<endl;

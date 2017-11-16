@@ -23,10 +23,10 @@ struct Data{
 class SensorTestController {
 private:
 	struct State {//top-level state
-		virtual void lb_input_interrupted(){}//put code here for signalA in superstate
-		virtual void lb_input_freed(){}//put code here for signalA in superstate
-		virtual void lb_height_interrupted(){}//put code here for signalA in superstate
-		virtual void lb_height_freed(){}//put code here for signalA in superstate
+		virtual void lb_input_interrupted(){cout<<"TEST FAILED<<endl";}//put code here for signalA in superstate
+		virtual void lb_input_freed(){cout<<"TEST FAILED<<endl";}//put code here for signalA in superstate
+		virtual void lb_height_interrupted(){cout<<"TEST FAILED<<endl";}//put code here for signalA in superstate
+		virtual void lb_height_freed(){cout<<"TEST FAILED<<endl";}//put code here for signalA in superstate
 
 		hardwareLayer::HardwareLayer* hal;
 		Data* data;// pointer to data, which physically resides inside the context class (contextdata)
