@@ -11,9 +11,12 @@ namespace hardwareLayer {
 namespace io {
 namespace serial {
 
+constexpr auto COM1 = "/dev/ser1";
+constexpr auto COM2 = "/dev/ser2";
+
 Serial::Serial(SignalGenerator& signalGenerator) :
-_serialSender("/dev/ser1"),
-_serialReceiver("/dev/ser2"),
+_serialSender(COM1),
+_serialReceiver(COM2),
 _watchDog(_serialSender, signalGenerator),
 _receiver(_serialReceiver, _watchDog, signalGenerator),
 _th_receiver(std::ref(_receiver))
