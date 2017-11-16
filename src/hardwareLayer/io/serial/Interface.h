@@ -19,8 +19,8 @@ namespace serial {
 
 class Interface {
 	public:
-		Interface(std::string dev);
-		Interface(std::string dev, int baud);
+		Interface(std::string dev_send, std::string dev_read);
+		Interface(std::string dev_send, std::string dev_read,int baud);
 		~Interface();
 
 		/*
@@ -58,7 +58,8 @@ class Interface {
 		Interface(const Interface& other);
 		Interface& operator=(const Interface& other);
 
-		int fdesc_;
+		int fd_read;
+		int fd_send;
 	};
 
 

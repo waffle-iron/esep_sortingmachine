@@ -26,8 +26,7 @@ public:
 	void send(Item* item);
 
 private:
-	Interface _serialSender;
-	Interface _serialReceiver;
+	Interface _serialClockwise;
 	WatchDog _watchDog;
 	Receiver _receiver;
 };
