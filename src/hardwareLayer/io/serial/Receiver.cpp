@@ -38,7 +38,7 @@ namespace serial {
 							// set feed signal
 							if (cb_this == cb_1) {
 								if (cb_available == 0) {
-									cb_available = Parameter<uint8_t>(msg.signal.sender, "All available conveyer belts.");
+									cb_available = Parameter<uint8_t>(msg.signal.sender, "available conveyer belts");
 								}
 								if (msg.signal.sender == cb_available){
 									sgen_.pushBackOnSignalBuffer(Signal(cb_this,cb_available, Signalname::SERIAL_WATCHDOG_FEED));
@@ -49,7 +49,7 @@ namespace serial {
 								msg.signal.sender |= cb_this;
 							}
 							else if((int)msg.signal.sender < 128 ){
-								cb_this = Parameter<uint8_t>(msg.signal.sender + 1, "Conveyer belt");
+								cb_this = Parameter<uint8_t>(msg.signal.sender + 1, "this conveyer belt");
 								msg.signal.sender |= cb_this;
 							}
 							else{
@@ -59,8 +59,9 @@ namespace serial {
 
 						break;
 						case Signalname::SERIAL_WATCHDOG_FEED:
-							if (cb_available == 0) {
-								cb_available = Parameter<uint8_t>(msg.signal.receiver, "All connected conveyer belts.");
+							if (cb_available.value == 0) {
+								cb_available = Parameter<uint8_t>(msg.signal.receiver, "available conveyer belts");
+								cb_last = Parameter<uint8_t>((msg.signal.receiver + 1) >> 1, "last conveyer belt");
 								setNext_cb();
 							}
 							dog_.feed();
@@ -93,7 +94,13 @@ namespace serial {
 			LOG_ERROR<<"cb_this or cb_available not set yet."<<endl;
 			exit(EXIT_FAILURE);
 		} else {
-			cb_next = Parameter<uint8_t>(cb_this.value << 1 < cb_all ? cb_next.value = cb_this.value << 1 : cb_next.value = cb_first.value, "Next conveyer belt.");
+			uint8_t next;
+			if(cb_this.value << 1 > cb_available) {
+				next = cb_first.value;
+			} else {
+				next = cb_this.value << 1;
+			}
+			cb_next = Parameter<uint8_t>(next, "next conveyer belt");
 		}
 	}
 
