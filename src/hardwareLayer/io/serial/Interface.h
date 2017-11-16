@@ -44,9 +44,13 @@ class Interface {
 	private:
 		/*
 		 * @brief init serial interface
+		 * @param int baud - baudrate
 		 * @return 0 or negativ when error(s) occured.
 		 *
 		 * with following options:
+		 * input and output with @param baud
+		 * 8N1 : (8 data bits, no parity, 1 stop bit)
+		 * ignore modem status lines
 		 *
 		 */
 		int init(int baud);
