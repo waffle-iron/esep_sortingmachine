@@ -11,7 +11,8 @@
 namespace logicLayer {
 
 LogicLayer::LogicLayer(hardwareLayer::HardwareLayer& hal) :
-hal(hal)
+hal(hal),
+sensorTest(hal)
 {
 	//hal.register_observer(this);
 	hal.getSignalGenerator().register_observer(this); //listen to SignalGenerator
@@ -43,6 +44,21 @@ void LogicLayer::notify(){
 			hal.redLightOff();
 			cb_this.parameterList.showParameters();
 			break;
+		// sensors
+		// light barriers
+		case Signalname::LB_INPUT_INTERRUPTED:
+			sensorTest.lb_input_interrupted();
+			break;
+		case Signalname::LB_INPUT_FREED:
+			sensorTest.lb_input_freed();
+			break;
+		case Signalname::LB_HEIGHT_INTERRUPTED:
+			sensorTest.lb_height_interrupted();
+			break;
+		case Signalname::LB_HEIGHT_FREED:
+			sensorTest.lb_height_freed();
+			break;
+
 		// mmi
 		// traffic lights
 		case Signalname::YELLOW_LIGHT_ON:
