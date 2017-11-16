@@ -13,7 +13,6 @@
 
 constexpr int MAGIC_NUMBER = 15;
 
-
 namespace hardwareLayer {
 namespace io {
 

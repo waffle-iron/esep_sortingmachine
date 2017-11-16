@@ -45,6 +45,9 @@ void LogicLayer::notify(){
 			cb_this.parameterList.showParameters();
 			break;
 		// sensors
+		case Signalname::START_SENSOR_TEST:
+			sensorTest.start_sensor_test();
+			break;
 		// light barriers
 		case Signalname::LB_INPUT_INTERRUPTED:
 			sensorTest.lb_input_interrupted();
@@ -58,7 +61,24 @@ void LogicLayer::notify(){
 		case Signalname::LB_HEIGHT_FREED:
 			sensorTest.lb_height_freed();
 			break;
-
+		case Signalname::LB_SWITCH_INTERRUPTED:
+			sensorTest.lb_switch_interrupted();
+			break;
+		case Signalname::LB_SWITCH_FREED:
+			sensorTest.lb_switch_freed();
+			break;
+		case Signalname::LB_SLIDE_INTERRUPTED:
+			sensorTest.lb_slide_interrupted();
+			break;
+		case Signalname::LB_SLIDE_FREED:
+			sensorTest.lb_slide_freed();
+			break;
+		case Signalname::LB_OUTPUT_INTERRUPTED:
+			sensorTest.lb_output_interrupted();
+			break;
+		case Signalname::LB_OUTPUT_FREED:
+			sensorTest.lb_output_freed();
+			break;
 		// mmi
 		// traffic lights
 		case Signalname::YELLOW_LIGHT_ON:

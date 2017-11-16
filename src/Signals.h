@@ -35,6 +35,7 @@ enum class Signalname : uint16_t {
 	BUTTON_E_STOP_PUSHED,
 	BUTTON_E_STOP_PULLED,
 	// sensors
+	START_SENSOR_TEST,
 	// -- light barriers
 	LB_INPUT_INTERRUPTED,
 	LB_INPUT_FREED,

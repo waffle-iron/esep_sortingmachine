@@ -32,7 +32,9 @@ public:
 	void mmiTest();
 
 	/**
-	 *  @brief test sensors
+	 *@brief test sensors
+	 *@brief just working without LogicLayer started. LogicLayer is using
+	 *@brief is using SensorTestController for testing sensors
 	 */
 	void sensorsTest();
 
