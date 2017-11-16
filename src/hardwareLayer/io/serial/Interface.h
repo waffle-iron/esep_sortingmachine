@@ -20,7 +20,7 @@ namespace serial {
 class Interface {
 	public:
 		Interface(std::string dev_send, std::string dev_read);
-		Interface(std::string dev_send, std::string dev_read,int baud);
+		Interface(std::string dev_send, std::string dev_read, int baud);
 		~Interface();
 
 		/*

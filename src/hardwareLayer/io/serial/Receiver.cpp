@@ -40,8 +40,9 @@ namespace serial {
 								if (cb_available == 0) {
 									cb_available = Parameter<uint8_t>(msg.signal.sender, "available conveyer belts");
 								}
-								if (msg.signal.sender == cb_available){
-									sgen_.pushBackOnSignalBuffer(Signal(cb_this,cb_available, Signalname::SERIAL_WATCHDOG_FEED));
+								if (msg.signal.sender == cb_available) {
+									Message feed(Signal(cb_this,cb_available, Signalname::SERIAL_WATCHDOG_FEED));
+									serial_.send(feed);
 								}
 							}
 							//bit manipulation
@@ -71,10 +72,8 @@ namespace serial {
 						break;
 					}
 				}
-				if(cb_this != cb_1) {
-					if(msg.signal.receiver > cb_this) {
-						sgen_.pushBackOnSignalBuffer(msg.signal);
-					}
+				if(cb_this != cb_1 && msg.signal.receiver > cb_this) {
+					serial_.send(msg);
 				}
 			}
 			else{
