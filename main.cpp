@@ -55,6 +55,7 @@ int main(int argc, char *argv[])
 		test.singletonThreadSafeTest();
 	}
 
+
 	cout<<"Shut down?"<<endl;
 	cin.get(); // get rid of extra return
 
