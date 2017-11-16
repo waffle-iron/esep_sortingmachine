@@ -12,17 +12,29 @@
 #include "Item.h"
 #include "Signals.h"
 
+constexpr int CORRECT_CN = 654321;
+constexpr int WRONG_CN = 123456;
+
 struct Message {
 	Message() :
-	Message(Signal())
+	Message(Signal(), CORRECT_CN)
 	{
 
 	}
 	Message(Signal signal) :
-	checkNumber(654321),
-	signal(signal)
+	Message(signal, CORRECT_CN)
 	{
 
+	}
+	Message(bool wrongCheckNumber) :
+	Message(Signal(), wrongCheckNumber ? WRONG_CN : CORRECT_CN)
+	{
+
+	}
+	Message(Signal signal, int checkNumber) :
+	checkNumber(checkNumber),
+	signal(signal)
+	{
 
 	}
 

@@ -24,13 +24,13 @@ namespace serial {
 	void Receiver::operator()(){
 		while(running) {
 
-			struct Message msg;
+			Message msg = Message(false);
 
 			//blocking io
 			serial_.recv(&msg);
 
 			//check sum is correct
-			if(msg.checkNumber == 654321 ){
+			if(msg.checkNumber == CORRECT_CN ){
 				if((msg.signal.receiver & cb_this) > 0 || cb_this == 0) {
 
 					switch (msg.signal.name) {
