@@ -9,7 +9,8 @@
 #define INTERFACE_H_
 
 #include <string>
-#include <Message.h>
+#include <Signals.h>
+#include "Message.h"
 
 
 namespace hardwareLayer {
@@ -23,10 +24,10 @@ class Interface {
 		~Interface();
 
 		/*
-		 *  @brief sends Message to serial interface
+		 *  @brief sends Signal to serial interface
 		 *  @return the number of written bytes or -1 if error occured.
 		 */
-		int send(Message msg);
+		int send(Message& message);
 
 		/*
 		 *@brief: receives Message from serial interface in a threadsafe manner.

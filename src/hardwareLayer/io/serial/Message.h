@@ -12,6 +12,12 @@
 #include "Item.h"
 #include "Signals.h"
 
+
+namespace hardwareLayer {
+namespace io {
+namespace serial {
+
+
 constexpr int CORRECT_CN = 654321;
 constexpr int WRONG_CN = 123456;
 
@@ -21,16 +27,25 @@ struct Message {
 	{
 
 	}
+
+	Message(Item item) :
+	Message(Signal(cb_this, cb_next, Signalname::SERIAL_TRANSFER_ITEM))
+	{
+		this->item = item;
+	}
+
 	Message(Signal signal) :
 	Message(signal, CORRECT_CN)
 	{
 
 	}
+
 	Message(bool wrongCheckNumber) :
 	Message(Signal(), wrongCheckNumber ? WRONG_CN : CORRECT_CN)
 	{
 
 	}
+
 	Message(Signal signal, int checkNumber) :
 	checkNumber(checkNumber),
 	signal(signal)
@@ -38,11 +53,15 @@ struct Message {
 
 	}
 
+
 	int checkNumber;
 	Signal signal;
-	Item payload;
+	Item item;
 };
 
+} /* namespace serial */
+} /* namespace io */
+} /* namespace hal */
 
 
 

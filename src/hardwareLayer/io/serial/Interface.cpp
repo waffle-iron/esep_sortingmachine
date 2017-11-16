@@ -73,11 +73,11 @@ int Interface::init(int baud) {
 	return ret;
 }
 
-int Interface::send( Message msg ) {
+int Interface::send(Message& message) {
 	LOG_SCOPE
 	int ret = 0;
 
-	ret = write(this->fdesc_, &msg, sizeof(Message));
+	ret = write(this->fdesc_, &message, sizeof(Message));
 
 	if(ret == -1) {
 		LOG_ERROR << __FUNCTION__ << ": error while writing Message on file descriptor occured."<<endl;

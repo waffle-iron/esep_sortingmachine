@@ -49,7 +49,7 @@ namespace serial {
 								msg.signal.sender |= cb_this;
 							}
 							else if((int)msg.signal.sender < 128 ){
-								cb_this = Parameter<uint8_t>(msg.signal.sender + 1, "Conveyer belt 2");
+								cb_this = Parameter<uint8_t>(msg.signal.sender + 1, "Conveyer belt");
 								msg.signal.sender |= cb_this;
 							}
 							else{
@@ -61,6 +61,7 @@ namespace serial {
 						case Signalname::SERIAL_WATCHDOG_FEED:
 							if (cb_available == 0) {
 								cb_available = Parameter<uint8_t>(msg.signal.receiver, "All connected conveyer belts.");
+								setNext_cb();
 							}
 							dog_.feed();
 						break;
@@ -86,7 +87,19 @@ namespace serial {
 		running = false;
 	}
 
+	void Receiver::setNext_cb() {
+		LOG_SCOPE
+		if(cb_this == 0 or cb_available == 0) {
+			LOG_ERROR<<"cb_this or cb_available not set yet."<<endl;
+			exit(EXIT_FAILURE);
+		} else {
+			cb_next = Parameter<uint8_t>(cb_this.value << 1 < cb_all ? cb_next.value = cb_this.value << 1 : cb_next.value = cb_first.value, "Next conveyer belt.");
+		}
+	}
+
+
 } /* namespace serial */
 } /* namespace io */
 } /* namespace hal */
+
 

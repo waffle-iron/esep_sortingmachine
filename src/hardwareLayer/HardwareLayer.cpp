@@ -147,8 +147,12 @@ void HardwareLayer::clearSignalBuffer() {
 	signalGenerator.clearSignalBuffer();
 }
 
-void HardwareLayer::sendSerialMsg(Message msg) {
-	serial.send(msg);
+void HardwareLayer::sendSerial(Signal signal) {
+	serial.send(signal);
+}
+
+void HardwareLayer::sendSerial(Item* item) {
+	serial.send(item);
 }
 
 uint16_t HardwareLayer::getHeight() {

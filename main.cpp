@@ -23,6 +23,10 @@ int main(int argc, char *argv[])
 	LOG_SCOPE;
 	LOG_SET_LEVEL(DEBUG);
 
+	cb_first =  Parameter<uint8_t>(CB_FIRST, "first conveyer belt");
+	cb_all = Parameter<uint8_t>(CB_ALL, "Conveyer belt all");
+
+
 	string textInput;
 	do {
 	cout<<"Are you conveyor belt 1? (yes/no):"<<endl;
@@ -30,11 +34,9 @@ int main(int argc, char *argv[])
 	} while(!(textInput.compare("yes") xor textInput.compare("no")));
 
 	if(!textInput.compare("yes")) {
-		cb_this =  Parameter<uint8_t>(cb_1, "Conveyer belt 1");
+		cb_this =  Parameter<uint8_t>(CB_FIRST, "Conveyer belt this");
 	}
 	cin.get(); // get rid of extra return
-
-	cb_all = Parameter<uint8_t>(0xff, "All possible conveyer belts.");
 
 
 	hardwareLayer::HardwareLayer hal;

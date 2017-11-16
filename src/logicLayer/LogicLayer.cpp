@@ -30,7 +30,7 @@ void LogicLayer::notify(){
 	while((signal = hal.getSignal()).name != Signalname::SIGNAL_BUFFER_EMPTY) {
 
 		if(cb_this != cb_1 && signal.receiver > cb_this) {
-			hal.sendSerialMsg(Message(signal));
+			hal.sendSerial(signal);
 		}
 
 		switch (signal.name) {
@@ -48,10 +48,10 @@ void LogicLayer::notify(){
 			cb_this.parameterList.showParameters();
 			break;
 		case Signalname::SERIAL_WATCHDOG_TOKEN:
-			hal.sendSerialMsg(Message(signal));
+			hal.sendSerial(signal);
 			break;
 		case Signalname::SERIAL_WATCHDOG_FEED:
-			hal.sendSerialMsg(Message(signal));
+			hal.sendSerial(signal);
 			break;
 		// mmi
 		// traffic lights

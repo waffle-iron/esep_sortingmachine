@@ -61,9 +61,14 @@ namespace hardwareLayer {
 		uint16_t getHeight();
 
 		/**
-		 *  @brief Sends messages via serial interface to other machine
+		 *  @brief Sends Signal via serial interface to other machine(s)
 		 */
-		void sendSerialMsg(Message);
+		void sendSerial(Signal signal);
+
+		/**
+		 *  @brief Sends Item via serial interface to other machine(s)
+		 */
+		void sendSerial(Item* item);
 
 		/**
 		 * @brief 	If a pending signal exists

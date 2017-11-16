@@ -13,6 +13,7 @@
 #include "Receiver.h"
 #include "SignalGenerator.h"
 
+
 namespace hardwareLayer {
 namespace io {
 namespace serial {
@@ -21,7 +22,8 @@ class Serial {
 public:
 	Serial(SignalGenerator& signalGenerator);
 	virtual ~Serial();
-	void send(Message message);
+	void send(Signal& signal);
+	void send(Item* item);
 
 private:
 	Interface _serialSender;

@@ -25,6 +25,8 @@ public:
     void stop();
 
 private:
+	void setNext_cb();
+
     Interface& serial_;
     WatchDog& dog_;
     SignalGenerator& sgen_;

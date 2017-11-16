@@ -27,8 +27,15 @@ Serial::~Serial() {
 	// TODO Auto-generated destructor stub
 }
 
-void Serial::send(Message message) {
+void Serial::send(Signal& signal) {
 	// TODO error handling
+	Message message(signal);
+	_serialSender.send(message);
+}
+
+void Serial::send(Item* item) {
+	// TODO error handling
+	Message message(*item);
 	_serialSender.send(message);
 }
 
