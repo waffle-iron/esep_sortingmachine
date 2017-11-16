@@ -15,7 +15,8 @@ namespace serial {
 	serial_(serial),
 	dog_(dog),
 	sgen_(sgen),
-	running(true)
+	running(true),
+	_th_receiver(std::ref(*this))
 	{
 
 	}

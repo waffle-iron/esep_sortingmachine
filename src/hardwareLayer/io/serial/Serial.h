@@ -12,7 +12,6 @@
 #include "WatchDog.h"
 #include "Receiver.h"
 #include "SignalGenerator.h"
-#include <thread>
 
 namespace hardwareLayer {
 namespace io {
@@ -29,8 +28,6 @@ private:
 	Interface _serialReceiver;
 	WatchDog _watchDog;
 	Receiver _receiver;
-
-	std::thread _th_receiver;
 };
 
 } /* namespace serial */

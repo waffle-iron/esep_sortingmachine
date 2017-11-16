@@ -18,8 +18,7 @@ Serial::Serial(SignalGenerator& signalGenerator) :
 _serialSender(COM1),
 _serialReceiver(COM2),
 _watchDog(_serialSender, signalGenerator),
-_receiver(_serialReceiver, _watchDog, signalGenerator),
-_th_receiver(std::ref(_receiver))
+_receiver(_serialReceiver, _watchDog, signalGenerator)
 {
 
 }
