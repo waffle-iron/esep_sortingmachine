@@ -50,14 +50,15 @@ int main(int argc, char *argv[])
 	if (cb_this == cb_1) {
 		test.actuatorsTest();
 		test.mmiTest();
-		test.sensorsTest();
+		hal.getSignalGenerator().pushBackOnSignalBuffer(Signal(cb_this,cb_available,Signalname::START_SENSOR_TEST));
+		cin.get();
 		test.threadSafenessInGpioTest();
 		test.singletonThreadSafeTest();
 	}
 
 
 	cout<<"Shut down?"<<endl;
-	cin.get(); // get rid of extra return
+	cin.get();
 
 
 	cout << "Starting Sortingmachine ... done !" << endl;
