@@ -135,7 +135,7 @@ private:
 	};
 
 
-	LB_INPUT_Test stateMember;//The memory for the state is part of context object
+	IDLE stateMember;//The memory for the state is part of context object
 
 	hardwareLayer::HardwareLayer& hal;
 	Data contextdata;  //Data is also kept inside the context object
