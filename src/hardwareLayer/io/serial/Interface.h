@@ -10,7 +10,7 @@
 
 #include <string>
 #include <Message.h>
-
+#include <mutex>
 
 namespace hardwareLayer {
 namespace io {
@@ -58,6 +58,7 @@ class Interface {
 		Interface& operator=(const Interface& other);
 
 		int fdesc_;
+		std::mutex mutex;
 	};
 
 

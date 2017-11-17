@@ -28,13 +28,15 @@ namespace serial {
 
 			//blocking io
 			serial_.recv(&msg);
-
+			LOG_DEBUG<<"After receive"<<endl;
 			//check sum is correct
 			if(msg.checkNumber == CORRECT_CN ){
+				LOG_DEBUG<<"CORRECT_CN"<<endl;
 				if((msg.signal.receiver & cb_this) > 0 || cb_this == 0) {
-
+					LOG_DEBUG<<"ITS FOR ME OR I'M 0"<<endl;
 					switch (msg.signal.name) {
 						case Signalname::SERIAL_WATCHDOG_TOKEN:
+							LOG_DEBUG<<"SERIAL_WATCHDOG_TOKEN"<<endl;
 							// set feed signal
 							if (cb_this == cb_1) {
 								if (cb_available == 0) {
@@ -59,17 +61,20 @@ namespace serial {
 
 						break;
 						case Signalname::SERIAL_WATCHDOG_FEED:
+							LOG_DEBUG<<"SERIAL_WATCHDOG_FEED"<<endl;
 							if (cb_available == 0) {
 								cb_available = Parameter<uint8_t>(msg.signal.receiver, "All connected conveyer belts.");
 							}
 							dog_.feed();
 						break;
 						default:
+							LOG_DEBUG<<"CORRECT_CN"<<endl;
 							sgen_.pushBackOnSignalBuffer(msg.signal);
 						break;
 					}
 				}
 				if(cb_this != cb_1) {
+					LOG_DEBUG<<"push on signalBuffer"<<endl;
 					if(msg.signal.receiver > cb_this) {
 						sgen_.pushBackOnSignalBuffer(msg.signal);
 					}
