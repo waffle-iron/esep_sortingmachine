@@ -16,6 +16,7 @@ class TypeIdentification: public logicLayer::SignalReceiver {
 public:
 	TypeIdentification();
 	virtual ~TypeIdentification();
+	void operator()();
 };
 
 } /* namespace logicLayer */

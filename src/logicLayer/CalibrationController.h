@@ -16,6 +16,7 @@ class CalibrationController: public logicLayer::SignalReceiver {
 public:
 	CalibrationController();
 	virtual ~CalibrationController();
+	void operator()();
 };
 
 } /* namespace logicLayer */

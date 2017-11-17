@@ -8,10 +8,12 @@
 #include "Header.h"
 #include "Dispatcher.h"
 
+
 namespace logicLayer {
 
-Dispatcher::Dispatcher() {
-	// TODO Auto-generated constructor stub
+Dispatcher::Dispatcher() :
+t_( std::ref(*this) )
+{
 
 }
 

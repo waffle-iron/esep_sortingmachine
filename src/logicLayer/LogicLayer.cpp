@@ -11,13 +11,14 @@
 namespace logicLayer {
 
 LogicLayer::LogicLayer(hardwareLayer::HardwareLayer& hal) :
-hal(hal)
+hal(hal),
+dispatcher_(*new Dispatcher)
 {
 	hal.register_observer(this);
 }
 
 LogicLayer::~LogicLayer() {
-	// TODO Auto-generated destructor stub
+	//delete &dispatcher_;
 }
 
 

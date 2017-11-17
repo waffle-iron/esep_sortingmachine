@@ -10,6 +10,8 @@
 
 #include "Channel.h"
 #include <thread>
+#include <functional>
+
 
 namespace logicLayer {
 

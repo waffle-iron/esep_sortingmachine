@@ -16,6 +16,7 @@ class ErrorController: public logicLayer::SignalReceiver {
 public:
 	ErrorController();
 	virtual ~ErrorController();
+	void operator()();
 };
 
 } /* namespace logicLayer */

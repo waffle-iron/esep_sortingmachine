@@ -17,6 +17,7 @@ class Item: public logicLayer::SignalReceiver {
 public:
 	Item();
 	virtual ~Item();
+	void operator()();
 };
 
 } /* namespace logicLayer */

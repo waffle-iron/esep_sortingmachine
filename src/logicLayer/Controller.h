@@ -17,7 +17,7 @@ public:
 	Controller();
 	virtual ~Controller();
 
-	void operator()();
+	virtual void operator()();
 };
 
 } /* namespace logicLayer */

@@ -9,6 +9,7 @@
 #define LOGICLAYER_H_
 
 
+#include "Dispatcher.h"
 
 #include "Observer.h"
 #include "HardwareLayer.h"
@@ -24,7 +25,7 @@ public:
 	void notify();
 private:
 	hardwareLayer::HardwareLayer& hal;
-
+	Dispatcher& dispatcher_;
 };
 
 } /* namespace logicLayer */

@@ -18,4 +18,6 @@ CalibrationController::~CalibrationController() {
 	// TODO Auto-generated destructor stub
 }
 
+void CalibrationController::operator()(){}
+
 } /* namespace logicLayer */

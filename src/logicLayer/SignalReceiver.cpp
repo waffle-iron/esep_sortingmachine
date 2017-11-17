@@ -13,14 +13,14 @@ namespace logicLayer {
 
 	SignalReceiver::SignalReceiver() :
 			channel_(channelSize),
-			running(true),
-			receiver_(std::ref(*this))
+			running(true)
 	{
+		std::cout << "create SignalReceiver" << endl;
 
 	}
 
 	void SignalReceiver::operator()(){
-		//silence is golden...
+		cout << "blubb SignalReceiver"<<endl;
 	}
 
 	SignalReceiver::~SignalReceiver() {

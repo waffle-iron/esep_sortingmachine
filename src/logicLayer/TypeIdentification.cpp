@@ -20,4 +20,6 @@ TypeIdentification::~TypeIdentification() {
 	// TODO Auto-generated destructor stub
 }
 
+void TypeIdentification::operator()(){}
+
 } /* namespace logicLayer */

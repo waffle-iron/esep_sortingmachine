@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
 	hardwareLayer::HardwareLayer hal;
 	logicLayer::LogicLayer loLay = logicLayer::LogicLayer(hal);
 
-
+	while(1);
 //
 //
 //	logicLayer::Timer timer = logicLayer::Timer();

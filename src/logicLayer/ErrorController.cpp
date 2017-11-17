@@ -18,4 +18,6 @@ ErrorController::~ErrorController() {
 	// TODO Auto-generated destructor stub
 }
 
+void ErrorController::operator()(){}
+
 } /* namespace logicLayer */

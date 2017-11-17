@@ -18,4 +18,6 @@ ItemController::~ItemController() {
 	// TODO Auto-generated destructor stub
 }
 
+void ItemController::operator()(){}
+
 } /* namespace logicLayer */
