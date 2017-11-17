@@ -84,7 +84,7 @@ namespace serial {
 						break;
 					}
 				}
-				if(cb_this != cb_1 && msg.signal.receiver > cb_this) {
+				if(cb_this != cb_1) { // forward message if not master
 					serial_.send(msg);
 				}
 			}
