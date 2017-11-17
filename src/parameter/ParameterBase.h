@@ -21,10 +21,6 @@ public:
 	ParameterBase(std::string name);
 	virtual ~ParameterBase();
 
-	const ParameterBase& operator=(const ParameterBase& other) {
-		name = other.name;
-		return *this;
-	}
 	virtual void showValue() = 0;
 
 	std::string name;

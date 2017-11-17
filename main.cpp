@@ -23,8 +23,8 @@ int main(int argc, char *argv[])
 	LOG_SCOPE;
 	LOG_SET_LEVEL(DEBUG);
 
-	cb_first =  Parameter<uint8_t>(CB_FIRST, "first conveyer belt");
-	cb_all = Parameter<uint8_t>(CB_ALL, "all conveyer belts");
+	cb_first =  CB_FIRST;
+	cb_all = CB_ALL;
 
 
 	string textInput;
@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
 	} while(!(textInput.compare("yes") xor textInput.compare("no")));
 
 	if(!textInput.compare("yes")) {
-		cb_this =  Parameter<uint8_t>(CB_FIRST, "this conveyer belt");
+		cb_this =  cb_first;
 	}
 	cin.get(); // get rid of extra return
 

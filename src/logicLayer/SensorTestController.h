@@ -104,7 +104,7 @@ private:
 				hal->sendSerial(Signal(cb_this, cb_next, Signalname::START_SENSOR_TEST));
 			}
 		}
-		virtual void lb_switch_freed() {
+		virtual void lb_output_freed() {
 			cout<<__FUNCTION__<<endl;
 			cout<<name()<<" successfully"<<endl;
 			new (this) LB_SLIDE_Test;

@@ -22,16 +22,16 @@ constexpr uint8_t CB_ALL = 		0b11111111;
 template <class T>
 class Parameter : public ParameterBase {
 public:
-	explicit Parameter() :
-	value(0)
+	explicit Parameter(string name) :
+	Parameter(0, name)
 	{
-		parameterList.parameters.push_back(this);
 	}
 
 	explicit Parameter(T value, string name) :
 	ParameterBase(name),
 	value(value)
 	{
+		parameterList.parameters.push_back(this);
 	}
 
 	virtual ~Parameter()
@@ -47,8 +47,12 @@ public:
 		if(other == *this) {
 			return *this;
 		}
-		ParameterBase::operator =(other);
 		value = other.value;
+		return *this;
+	}
+
+	const Parameter<T>& operator=(const uint8_t& other) {
+		value = other;
 		return *this;
 	}
 
