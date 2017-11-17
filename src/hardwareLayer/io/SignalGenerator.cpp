@@ -58,7 +58,7 @@ running(true)
 SignalGenerator::~SignalGenerator() {
 	LOG_SCOPE
 	terminate();
-	AsyncChannel::instance().sendMessage({0,0});
+	AsyncChannel::instance().sendMessage({0,stored_mask});
 	thread.join();
 	ISR::unregisterISR();
 }

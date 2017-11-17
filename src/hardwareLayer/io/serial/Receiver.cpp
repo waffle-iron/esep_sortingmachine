@@ -32,12 +32,13 @@ namespace serial {
 		while(running) {
 
 			Message msg = Message(false);
+			LOG_DEBUG<<"MESSAGE RECEIVED"<<endl;
 
 			//blocking io
 			serial_.recv(&msg);
 
 			//check sum is correct
-			if(msg.checkNumber == CORRECT_CN ){
+			if(msg.checkNumber == CORRECT_CN ) {
 				if((msg.signal.receiver & cb_this) > 0 || cb_this == 0) {
 
 					switch (msg.signal.name) {
@@ -84,14 +85,15 @@ namespace serial {
 						break;
 					}
 				}
-				if(cb_this != cb_1) { // forward message if not master
+				if(cb_this != cb_1 && msg.signal.receiver > 0) { // forward message if not master
 					serial_.send(msg);
 				}
 			}
-			else{
+			else if (msg.checkNumber == WRONG_CN) {
+
+			} else {
 				serial_.flush();
 			}
-
 		}
 	}
 

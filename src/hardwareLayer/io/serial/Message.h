@@ -40,8 +40,8 @@ struct Message {
 
 	}
 
-	Message(bool wrongCheckNumber) :
-	Message(Signal(), wrongCheckNumber ? WRONG_CN : CORRECT_CN)
+	Message(bool correctCheckNumber) :
+	Message(Signal(), correctCheckNumber ? CORRECT_CN : WRONG_CN)
 	{
 
 	}
