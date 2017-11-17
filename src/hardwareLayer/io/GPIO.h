@@ -62,13 +62,9 @@ protected:
 	GPIO(GPIO const&);
 	GPIO& operator=(GPIO const&);
 	/**
-	* @brief sets 8-bit value val on the specified port
-	*/
-	virtual void write(  PORT port, port_t val);
-	/**
 	* @brief sets 8-bit value val on the specified address
 	*/
-	void write(  uint8_t address, uint8_t val);
+	virtual void write(  uint8_t address, uint8_t val);
 
 
 	std::mutex gpio_mutex;
