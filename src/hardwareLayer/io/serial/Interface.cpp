@@ -35,21 +35,21 @@ Interface::Interface(std::string dev_send, std::string dev_read, int baud) {
 	// Open File descriptor send
 	fd_send = open(dev_send.c_str(), O_RDWR);
 	if(this->fd_send == -1) {
-		LOG_ERROR << __FUNCTION__ << ": error while opening file desriptor occureed."<<endl;
+		LOG_ERROR << __FUNCTION__ << ": error while opening file descriptor occurred."<<endl;
 		LOG_ERROR<<errno<<" "<<strerror(errno)<<endl;
 		exit(EXIT_FAILURE);
 	}
 	// Open File descriptor read
 	fd_read = open(dev_read.c_str(), O_RDWR);
 	if(this->fd_read == -1) {
-		LOG_ERROR << __FUNCTION__ << ": error while opening file desriptor occureed."<<endl;
+		LOG_ERROR << __FUNCTION__ << ": error while opening file descriptor occurred."<<endl;
 		LOG_ERROR<<errno<<" "<<strerror(errno)<<endl;
 		exit(EXIT_FAILURE);
 	}
 
 	// initialize settings for Serial Interface send
 	if(init(baud) < 0) {
-		LOG_ERROR << __FUNCTION__ << ": error while initializing serial interface occureed."<<endl;
+		LOG_ERROR << __FUNCTION__ << ": error while initializing serial interface occurred."<<endl;
 		LOG_ERROR<<errno<<" "<<strerror(errno)<<endl;
 		exit(EXIT_FAILURE);
 	}
@@ -57,9 +57,15 @@ Interface::Interface(std::string dev_send, std::string dev_read, int baud) {
 
 Interface::~Interface() {
 	LOG_SCOPE
-	// Close File descriptor
+	// Close File descriptor read
+	if( close(this->fd_send) < 0 ) {
+		LOG_ERROR << __FUNCTION__ << ": error while closing file descriptor WRITE occurred."<<endl;
+		LOG_ERROR<<errno<<" "<<strerror(errno)<<endl;
+		exit(EXIT_FAILURE);
+	}
+	// Close File descriptor read
 	if( close(this->fd_read) < 0 ) {
-		LOG_ERROR << __FUNCTION__ << ": error while closing file descriptor occured."<<endl;
+		LOG_ERROR << __FUNCTION__ << ": error while closing file descriptor READ occurred."<<endl;
 		LOG_ERROR<<errno<<" "<<strerror(errno)<<endl;
 		exit(EXIT_FAILURE);
 	}
@@ -101,7 +107,7 @@ int Interface::send(Message& message) {
 	ret = write(this->fd_send, &message, sizeof(Message));
 
 	if(ret == -1) {
-		LOG_ERROR << __FUNCTION__ << ": error while writing Message on file descriptor occured."<<endl;
+		LOG_ERROR << __FUNCTION__ << ": error while writing Message on file descriptor occurred."<<endl;
 		LOG_ERROR<<errno<<" "<<strerror(errno)<<endl;
 	}
 	return ret;
@@ -111,7 +117,7 @@ int Interface::recv( Message *msg ) {
 	LOG_SCOPE
 	int ret = readcond(this->fd_read, msg, sizeof(Message), sizeof(Message),0,TIMEOUT_2_SECONDS);
 	if(ret == -1) {
-		LOG_ERROR << __FUNCTION__ << ": error while reading Message from file descriptor occured."<<endl;
+		LOG_ERROR << __FUNCTION__ << ": error while reading Message from file descriptor occurred."<<endl;
 		LOG_ERROR<<errno<<" "<<strerror(errno)<<endl;
 	}
 	return ret;
@@ -124,7 +130,7 @@ int Interface::flush() {
 	ret = tcflush(this->fd_read, TCIOFLUSH);
 
 	if(ret == -1) {
-		LOG_ERROR << __FUNCTION__ << ": error while flushing file descriptor occured."<<endl;
+		LOG_ERROR << __FUNCTION__ << ": error while flushing file descriptor occurred."<<endl;
 		LOG_ERROR<<errno<<" "<<strerror(errno)<<endl;
 	}
 

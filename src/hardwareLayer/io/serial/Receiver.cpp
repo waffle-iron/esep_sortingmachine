@@ -18,10 +18,17 @@ namespace serial {
 	running(true),
 	_th_receiver(std::ref(*this))
 	{
+		LOG_SCOPE
+	}
 
+	Receiver::~Receiver() {
+		LOG_SCOPE
+		terminate();
+		_th_receiver.join();
 	}
 
 	void Receiver::operator()(){
+		LOG_SCOPE
 		while(running) {
 
 			Message msg = Message(false);
@@ -88,7 +95,8 @@ namespace serial {
 		}
 	}
 
-	void Receiver::stop(){
+	void Receiver::terminate() {
+		LOG_SCOPE
 		running = false;
 	}
 

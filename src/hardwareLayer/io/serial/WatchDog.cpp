@@ -22,16 +22,19 @@ dogWasFed(false),
 status(Connection::CONNECTED),
 running(true)
 {
-
+	LOG_SCOPE
 }
 
 WatchDog::~WatchDog() {
+	LOG_SCOPE
+
 	terminate();
 	watchdog.join();
 }
 
 
 void WatchDog::operator()(){
+	LOG_SCOPE
 
 	Message token( Signal(cb_1, cb_all, Signalname::SERIAL_WATCHDOG_TOKEN) );
 
@@ -59,10 +62,12 @@ void WatchDog::operator()(){
 }
 
 void WatchDog::terminate() {
+	LOG_SCOPE
 	running = false;
 }
 
-void WatchDog::feed(){
+void WatchDog::feed() {
+	LOG_SCOPE
 	dogWasFed = true;
 }
 

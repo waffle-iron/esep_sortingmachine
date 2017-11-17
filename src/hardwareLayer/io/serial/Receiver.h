@@ -21,8 +21,9 @@ namespace serial {
 class Receiver {
 public:
     Receiver(Interface& serial, WatchDog& dog, SignalGenerator& sgen );
+    ~Receiver();
     void operator()();
-    void stop();
+    void terminate();
 
 private:
 	void setNext_cb();
