@@ -27,6 +27,9 @@ namespace logicLayer {
 		// TODO Auto-generated destructor stub
 	}
 
+	Channel& SignalReceiver::getChannel(){
+		return channel_;
+	}
 
 
 } /* namespace logicLayer */
