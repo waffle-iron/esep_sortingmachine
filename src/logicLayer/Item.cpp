@@ -9,7 +9,9 @@
 
 namespace logicLayer {
 
-Item::Item() {
+Item::Item() :
+SignalReceiver::SignalReceiver()
+{
 	// TODO Auto-generated constructor stub
 
 }

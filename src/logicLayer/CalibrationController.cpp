@@ -9,7 +9,9 @@
 
 namespace logicLayer {
 
-CalibrationController::CalibrationController() {
+CalibrationController::CalibrationController() :
+SignalReceiver::SignalReceiver()
+{
 	// TODO Auto-generated constructor stub
 
 }

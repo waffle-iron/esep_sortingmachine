@@ -19,10 +19,6 @@ namespace logicLayer {
 
 	}
 
-	void SignalReceiver::operator()(){
-		cout << "blubb SignalReceiver"<<endl;
-	}
-
 	SignalReceiver::~SignalReceiver() {
 		// TODO Auto-generated destructor stub
 	}

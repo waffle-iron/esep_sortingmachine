@@ -10,7 +10,9 @@
 
 namespace logicLayer {
 
-Sorting::Sorting() {
+Sorting::Sorting() :
+SignalReceiver::SignalReceiver()
+{
 	// TODO Auto-generated constructor stub
 
 }

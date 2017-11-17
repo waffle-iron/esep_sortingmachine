@@ -12,6 +12,7 @@ namespace logicLayer {
 Controller::Controller() :
 SignalReceiver::SignalReceiver()
 {
+	SignalReceiver::receiver_ = std::thread(std::ref(*this));
 	// TODO Auto-generated constructor stub
 	std::cout << "create Controller" << endl;
 }

@@ -9,7 +9,9 @@
 
 namespace logicLayer {
 
-ErrorController::ErrorController() {
+ErrorController::ErrorController() :
+SignalReceiver::SignalReceiver()
+{
 	// TODO Auto-generated constructor stub
 
 }

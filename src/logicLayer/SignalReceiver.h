@@ -10,7 +10,6 @@
 
 #include "Channel.h"
 #include <thread>
-#include <functional>
 
 
 namespace logicLayer {
@@ -20,14 +19,14 @@ public:
 	SignalReceiver();
 	virtual ~SignalReceiver();
 	Channel& getChannel();
-	virtual void operator()();
+	virtual void operator()() = 0;
 
 protected:
 	Channel channel_;
 	bool running;
+	std::thread receiver_;
 
 private:
-	std::thread receiver_;
 
 };
 
