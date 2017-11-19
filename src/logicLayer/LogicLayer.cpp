@@ -46,7 +46,10 @@ void LogicLayer::notify(){
 			break;
 		// sensors
 		case Signalname::SENSOR_TEST_START:
-			sensorTest.start_sensor_test();
+			sensorTest.sensor_test_start();
+			break;
+		case Signalname::SENSOR_TEST_SUCCESSFUL:
+			sensorTest.sensor_test_successful(signal.sender);
 			break;
 		// light barriers
 		case Signalname::LB_INPUT_INTERRUPTED:

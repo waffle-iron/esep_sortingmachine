@@ -9,6 +9,7 @@
 #define SIGNALS_H_
 
 #include "Logger.h"
+#include "Parameter.h"
 #include <cstdint>
 
 // conveyer belts
@@ -162,6 +163,13 @@ enum class Signalname : uint16_t {
  * @param name specific signal name
  */
 struct Signal {
+	Signal(Signalname name) :
+	name(name),
+	sender(cb_this),
+	receiver(cb_this)
+	{
+		LOG_SCOPE
+	}
 	Signal(uint8_t sender, uint8_t receiver, Signalname name) :
 	name(name),
 	sender(sender),
