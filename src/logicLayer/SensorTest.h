@@ -1,12 +1,12 @@
 /*
- * SensorTestController.h
+ * SensorTest.h
  *
  *  Created on: 16.11.2017
  *      Author: abj240
  */
 
-#ifndef SENSORTESTCONTROLLER_H_
-#define SENSORTESTCONTROLLER_H_
+#ifndef SENSORTEST_H_
+#define SENSORTEST_H_
 
 #include "Signals.h"
 #include "HardwareLayer.h"
@@ -21,7 +21,7 @@ struct Data{
 	int data1;
 };
 
-class SensorTestController {
+class SensorTest {
 private:
 	struct State {//top-level state
 		virtual void start_sensor_test(){		testFailed(__FUNCTION__);}
@@ -141,7 +141,7 @@ private:
 	Data contextdata;  //Data is also kept inside the context object
 
 public:
-	SensorTestController(hardwareLayer::HardwareLayer& hal)
+	SensorTest(hardwareLayer::HardwareLayer& hal)
 	: statePtr(&stateMember) // assigning start state
 	, hal(hal)
 	, contextdata(0)         // initializing data
@@ -150,7 +150,7 @@ public:
 		statePtr->data = &contextdata; // connecting state->data with the context data
 	}
 
-	virtual ~SensorTestController(){};
+	virtual ~SensorTest(){};
 
 	virtual void start_sensor_test(){		statePtr->start_sensor_test();}
 	virtual void lb_input_interrupted(){	statePtr->lb_input_interrupted();}
@@ -166,4 +166,4 @@ public:
 };
 
 } /* namespace logicLayer */
-#endif /* SENSORTESTCONTROLLER_H_ */
+#endif /* SENSORTEST_H_ */
