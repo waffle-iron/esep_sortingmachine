@@ -43,53 +43,23 @@ namespace serial {
 
 					switch (msg.signal.name) {
 						case Signalname::SERIAL_WATCHDOG_TOKEN:
-							// set feed signal
 							if (cb_this == cb_1) {
-								if (cb_available == 0) {
-									cb_available = msg.signal.sender;
-									setNext_cb();
-								}
-								if (msg.signal.sender == cb_available) {
-									if(cb_last == 0) {
-										cb_last = (cb_available + 1) >> 1;
-									}
-
-									Message feed(Signal(cb_this,cb_available, Signalname::SERIAL_WATCHDOG_FEED));
-									serial_.send(feed);
-								}
+								evaluateTokenAndSendFeed(msg);
 							}
-							//bit manipulation
-							if( cb_this != 0 ){
-								msg.signal.sender |= cb_this;
-							}
-							else if((int)msg.signal.sender < 128 ){
-								cb_this = msg.signal.sender + 1;
-								msg.signal.sender |= cb_this;
-							}
-							else{
-								LOG_ERROR << __FUNCTION__ << "Machine number to big.";
-								exit(EXIT_FAILURE);
-							}
-
-						break;
+							registerOnToken(msg);
+							break;
 						case Signalname::SERIAL_WATCHDOG_FEED:
-							if (cb_available == 0) {
-								cb_available = msg.signal.receiver;
-								cb_last = (msg.signal.receiver + 1) >> 1;
-								setNext_cb();
-							}
+							evaluateFeed(msg);
 							dog_.feed();
 						break;
-						default:
+						default: // push signal to logic layer
 							sgen_.pushBackOnSignalBuffer(msg.signal);
 						break;
 					}
 				}
-				if(cb_this != cb_1 && msg.signal.receiver > 0) { // forward message if not master
-					serial_.send(msg);
-				}
+			forwardIfNotMaster(msg);
 			}
-			else if (msg.checkNumber == WRONG_CN) {
+			else if (msg.checkNumber == WRONG_CN) {  // timeout of blocking receive
 
 			} else {
 				serial_.flush();
@@ -100,6 +70,50 @@ namespace serial {
 	void Receiver::terminate() {
 		LOG_SCOPE
 		running = false;
+	}
+
+	void Receiver::evaluateTokenAndSendFeed(const Message& msg) {
+		if (cb_available == 0) {
+			cb_available = msg.signal.sender;
+			setNext_cb();
+		}
+		if (msg.signal.sender == cb_available) {
+			if (cb_last == 0) {
+				cb_last = (cb_available + 1) >> 1;
+			}
+			sendFeed();
+		}
+	}
+
+	void Receiver::sendFeed() {
+		Message feed(Signal(cb_this, cb_available, Signalname::SERIAL_WATCHDOG_FEED));
+		serial_.send(feed);
+	}
+
+	void Receiver::registerOnToken(Message& msg) {
+		if (cb_this != 0) {
+			msg.signal.sender |= cb_this;
+		} else if ((int) msg.signal.sender < 128) {
+			cb_this = msg.signal.sender + 1;
+			msg.signal.sender |= cb_this;
+		} else {
+			LOG_ERROR << __FUNCTION__ << "Machine number to big.";
+			exit(EXIT_FAILURE);
+		}
+	}
+
+	void Receiver::evaluateFeed(const Message& msg) {
+		if (cb_available == 0) {
+			cb_available = msg.signal.receiver;
+			cb_last = (msg.signal.receiver + 1) >> 1;
+			setNext_cb();
+		}
+	}
+
+	void Receiver::forwardIfNotMaster(Message& msg) {
+		if (cb_this != cb_1 && msg.signal.receiver > 0) {
+			serial_.send(msg);
+		}
 	}
 
 	void Receiver::setNext_cb() {

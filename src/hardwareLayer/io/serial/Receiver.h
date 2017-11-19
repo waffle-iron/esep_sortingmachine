@@ -27,6 +27,11 @@ public:
 
 private:
 	void setNext_cb();
+	void evaluateTokenAndSendFeed(const Message& msg);
+	void registerOnToken(Message& msg);
+	void sendFeed();
+	void evaluateFeed(const Message& msg);
+	void forwardIfNotMaster(Message& msg);
 
     Interface& serial_;
     WatchDog& dog_;
