@@ -101,7 +101,7 @@ private:
 			if(cb_this == cb_last) {
 				hal->motorStop();
 			} else {
-				hal->sendSerial(Signal(cb_this, cb_next, Signalname::START_SENSOR_TEST));
+				hal->sendSerial(Signal(cb_this, cb_next, Signalname::SENSOR_TEST_START));
 			}
 		}
 		virtual void lb_output_freed() {

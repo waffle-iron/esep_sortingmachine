@@ -45,7 +45,7 @@ void LogicLayer::notify(){
 			cb_this.parameterList.showParameters();
 			break;
 		// sensors
-		case Signalname::START_SENSOR_TEST:
+		case Signalname::SENSOR_TEST_START:
 			sensorTest.start_sensor_test();
 			break;
 		// light barriers

@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
 	if (cb_this == cb_1) {
 		test.actuatorsTest();
 		test.mmiTest();
-		hal.getSignalGenerator().pushBackOnSignalBuffer(Signal(cb_this,cb_available,Signalname::START_SENSOR_TEST));
+		hal.getSignalGenerator().pushBackOnSignalBuffer(Signal(cb_this,cb_available,Signalname::SENSOR_TEST_START));
 		cin.get();
 		test.threadSafenessInGpioTest();
 		test.singletonThreadSafeTest();
