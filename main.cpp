@@ -42,8 +42,8 @@ int main(int argc, char *argv[])
 	hardwareLayer::HardwareLayer hal;
 	logicLayer::LogicLayer loLay = logicLayer::LogicLayer(hal);
 
-	WAIT(5000);
 	cout<<"READY FOR TESTING"<<endl;
+	WAIT(5000);
 
 	logicLayer::test::Test test = logicLayer::test::Test(&hal);
 
@@ -51,7 +51,6 @@ int main(int argc, char *argv[])
 		cin.get();
 		test.actuatorsTest();
 		test.mmiTest();
-		hal.getSignalGenerator().pushBackOnSignalBuffer(Signal(Signalname::SENSOR_TEST_START));
 		test.threadSafenessInGpioTest();
 		test.singletonThreadSafeTest();
 	}

@@ -51,6 +51,24 @@ void LogicLayer::notify(){
 		case Signalname::SENSOR_TEST_SUCCESSFUL:
 			sensorTest.sensor_test_successful(signal.sender);
 			break;
+		case Signalname::SENSOR_HEIGHT_MATCH:
+			sensorTest.sensor_height_match();
+			break;
+		case Signalname::SENSOR_HEIGHT_NOT_MATCH:
+			sensorTest.sensor_height_not_match();
+			break;
+		case Signalname::SENSOR_METAL_MATCH:
+			sensorTest.sensor_metal_match();
+			break;
+		case Signalname::SENSOR_METAL_NOT_MATCH:
+			sensorTest.sensor_metal_not_match();
+			break;
+		case Signalname::SENSOR_SWITCH_IS_OPEN:
+			sensorTest.sensor_switch_is_open();
+			break;
+		case Signalname::SENSOR_SWITCH_IS_CLOSED:
+			sensorTest.sensor_switch_is_closed();
+			break;
 		// light barriers
 		case Signalname::LB_INPUT_INTERRUPTED:
 			sensorTest.lb_input_interrupted();
