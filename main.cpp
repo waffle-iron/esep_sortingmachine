@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
 //	test.sensorsTest();
 //	test.threadSafenessInGpioTest();
 //	test.singletonThreadSafeTest();
-	test.sensorsTest();
+	test.buttonsTest();
 
 	cout << "Starting Sortingmachine ... done !" << endl;
 

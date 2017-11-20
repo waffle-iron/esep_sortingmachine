@@ -32,9 +32,9 @@ public:
 	void mmiTest();
 
 	/**
-	 *  @brief test sensors
+	 *  @brief test buttons
 	 */
-	void sensorsTest();
+	void buttonsTest();
 
 	/**
 	*  @brief test singleton thread safeness
