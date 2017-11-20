@@ -20,8 +20,9 @@ int main(int argc, char *argv[])
 	hardwareLayer::HardwareLayer hal;
 	logicLayer::LogicLayer loLay = logicLayer::LogicLayer(hal);
 
+
 	logicLayer::test::Test test = logicLayer::test::Test(&hal);
-	test.mmiTest();
+//	test.mmiTest();
 //	uint16_t heightValue;
 //	while (true) {
 //		  heightValue = hal.getHeight();

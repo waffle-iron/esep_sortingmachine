@@ -13,6 +13,7 @@
 #include <vector>
 #include <ctime>
 #include <chrono>
+#include <list>
 
 namespace hardwareLayer {
 namespace io {
@@ -41,10 +42,11 @@ struct SPair {
  * siganlPair.low holds signal for lower edge  change of bit
  */
 struct SensorEvent {
-	SensorEvent(const int bitmask, std::string name, const int chatterProtectionTime, SPair signalPair) :
+	SensorEvent(const int bitmask, const std::string name, const int chatterProtectionTime, std::chrono::steady_clock::time_point lastTimeTriggered, const SPair signalPair) :
 	bitmask(bitmask),
 	name(name),
 	chatterProtectionTime(chatterProtectionTime),
+	lastTimeTriggered(lastTimeTriggered),
 	signalPair(signalPair)
 	{
 		LOG_SCOPE
@@ -52,11 +54,11 @@ struct SensorEvent {
 	~SensorEvent(){
 		LOG_SCOPE
 	}
-	const int bitmask;
+	int bitmask;
 	std::string name;
-	const int chatterProtectionTime;
-	SPair signalPair;
+	int chatterProtectionTime;
 	std::chrono::steady_clock::time_point lastTimeTriggered;
+	SPair signalPair;
 };
 
 class SignalGenerator {
@@ -83,6 +85,12 @@ public:
 	Signal nextSignal();
 
 	/*
+	 *@brief: test Method to print Event Vector
+	 *
+	 */
+	static void printEvents();
+
+	/*
 	 *@brief: pushs back Signal on signalBuffer.
 	 *@param: signal Signal
 	 */
@@ -94,37 +102,38 @@ public:
 	void clearSignalBuffer();
 
 	/*
-	*@brief: deals with the Clutter of the Switch and the Buttons; Sensors just get triggered once, if they get triggered multiple times in a short defined timeframe
+	*@brief: deals with the Clatter of the Switch and the Buttons; Sensors just get triggered once, if they get triggered multiple times in a short defined timeframe
 	*@param: Signal signal
-	*@return: false if clutter
+	*@return: true if no clatter
 	*/
-	bool noChatterOn(SensorEvent event);
+	bool noClutterOn(SensorEvent* event);
 
 	// sensor events for higher byte of PORT C
-	static const SensorEvent BUTTON_START;
-	static const SensorEvent BUTTON_STOP;
-	static const SensorEvent BUTTON_RESET;
-	static const SensorEvent BUTTON_E_STOP;
+	static SensorEvent BUTTON_START;
+	static SensorEvent BUTTON_STOP;
+	static SensorEvent BUTTON_RESET;
+	static SensorEvent BUTTON_E_STOP;
 	// sensor events for PORT B
-	static const SensorEvent LIGHT_BARRIER_INPUT;
-	static const SensorEvent LIGHT_BARRIER_HEIGHT;
-	static const SensorEvent SENSOR_HEIGHT_MATCH;
-	static const SensorEvent LIGHT_BARRIER_SWITCH;
-	static const SensorEvent SENSOR_METAL_MATCH;
-	static const SensorEvent LIGHT_BARRIER_SLIDE;
-	static const SensorEvent SENSOR_SWITCH_OPEN;
-	static const SensorEvent LIGHT_BARRIER_OUTPUT;
+	static SensorEvent LIGHT_BARRIER_INPUT;
+	static SensorEvent LIGHT_BARRIER_HEIGHT;
+	static SensorEvent SENSOR_HEIGHT_MATCH;
+	static SensorEvent LIGHT_BARRIER_SWITCH;
+	static SensorEvent SENSOR_METAL_MATCH;
+	static SensorEvent LIGHT_BARRIER_SLIDE;
+	static SensorEvent SENSOR_SWITCH_OPEN;
+	static SensorEvent LIGHT_BARRIER_OUTPUT;
 
 private:
 	/*
-	 *@brief: initializes and returns const vector<const SensorEvent> events
+	 *@brief: initializes and returns vector<SensorEvent> events
 	 */
-	static const std::vector<const SensorEvent> init_events();
+	static std::vector< SensorEvent> init_events();
 
 	/*
 	 * events holds all sensor events
 	 */
-	static const std::vector<const SensorEvent> events;
+	static std::vector<SensorEvent> events;
+
 	std::thread thread;
 	bool running;
 	int stored_mask;
