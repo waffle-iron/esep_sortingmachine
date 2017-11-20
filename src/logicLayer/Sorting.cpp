@@ -10,11 +10,8 @@
 
 namespace logicLayer {
 
-Sorting::Sorting() :
-SignalReceiver::SignalReceiver()
+Sorting::Sorting()
 {
-	// TODO Auto-generated constructor stub
-
 }
 
 Sorting::~Sorting() {
@@ -25,18 +22,7 @@ Sorting::~Sorting() {
  * @override
  */
 void Sorting::operator ()(){
-	Signal sig;
-	while(running){
-		sig << channel_; // blocking io, read from dedicated channel
 
-		switch (sig.name) {
-			case Signalname::TEST :
-				std::cout << "TEST";
-				break;
-			default:
-				break;
-		}
-	}
 }
 
 } /* namespace logicLayer */

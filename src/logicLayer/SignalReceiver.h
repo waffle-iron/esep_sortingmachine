@@ -25,6 +25,7 @@ protected:
 	Channel channel_;
 	bool running;
 	std::thread receiver_;
+	void terminate();
 
 private:
 

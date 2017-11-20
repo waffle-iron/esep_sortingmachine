@@ -22,7 +22,7 @@ Controller::~Controller() {
 }
 
 void Controller::operator()(){
-	std::cout << "run op" << endl;
+
 	Signal sig;
 	while(running){
 		std::cout << "blocking io at controller listener" << endl;

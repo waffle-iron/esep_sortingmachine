@@ -5,21 +5,37 @@
  *      Author: abx724
  */
 
+#include "Header.h"
 #include "TypeIdentification.h"
 
 namespace logicLayer {
 
-TypeIdentification::TypeIdentification() :
-SignalReceiver::SignalReceiver()
+TypeIdentification::TypeIdentification()
 {
-	// TODO Auto-generated constructor stub
-
+	receiver_ = std::thread(std::ref(*this));
 }
 
 TypeIdentification::~TypeIdentification() {
-	// TODO Auto-generated destructor stub
+	cout << "STOP" << endl;
 }
 
-void TypeIdentification::operator()(){}
+void TypeIdentification::operator()(){
+	Signal sig;
+	while(running){
+
+		sig << channel_;
+		switch (sig.name) {
+			case Signalname::TEST:
+				std::cout << "TypeIdentification receives signal." << endl;
+				break;
+			default:
+				break;
+		}
+
+		std::cout << "TypeIdentification end of while" << endl;
+	}
+
+	std::cout << "after while" << endl;
+}
 
 } /* namespace logicLayer */

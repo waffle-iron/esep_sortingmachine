@@ -18,13 +18,22 @@ timer_(*new Timer),
 calibration_(*new Calibration),
 errorHandler_(*new ErrorHandler),
 sorting_(*new Sorting),
-dispatcher_(*new Dispatcher(controller_.getChannel()))
+dispatcher_(*new Dispatcher(
+		controller_.getChannel(),
+		typeIdent_.getChannel()
+		))
 {
 	hal.register_observer(this);
 }
 
 LogicLayer::~LogicLayer() {
+	cout << "call lol's deconstructor " << endl;
 	delete &dispatcher_;
+	cout << "before typeIdent" << endl;
+	delete &typeIdent_;
+	cout << "after typeIdent" << endl;
+	delete &controller_;
+	cout << "after controller" << endl;
 }
 
 

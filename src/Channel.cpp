@@ -15,7 +15,9 @@ Channel::Channel(const size_t max_size)
 {}
 
 Channel::~Channel()
-{// ...
+{
+	std::cout <<  "enter channel destruct" << std::endl;
+	std::cout << queue_.size() <<std::endl;
 }
 
 
@@ -41,6 +43,9 @@ void Channel::enqueue(const Signal element) {
 	sem_free_spaces_.wait();
 	mtx_.lock();
 	queue_.push(element);
+
+	std::cout << queue_.size() <<std::endl;
+
 	mtx_.unlock();
 	sem_size_.post();
 }
@@ -51,6 +56,10 @@ void Channel::operator<<(const Signal element) {
 
 
 void Channel::destroy() {
+	std::cout << "channel destroy" << std::endl;
+	std::cout << queue_.size() <<std::endl;
 	sem_free_spaces_.destroy();
+	std::cout << queue_.size() <<std::endl;
 	sem_size_.destroy();
+	std::cout << queue_.size() <<std::endl;
 }

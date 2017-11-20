@@ -16,14 +16,20 @@ namespace logicLayer {
 class Dispatcher {
 public:
 	Dispatcher(
+			Channel&,
 			Channel&
 	);
 	virtual ~Dispatcher();
 	void operator()();
+	void terminate();
 private:
 	std::thread t_;
+	bool running;
 
 	Channel& controller_;
+	Channel& typeIdent_;
+
+
 };
 
 } /* namespace logicLayer */

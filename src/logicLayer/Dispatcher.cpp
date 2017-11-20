@@ -12,27 +12,37 @@
 namespace logicLayer {
 
 Dispatcher::Dispatcher(
-		Channel& controller
+		Channel& controller,
+		Channel& typeIdent
 ) :
 controller_(controller),
-t_( std::ref(*this) )
+typeIdent_(typeIdent),
+t_( std::ref(*this) ),
+running(true)
 {
 
 }
 
 Dispatcher::~Dispatcher() {
-	// TODO Auto-generated destructor stub
+	cout << "call Dispatcher's deconstructor " << endl;
+	terminate();
 }
 
 
 void Dispatcher::operator ()(){
 	Signal sig;
-	while(true){
+	while(running){
 		sig.name = Signalname::TEST;
 		controller_ << sig;
+		typeIdent_ << sig;
 		std::cout << "dispatcher sended signal ... " << endl;
 		WAIT(1000);
 	}
+}
+
+void Dispatcher::terminate(){
+	running = false;
+	t_.join();
 }
 
 } /* namespace logicLayer */

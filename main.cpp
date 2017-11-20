@@ -23,8 +23,12 @@ int main(int argc, char *argv[])
 
 	hardwareLayer::HardwareLayer hal;
 	logicLayer::LogicLayer loLay = logicLayer::LogicLayer(hal);
-
-	while(1);
+	while(true){
+		char c;
+		std::cin >>c;
+		if(c=='q') break;
+	}
+	cout << "programm ends" << endl;
 //
 //
 //	logicLayer::Timer timer = logicLayer::Timer();

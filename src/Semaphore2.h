@@ -23,6 +23,10 @@ public:
 
     }
 
+	~Semaphore2(){
+		std::cout <<  "enter semaphore destruct" << std::endl;
+	}
+
 	Semaphore2(const Semaphore2&) = delete;
 	Semaphore2& operator=(const Semaphore2&) = delete;
 	Semaphore2(Semaphore2&&) = delete;
@@ -50,7 +54,13 @@ public:
 	}
 
 	inline size_t get_value() const {return count_;}
-	void destroy() {condition_.notify_all();}
+	void destroy() {
+
+		std::cout << "notify" << std::endl;
+		condition_.notify_all();
+		std::cout << "after notify" << std::endl;
+
+	}
 
 private:
     size_t count_;
