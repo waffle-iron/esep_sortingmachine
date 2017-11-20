@@ -84,11 +84,11 @@ void SignalGenerator::operator()() {
 		int change = current_mask xor stored_mask;
 		for(auto &event : events) {
 			if (change & event.bitmask) { // change happend on event?
-				if (noClutterOn(&event)) {
+				if (noClutterOn(event)) {
 					if (event.bitmask & current_mask) { 	// low -> high
-						pushBackOnSignalBuffer(Signal(1,1,event.signalPair.high));
-					} else {						// high -> low
-						pushBackOnSignalBuffer(Signal(1,1,event.signalPair.low));
+						pushBackOnSignalBuffer(Signal(event.signalPair.high));
+					} else {								// high -> low
+						pushBackOnSignalBuffer(Signal(event.signalPair.low));
 					}
 				}
 			}
@@ -112,11 +112,11 @@ Signal SignalGenerator::nextSignal() {
 	return signal;
 }
 
-bool SignalGenerator::noClutterOn(SensorEvent* event){
+bool SignalGenerator::noClutterOn(SensorEvent& event){
 	timeNow = std::chrono::steady_clock::now();
-	auto timeSinceLastInterrupt = std::chrono::duration_cast <std::chrono::milliseconds> (timeNow - event->lastTimeTriggered);
-	if (timeSinceLastInterrupt.count() > event->chatterProtectionTime){
-		event->lastTimeTriggered = timeNow;
+	auto timeSinceLastInterrupt = std::chrono::duration_cast <std::chrono::milliseconds> (timeNow - event.lastTimeTriggered);
+	if (timeSinceLastInterrupt.count() > event.chatterProtectionTime){
+		event.lastTimeTriggered = timeNow;
 		return true;
 	}
 	else{

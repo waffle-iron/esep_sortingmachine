@@ -106,7 +106,7 @@ public:
 	*@param: Signal signal
 	*@return: true if no clatter
 	*/
-	bool noClutterOn(SensorEvent* event);
+	bool noClutterOn(SensorEvent& event);
 
 	// sensor events for higher byte of PORT C
 	static SensorEvent BUTTON_START;
