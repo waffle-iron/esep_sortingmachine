@@ -15,6 +15,9 @@
 
 #define HW_INTERRUPT 11
 
+constexpr uint8_t UPPER_BYTE = 0xf0;
+constexpr uint8_t FULL_BYTE = 0xff;
+
 using namespace std;
 
 namespace hardwareLayer {
@@ -32,7 +35,7 @@ int ISR::getPendingIntFlags() {
 }
 
 void ISR::disableInterrupts() {
-	 out8(DIO_BASE + DIO_CHG_STATE_IRQ_ENABLE, 0xff);
+	out8(DIO_BASE + DIO_CHG_STATE_IRQ_ENABLE, FULL_BYTE);
 }
 
 void ISR::enableInterrupts(int mask) {
@@ -54,8 +57,9 @@ void ISR::clearAllPendingIntFlag() {
 const struct sigevent* ISR::mainISR(void* arg, int id) {
     struct sigevent* event = (struct sigevent*) arg;
     ISR::clearAllPendingIntFlag();
-    event->sigev_value.sival_int = ((GPIO::instance().read(PORT::C)&0xf0)<<8) |
-    								(GPIO::instance().read(PORT::B)&0xff);
+	event->sigev_value.sival_int =
+			((GPIO::instance().read(PORT::C) & UPPER_BYTE) << 8) |
+    		 (GPIO::instance().read(PORT::B) & FULL_BYTE);
     return event;
 }
 
