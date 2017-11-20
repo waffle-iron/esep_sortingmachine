@@ -9,6 +9,13 @@
 #define LOGICLAYER_H_
 
 
+#include "Controller.h"
+#include "TypeIdentification.h"
+#include "Timer.h"
+#include "Calibration.h"
+#include "ErrorHandler.h"
+#include "Sorting.h"
+
 #include "Dispatcher.h"
 
 #include "Observer.h"
@@ -25,6 +32,14 @@ public:
 	void notify();
 private:
 	hardwareLayer::HardwareLayer& hal;
+
+	Controller& controller_;
+	TypeIdentification& typeIdent_;
+	Timer& timer_;
+	Calibration& calibration_;
+	ErrorHandler& errorHandler_;
+	Sorting& sorting_;
+
 	Dispatcher& dispatcher_;
 };
 

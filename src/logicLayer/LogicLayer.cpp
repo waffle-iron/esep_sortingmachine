@@ -12,13 +12,19 @@ namespace logicLayer {
 
 LogicLayer::LogicLayer(hardwareLayer::HardwareLayer& hal) :
 hal(hal),
-dispatcher_(*new Dispatcher)
+controller_(*new Controller),
+typeIdent_(*new TypeIdentification),
+timer_(*new Timer),
+calibration_(*new Calibration),
+errorHandler_(*new ErrorHandler),
+sorting_(*new Sorting),
+dispatcher_(*new Dispatcher(controller_.getChannel()))
 {
 	hal.register_observer(this);
 }
 
 LogicLayer::~LogicLayer() {
-	//delete &dispatcher_;
+	delete &dispatcher_;
 }
 
 

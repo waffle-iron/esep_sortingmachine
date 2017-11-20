@@ -11,7 +11,10 @@
 
 namespace logicLayer {
 
-Dispatcher::Dispatcher() :
+Dispatcher::Dispatcher(
+		Channel& controller
+) :
+controller_(controller),
 t_( std::ref(*this) )
 {
 
@@ -26,7 +29,7 @@ void Dispatcher::operator ()(){
 	Signal sig;
 	while(true){
 		sig.name = Signalname::TEST;
-		ctr_.getChannel() << sig;
+		controller_ << sig;
 		std::cout << "dispatcher sended signal ... " << endl;
 		WAIT(1000);
 	}

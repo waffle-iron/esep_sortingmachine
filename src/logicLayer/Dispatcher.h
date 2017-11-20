@@ -8,20 +8,22 @@
 #ifndef DUMMY_H_
 #define DUMMY_H_
 
-#include "Controller.h"
+#include "Channel.h"
 #include <thread>
 
 namespace logicLayer {
 
 class Dispatcher {
 public:
-	Dispatcher();
+	Dispatcher(
+			Channel&
+	);
 	virtual ~Dispatcher();
 	void operator()();
 private:
 	std::thread t_;
 
-	Controller ctr_;
+	Channel& controller_;
 };
 
 } /* namespace logicLayer */
