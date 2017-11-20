@@ -11,6 +11,8 @@
 #include "Signals.h"
 #include <thread>
 #include <vector>
+#include <ctime>
+#include <chrono>
 
 namespace hardwareLayer {
 namespace io {
@@ -39,9 +41,10 @@ struct SPair {
  * siganlPair.low holds signal for lower edge  change of bit
  */
 struct SensorEvent {
-	SensorEvent(const int bitmask, std::string name, SPair signalPair) :
+	SensorEvent(const int bitmask, std::string name, const int chatterProtectionTime, SPair signalPair) :
 	bitmask(bitmask),
 	name(name),
+	chatterProtectionTime(chatterProtectionTime),
 	signalPair(signalPair)
 	{
 		LOG_SCOPE
@@ -51,7 +54,9 @@ struct SensorEvent {
 	}
 	const int bitmask;
 	std::string name;
+	const int chatterProtectionTime;
 	SPair signalPair;
+	std::chrono::steady_clock::time_point lastTimeTriggered;
 };
 
 class SignalGenerator {
@@ -93,7 +98,7 @@ public:
 	*@param: Signal signal
 	*@return: false if clutter
 	*/
-	bool dealWithClatter(Signal signal);
+	bool noChatterOn(SensorEvent event);
 
 	// sensor events for higher byte of PORT C
 	static const SensorEvent BUTTON_START;
