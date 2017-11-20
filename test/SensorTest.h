@@ -149,10 +149,10 @@ private:
 	struct LB_SWITCH_INTERRUPT_Test : public State {
 		virtual void lb_switch_interrupted() {
 			cout<<__FUNCTION__<<endl;
-			hal->switchPointOpen();
 			cout<<name()<<" => ";
 			new (this) SENSOR_SWITCH_IS_OPEN_test;
 			cout<<name()<<endl;
+			hal->switchPointOpen();
 		}
 	};
 
@@ -171,7 +171,7 @@ private:
 	struct SENSOR_METAL_NOT_MATCH_Test : public State {
 		// this transition is temporary while shatter protection is not implemented
 		virtual void sensor_switch_is_closed() {
-			cout<<__FUNCTION__<<"======================================= THIS IS ONLY ALLOWED TO HAPPEN TEMPORARY WHILE SHATTER PROTECTION IS NOT IMPLEMENTED. ==================="<<endl;
+			cout<<__FUNCTION__<<"======================================= THIS IS ONLY ALLOWED TO HAPPEN TEMPORARY WHILEST SHATTER PROTECTION IS NOT IMPLEMENTED. ==================="<<endl;
 
 			cout<<name()<<" => ";
 			new (this) SENSOR_SWITCH_IS_OPEN_test;
@@ -193,7 +193,7 @@ private:
 			cout<<__FUNCTION__<<endl;
 
 			cout<<name()<<" => ";
-			new (this) SENSOR_SWITCH_IS_OPEN_test;
+			new (this) LB_OUTPUT_Test;
 			cout<<name()<<endl;
 		}
 	};
@@ -219,6 +219,7 @@ private:
 			}
 			new (this) LB_SLIDE_Test;
 		}
+		virtual void sensor_switch_is_closed(){}
 	};
 
 	//============================ LB_SLIDE_Test =======================================
@@ -233,6 +234,10 @@ private:
 		virtual void lb_height_freed() {}
 		virtual void lb_switch_interrupted() {}
 		virtual void lb_switch_freed() {}
+		virtual void sensor_height_match(){	}
+		virtual void sensor_height_not_match(){}
+		virtual void sensor_metal_match(){	}
+		virtual void sensor_metal_not_match(){}
 		virtual void lb_slide_interrupted() {
 			cout<<__FUNCTION__<<endl;
 			hal->motorStop();
