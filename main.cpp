@@ -48,6 +48,7 @@ int main(int argc, char *argv[])
 	logicLayer::test::Test test = logicLayer::test::Test(&hal);
 
 	if (cb_this == cb_1) {
+		cin.get();
 		test.actuatorsTest();
 		test.mmiTest();
 		hal.getSignalGenerator().pushBackOnSignalBuffer(Signal(Signalname::SENSOR_TEST_START));

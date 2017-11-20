@@ -135,7 +135,6 @@ private:
 			if(sender == cb_last) {
 				cout<<"### SENSOR TEST finished ###"<<endl;
 				cout<<"hit enter to go on"<<endl;
-				cin.get();
 				new (this) LB_INPUT_Test;
 			}
 		}
