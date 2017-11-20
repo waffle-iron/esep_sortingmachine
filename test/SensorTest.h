@@ -64,6 +64,8 @@ private:
 		virtual void lb_input_freed() {
 			cout<<__FUNCTION__<<endl;
 
+			hal.blinkGreen(Speed::slow);
+
 			cout<<name()<<" => ";
 			new (this) SENSOR_HEIGHT_MATCH_Test;
 			cout<<name()<<endl;
