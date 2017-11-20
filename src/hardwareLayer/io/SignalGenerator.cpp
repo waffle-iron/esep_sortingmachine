@@ -155,15 +155,15 @@ std::vector<SensorEvent> SignalGenerator::init_events() {
 	return events;
 }
 
-void SignalGenerator::printEvents(){
-	for (SensorEvent event : events){
-		cout<<"bitmask"<<(int)event.bitmask<<endl;
-		cout<<"ct"<<(int)event.chatterProtectionTime<<endl;
-		std::time_t  t = std::chrono::steady_clock::to_time_t(event.lastTimeTriggered);
-		cout<<"time" << std::ctime(&t)<<endl;
+void SignalGenerator::printEvents() {
+	for (SensorEvent event : events) {
 		cout<<event.name<<endl;
-		cout<<"signalpair high"<<(int)event.signalPair.high<<endl;
-		cout<<"signal low"<<(int)event.signalPair.low<<endl;
+		cout<<"bitmask: "<<(int)event.bitmask<<endl;
+		cout<<"cpt: "<<(int)event.chatterProtectionTime<<endl;
+		std::time_t  t = std::chrono::steady_clock::to_time_t(event.lastTimeTriggered);
+		cout<<"time: " << std::ctime(&t)<<endl;
+		cout<<"signalpair high: "<<(int)event.signalPair.high<<endl;
+		cout<<"signal low: "<<(int)event.signalPair.low<<endl;
 	}
 }
 

@@ -148,19 +148,19 @@ void Test::mmiTest(){
 void Test::buttonsTest(){
 	cout << "start " << __FUNCTION__ <<endl;
 
-	sensorTestHelper(	hardwareLayer::io::SignalGenerator::BUTTON_START,
+	buttonTestHelper(	hardwareLayer::io::SignalGenerator::BUTTON_START,
 						Signalname::BUTTON_START_PUSHED,
 						Signalname::BUTTON_START_PULLED);
 
-	sensorTestHelper(	hardwareLayer::io::SignalGenerator::BUTTON_STOP,
+	buttonTestHelper(	hardwareLayer::io::SignalGenerator::BUTTON_STOP,
 						Signalname::BUTTON_STOP_PUSHED,
 						Signalname::BUTTON_STOP_PULLED);
 
-	sensorTestHelper(	hardwareLayer::io::SignalGenerator::BUTTON_RESET,
+	buttonTestHelper(	hardwareLayer::io::SignalGenerator::BUTTON_RESET,
 						Signalname::BUTTON_RESET_PUSHED,
 						Signalname::BUTTON_RESET_PULLED);
 
-	sensorTestHelper(	hardwareLayer::io::SignalGenerator::BUTTON_E_STOP,
+	buttonTestHelper(	hardwareLayer::io::SignalGenerator::BUTTON_E_STOP,
 						Signalname::BUTTON_E_STOP_PUSHED,
 						Signalname::BUTTON_E_STOP_PULLED);
 
@@ -169,38 +169,32 @@ void Test::buttonsTest(){
 	cout  << __FUNCTION__ << " successful. " <<endl<<endl;
 }
 
-void Test::sensorTestHelper(hardwareLayer::io::SensorEvent signalBitmask, Signalname eventTriggerStart, Signalname eventTriggerEnd) {
+void Test::buttonTestHelper(hardwareLayer::io::SensorEvent signalBitmask, Signalname eventTriggerStart, Signalname eventTriggerEnd) {
 
 	_hal->clearSignalBuffer();
 
-	cout <<endl<< "test " << signalBitmask.name << "\n - please trigger sensor one or several times. Hit return key afterwards.";
+	cout <<endl<< "test " << signalBitmask.name << "\n - please trigger button one or several times. Hit return key afterwards.";
 
 	while (cin.get() != '\n');
 
 	int successCounter = 0;
 	int failureCounter = 0;
-	Signal firstSignal =  _hal->getSignal();
-//	Signal secondSignal =  _hal->getSignal();
+	Signal signal =  _hal->getSignal();
 
-	while (firstSignal.name != Signalname::SIGNAL_BUFFER_EMPTY) {
-		cout<<"first: "<<(int)firstSignal.name<<endl;
-//		cout<<"second: "<<(int)secondSignal.name<<endl;
-		cout<<"wished first: "<<(int)eventTriggerStart<<endl;
-		cout<<"wished second: "<<(int)eventTriggerEnd<<endl;
+	while (signal.name != Signalname::SIGNAL_BUFFER_EMPTY) {
 
 		hardwareLayer::io::SignalGenerator::printEvents();
 
 
-		if (firstSignal.name == eventTriggerStart) {
+		if (signal.name == eventTriggerStart) {
 			successCounter++;
-		} else if (firstSignal.name == eventTriggerEnd){
+		} else if (signal.name == eventTriggerEnd){
 
 		} else {
 			failureCounter++;
 		}
 
-		firstSignal =  _hal->getSignal();
-//		secondSignal = _hal->getSignal();
+		signal = _hal->getSignal();
 	}
 
 	bool success = failureCounter == 0 && successCounter > 0;

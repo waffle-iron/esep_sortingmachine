@@ -59,7 +59,7 @@ private:
 	 */
 	bool nextTest(string functionName);
 
-	void sensorTestHelper(hardwareLayer::io::SensorEvent signalbitmask, Signalname eventTriggerStart, Signalname eventTriggerEnd);
+	void buttonTestHelper(hardwareLayer::io::SensorEvent signalbitmask, Signalname eventTriggerStart, Signalname eventTriggerEnd);
 
 };
 
