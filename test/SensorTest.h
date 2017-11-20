@@ -131,15 +131,13 @@ private:
 
 	struct OTHER_CBs_Test : public State {
 		virtual void sensor_test_successful(uint8_t sender) {
+			cout<<"Test was successful on conveyer belt: "<<(int)sender<<endl;
 			if(sender == cb_last) {
 				cout<<"### SENSOR TEST finished ###"<<endl;
 				cout<<"hit enter to go on"<<endl;
 				cin.get();
 				new (this) LB_INPUT_Test;
-			} else {
-				cout<<"Test was successful on conveyer belt: "<<(int)sender<<endl;
 			}
-
 		}
 		virtual void sensor_test_unsuccessful(uint8_t sender) {
 			cout<<"Test UNsuccessful on conveyer belt: "<<(int)sender<<endl;
