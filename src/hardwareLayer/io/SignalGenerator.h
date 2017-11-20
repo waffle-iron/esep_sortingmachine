@@ -11,9 +11,7 @@
 #include "Signals.h"
 #include <thread>
 #include <vector>
-#include <ctime>
 #include <chrono>
-#include <list>
 
 namespace hardwareLayer {
 namespace io {
@@ -80,7 +78,7 @@ public:
 	/*
 	 *@brief: returns nextSignal in signalBuffer.
 	 *
-	 *If signalBuffer is empty it returns Signal(cb_x,cb_x,SIGNAL_BUFFER_EMPTY)
+	 *If signalBuffer is empty it returns Signal(cb_this,cb_this,SIGNAL_BUFFER_EMPTY)
 	 */
 	Signal nextSignal();
 
@@ -101,12 +99,6 @@ public:
 	 */
 	void clearSignalBuffer();
 
-	/*
-	*@brief: deals with the Clatter of the Switch and the Buttons; Sensors just get triggered once, if they get triggered multiple times in a short defined timeframe
-	*@param: Signal signal
-	*@return: true if no clatter
-	*/
-	bool noClutterOn(SensorEvent& event);
 
 	// sensor events for higher byte of PORT C
 	static SensorEvent BUTTON_START;
@@ -128,6 +120,13 @@ private:
 	 *@brief: initializes and returns vector<SensorEvent> events
 	 */
 	static std::vector< SensorEvent> init_events();
+
+	/*
+	*@brief: deals with the Clatter of the Switch and the Buttons; Sensors just get triggered once, if they get triggered multiple times in a short defined timeframe
+	*@param: Signal signal
+	*@return: true if no clatter
+	*/
+	bool noClutterOn(SensorEvent& event);
 
 	/*
 	 * events holds all sensor events

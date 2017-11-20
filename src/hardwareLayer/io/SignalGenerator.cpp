@@ -11,8 +11,8 @@
 #include "ISR.h"
 #include "GPIO.h"
 #include <iostream>
-#include <iomanip>
-#include "Signals.h"
+#include <ctime>
+
 
 constexpr int MAGIC_NUMBER = 15;
 
@@ -139,7 +139,6 @@ void SignalGenerator::clearSignalBuffer() {
 std::vector<SensorEvent> SignalGenerator::init_events() {
 	LOG_SCOPE
 	std::vector<SensorEvent> events;
-	events.reserve(100);
 	events.push_back(BUTTON_START);
 	events.push_back(BUTTON_STOP);
 	events.push_back(BUTTON_RESET);
@@ -157,13 +156,13 @@ std::vector<SensorEvent> SignalGenerator::init_events() {
 
 void SignalGenerator::printEvents() {
 	for (SensorEvent event : events) {
-		cout<<event.name<<endl;
-		cout<<"bitmask: "<<(int)event.bitmask<<endl;
-		cout<<"cpt: "<<(int)event.chatterProtectionTime<<endl;
 		std::time_t  t = std::chrono::steady_clock::to_time_t(event.lastTimeTriggered);
-		cout<<"time: " << std::ctime(&t)<<endl;
-		cout<<"signalpair high: "<<(int)event.signalPair.high<<endl;
-		cout<<"signal low: "<<(int)event.signalPair.low<<endl;
+		cout<<event.name<<endl;
+		cout<<"bitmask: "			<<(int)event.bitmask<<endl;
+		cout<<"cpt: "				<<(int)event.chatterProtectionTime<<endl;
+		cout<<"time: " 				<< std::ctime(&t)<<endl;
+		cout<<"signalpair high: "	<<(int)event.signalPair.high<<endl;
+		cout<<"signal low: "		<<(int)event.signalPair.low<<endl;
 	}
 }
 
