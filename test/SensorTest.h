@@ -255,9 +255,15 @@ private:
 			cout<<name()<<" successfully"<<endl;
 			hal->sendSerial(Signal(cb_this,cb_1,Signalname::SENSOR_TEST_SUCCESSFUL));
 
-			cout<<name()<<" => ";
-			new (this) OTHER_CBs_Test;;
-			cout<<name()<<endl;
+			if(cb_this != cb_1) {
+				cout<<name()<<" => ";
+				new (this) LB_INPUT_Test;;
+				cout<<name()<<endl;
+			} else {
+				cout<<name()<<" => ";
+				new (this) OTHER_CBs_Test;;
+				cout<<name()<<endl;
+			}
 		}
 	};
 
@@ -269,11 +275,6 @@ private:
 				cout<<"### SENSOR TEST finished ###"<<endl;
 				cout<<"hit enter to go on"<<endl;
 				new (this) LB_INPUT_Test;
-			}
-			if(cb_this != cb_1) {
-				cout<<name()<<" => ";
-				new (this) LB_INPUT_Test;;
-				cout<<name()<<endl;
 			}
 		}
 		virtual void sensor_test_unsuccessful(uint8_t sender) {
@@ -298,6 +299,8 @@ public:
 	{
 		statePtr->hal = &hal;
 		statePtr->testItem = &testItem; // connecting state->testItem with the SensorTest::testItem
+
+		hal->blinkGreen(Speed::slow);
 
 		if(cb_this == cb_1) {
 		cout<<"### SENSOR TEST started ###"<<endl;
