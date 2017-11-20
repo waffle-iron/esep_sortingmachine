@@ -68,6 +68,12 @@ private:
 			new (this) SENSOR_HEIGHT_MATCH_Test;
 			cout<<name()<<endl;
 		}
+		virtual void sensor_test_start(){
+			cout<<__FUNCTION__<<endl;
+			hal->motorRotateClockwise();
+			hal->motorFast();
+			hal->motorStart();
+		}
 	};
 
 	//============================ SENSOR_HEIGHT_MATCH_Test =======================================
@@ -217,7 +223,9 @@ private:
 			if(cb_this != cb_last) {
 				cout<<"Test continues on next conveyer belt. When item reaches last conveyer belt's output, please put it on input of master again."<<endl;
 			}
+			cout<<name()<<" => ";
 			new (this) LB_SLIDE_Test;
+			cout<<name()<<endl;
 		}
 		virtual void sensor_switch_is_closed(){}
 	};
@@ -246,7 +254,10 @@ private:
 			cout<<__FUNCTION__<<endl;
 			cout<<name()<<" successfully"<<endl;
 			hal->sendSerial(Signal(cb_this,cb_1,Signalname::SENSOR_TEST_SUCCESSFUL));
-			new (this) OTHER_CBs_Test;
+
+			cout<<name()<<" => ";
+			new (this) OTHER_CBs_Test;;
+			cout<<name()<<endl;
 		}
 	};
 
@@ -259,11 +270,18 @@ private:
 				cout<<"hit enter to go on"<<endl;
 				new (this) LB_INPUT_Test;
 			}
+			if(cb_this != cb_1) {
+				cout<<name()<<" => ";
+				new (this) LB_INPUT_Test;;
+				cout<<name()<<endl;
+			}
 		}
 		virtual void sensor_test_unsuccessful(uint8_t sender) {
 			cout<<"Test UNsuccessful on conveyer belt: "<<(int)sender<<endl;
 			cout<<"Please restart test."<<endl;
-			new (this) LB_INPUT_Test;
+			cout<<name()<<" => ";
+			new (this) LB_INPUT_Test;;
+			cout<<name()<<endl;
 		}
 	};
 
