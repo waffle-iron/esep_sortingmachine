@@ -22,18 +22,17 @@ int main(int argc, char *argv[])
 
 
 	logicLayer::test::Test test = logicLayer::test::Test(&hal);
-//	test.mmiTest();
-//	uint16_t heightValue;
-//	while (true) {
-//		  heightValue = hal.getHeight();
-//		  cout << heightValue << endl;
-//	}
+	test.mmiTest();
+	test.actuatorsTest();
+	test.sensorsTest();
+	test.threadSafenessInGpioTest();
+	test.singletonThreadSafeTest();
 
-//	test.actuatorsTest();
-//	test.sensorsTest();
-//	test.threadSafenessInGpioTest();
-//	test.singletonThreadSafeTest();
-	test.buttonsTest();
+	uint16_t heightValue;
+	while (true) {
+		  heightValue = hal.getHeight();
+		  cout << heightValue << endl;
+	}
 
 	cout << "Starting Sortingmachine ... done !" << endl;
 

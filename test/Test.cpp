@@ -213,11 +213,6 @@ void Test::sensorTestHelper(hardwareLayer::io::SensorEvent signalBitmask, Signal
 	}
 }
 
-void Test::writeSomethingElse(hardwareLayer::io::GPIO *gpio, int difference) {
-	port_t port = gpio->read(PORT::A); // read port to write definetly something different so write method gets called
-	gpio->setBits(PORT::A, port + difference);
-}
-
 void createInstance(){
 	GpioTesting& instance = GpioTesting::instance(true);
 	instance.helloWorld();
@@ -239,7 +234,10 @@ void Test::singletonThreadSafeTest(){
 
 }
 
-
+void Test::writeSomethingElse(hardwareLayer::io::GPIO *gpio, int difference) {
+	port_t port = gpio->read(PORT::A); // read port to write definetly something different so write method gets called
+	gpio->setBits(PORT::A, port + difference);
+}
 
 void Test::threadSafenessInGpioTest(){
 	cout << "start " << __FUNCTION__ << endl;
@@ -252,7 +250,7 @@ void Test::threadSafenessInGpioTest(){
 	cout << "# rmw-cycle finished #" 	<< endl;
 	cout << "# ================== #" 	<< endl;
 
-	GpioTesting *gpio = new GpioTesting();
+	hardwareLayer::io::GPIO *gpio = new GpioTesting();
 	gpio->gainAccess();
 	thread t1(&writeSomethingElse, gpio, 1);
 	thread t2(&writeSomethingElse, gpio, 2);
