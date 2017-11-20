@@ -300,7 +300,7 @@ public:
 		statePtr->hal = &hal;
 		statePtr->testItem = &testItem; // connecting state->testItem with the SensorTest::testItem
 
-		hal->blinkGreen(Speed::slow);
+		hal.blinkGreen(Speed::slow);
 
 		if(cb_this == cb_1) {
 		cout<<"### SENSOR TEST started ###"<<endl;
