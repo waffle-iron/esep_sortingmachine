@@ -12,6 +12,7 @@
 #include "HardwareLayer.h"
 #include "Header.h"
 #include "GpioTesting.h"
+#include "SignalGenerator.h"
 
 using namespace std;
 
@@ -144,54 +145,22 @@ void Test::mmiTest(){
 }
 
 
-void Test::sensorsTest(){
+void Test::buttonsTest(){
 	cout << "start " << __FUNCTION__ <<endl;
 
-	sensorTestHelper(	hardwareLayer::io::SignalGenerator::LIGHT_BARRIER_INPUT,
-						Signalname::LB_INPUT_INTERRUPTED,
-						Signalname::LB_INPUT_FREED);
-
-	sensorTestHelper(	hardwareLayer::io::SignalGenerator::LIGHT_BARRIER_HEIGHT,
-						Signalname::LB_HEIGHT_INTERRUPTED,
-						Signalname::LB_HEIGHT_FREED);
-
-	sensorTestHelper(	hardwareLayer::io::SignalGenerator::LIGHT_BARRIER_SWITCH,
-						Signalname::LB_SWITCH_INTERRUPTED,
-						Signalname::LB_SWITCH_FREED);
-
-	sensorTestHelper(	hardwareLayer::io::SignalGenerator::LIGHT_BARRIER_SLIDE,
-						Signalname::LB_SLIDE_INTERRUPTED,
-						Signalname::LB_SLIDE_FREED);
-
-	sensorTestHelper(	hardwareLayer::io::SignalGenerator::LIGHT_BARRIER_OUTPUT,
-						Signalname::LB_OUTPUT_INTERRUPTED,
-						Signalname::LB_OUTPUT_FREED);
-
-	sensorTestHelper(	hardwareLayer::io::SignalGenerator::SENSOR_HEIGHT_MATCH,
-						Signalname::SENSOR_HEIGHT_MATCH,
-						Signalname::SENSOR_HEIGHT_NOT_MATCH);
-
-	sensorTestHelper(	hardwareLayer::io::SignalGenerator::SENSOR_SWITCH_OPEN,
-						Signalname::SENSOR_SWITCH_IS_OPEN,
-						Signalname::SENSOR_SWITCH_IS_CLOSED);
-
-	sensorTestHelper(	hardwareLayer::io::SignalGenerator::SENSOR_METAL_MATCH,
-						Signalname::SENSOR_METAL_MATCH,
-						Signalname::SENSOR_METAL_NOT_MATCH);
-
-	sensorTestHelper(	hardwareLayer::io::SignalGenerator::BUTTON_START,
+	buttonTestHelper(	hardwareLayer::io::SignalGenerator::BUTTON_START,
 						Signalname::BUTTON_START_PUSHED,
 						Signalname::BUTTON_START_PULLED);
 
-	sensorTestHelper(	hardwareLayer::io::SignalGenerator::BUTTON_STOP,
+	buttonTestHelper(	hardwareLayer::io::SignalGenerator::BUTTON_STOP,
 						Signalname::BUTTON_STOP_PUSHED,
 						Signalname::BUTTON_STOP_PULLED);
 
-	sensorTestHelper(	hardwareLayer::io::SignalGenerator::BUTTON_RESET,
+	buttonTestHelper(	hardwareLayer::io::SignalGenerator::BUTTON_RESET,
 						Signalname::BUTTON_RESET_PUSHED,
 						Signalname::BUTTON_RESET_PULLED);
 
-	sensorTestHelper(	hardwareLayer::io::SignalGenerator::BUTTON_E_STOP,
+	buttonTestHelper(	hardwareLayer::io::SignalGenerator::BUTTON_E_STOP,
 						Signalname::BUTTON_E_STOP_PUSHED,
 						Signalname::BUTTON_E_STOP_PULLED);
 
@@ -200,38 +169,39 @@ void Test::sensorsTest(){
 	cout  << __FUNCTION__ << " successful. " <<endl<<endl;
 }
 
-void Test::sensorTestHelper(hardwareLayer::io::SensorEvent signalBitmask, Signalname eventTriggerStart, Signalname eventTriggerEnd) {
+void Test::buttonTestHelper(hardwareLayer::io::SensorEvent signalBitmask, Signalname eventTriggerStart, Signalname eventTriggerEnd) {
 
 	_hal->clearSignalBuffer();
 
-	cout <<endl<< "test " << signalBitmask.name << "\n - please trigger sensor one or several times. Hit return key afterwards.";
+	cout <<endl<< "test " << signalBitmask.name << "\n - please trigger button one or several times. Hit return key afterwards."<<endl;
 
 	while (cin.get() != '\n');
 
 	int successCounter = 0;
+	int pulledCounter = 0;
 	int failureCounter = 0;
-	Signal firstSignal =  _hal->getSignal();
-	Signal secondSignal =  _hal->getSignal();
+	Signal signal;
 
-	while (firstSignal.name != Signalname::SIGNAL_BUFFER_EMPTY) {
+	while ((signal = _hal->getSignal()).name != Signalname::SIGNAL_BUFFER_EMPTY) {
 
-		if (firstSignal.name == eventTriggerStart and secondSignal.name == eventTriggerEnd) {
+		if (signal.name == eventTriggerStart) {
 			successCounter++;
+		} else if (signal.name == eventTriggerEnd){
+			pulledCounter++;
 		} else {
 			failureCounter++;
 		}
-
-		firstSignal =  _hal->getSignal();
-		secondSignal = _hal->getSignal();
 	}
 
 	bool success = failureCounter == 0 && successCounter > 0;
 
 	if ( success ){
-		cout << "triggered successfully "   << successCounter << " time(s))" << endl;
+		cout << "pushed successfully "   << successCounter << " time(s))" << endl;
+		cout << "pulled successfully "   << pulledCounter  << " time(s))" << endl;
 	} else {
-		cout << "triggered UNsuccessfully " << failureCounter << " time(s))\n" <<
-				"triggered successfully "   << successCounter << " time(s))" << endl;
+		cout << "pushed UNSUCCESSFULLY " << failureCounter << " time(s))\n" <<
+				"pushed successfully "   << successCounter << " time(s))\n" <<
+				"pulled successfully "   << pulledCounter  << " time(s))\n" << endl;
 	}
 }
 

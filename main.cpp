@@ -18,12 +18,14 @@ int main(int argc, char *argv[])
 	LOG_SET_LEVEL(DEBUG);
 
 	hardwareLayer::HardwareLayer hal;
+	logicLayer::test::Test test = logicLayer::test::Test(&hal);
+
+	test.buttonsTest();
+
 	logicLayer::LogicLayer loLay = logicLayer::LogicLayer(hal);
 
-	logicLayer::test::Test test = logicLayer::test::Test(&hal);
 	test.mmiTest();
 	test.actuatorsTest();
-	test.sensorsTest();
 	test.threadSafenessInGpioTest();
 	test.singletonThreadSafeTest();
 
