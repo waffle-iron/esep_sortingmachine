@@ -64,7 +64,7 @@ private:
 		virtual void lb_input_freed() {
 			cout<<__FUNCTION__<<endl;
 
-			hal.blinkGreen(Speed::slow);
+			//hal.blinkGreen(Speed::slow);
 
 			cout<<name()<<" => ";
 			new (this) SENSOR_HEIGHT_MATCH_Test;
@@ -216,7 +216,7 @@ private:
 				cout<<"please put item on master's input again."<<endl;
 			} else {
 				hal->sendSerial(Signal(cb_this, cb_next, Signalname::SENSOR_TEST_START));
-				hal->sendSerial(testItem);
+				hal->sendItemViaSerial(testItem);
 			}
 		}
 		virtual void lb_output_freed() {

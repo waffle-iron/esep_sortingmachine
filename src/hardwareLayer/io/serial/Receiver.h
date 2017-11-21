@@ -11,6 +11,7 @@
 #include "Interface.h"
 #include "WatchDog.h"
 #include "SignalGenerator.h"
+#include "ItemBuffer.h"
 #include <thread>
 
 
@@ -38,6 +39,7 @@ private:
     SignalGenerator& sgen_;
     bool running;
 	std::thread _th_receiver;
+	ItemBuffer itemBuffer_;
 };
 
 } /* namespace serial */

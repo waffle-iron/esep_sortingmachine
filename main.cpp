@@ -12,10 +12,14 @@
 
 #include "HeightSensor.h"
 
+#include "ItemBuffer.h"
+
 using namespace std;
 
 int main(int argc, char *argv[])
 {
+
+
 
 
 	cout << "Starting Sortingmachine ..." << endl;
@@ -40,7 +44,13 @@ int main(int argc, char *argv[])
 
 
 	hardwareLayer::HardwareLayer hal;
-	logicLayer::LogicLayer loLay = logicLayer::LogicLayer(hal);
+	//logicLayer::LogicLayer loLay = logicLayer::LogicLayer(hal);
+
+	Item itm;
+	hal.sendItemViaSerial(&itm);
+	hal.sendSerial(Signal());
+
+	exit(EXIT_SUCCESS);
 
 	cout<<"READY FOR TESTING"<<endl;
 	WAIT(5000);

@@ -151,7 +151,7 @@ void HardwareLayer::sendSerial(Signal signal) {
 	serial.send(signal);
 }
 
-void HardwareLayer::sendSerial(Item* item) {
+void HardwareLayer::sendItemViaSerial(Item* item) {
 	serial.send(item);
 }
 

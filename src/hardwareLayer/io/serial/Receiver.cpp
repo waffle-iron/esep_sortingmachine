@@ -31,11 +31,13 @@ namespace serial {
 		LOG_SCOPE
 		while(running) {
 
+
 			Message msg = Message(false);
 			LOG_DEBUG<<"MESSAGE RECEIVED"<<endl;
 
 			//blocking io
 			serial_.recv(&msg);
+
 
 			//check sum is correct
 			if(msg.checkNumber == CORRECT_CN ) {
@@ -52,7 +54,19 @@ namespace serial {
 							evaluateFeed(msg);
 							dog_.feed();
 						break;
+						case Signalname::SERIAL_TRANSFER_ITEM:
+							cout << "ITEM arrived" << endl;
+							itemBuffer_.pushItem(msg.item);
+							sgen_.pushBackOnSignalBuffer(
+									Signal(
+											msg.signal.sender,
+											msg.signal.receiver,
+											Signalname::ITEM_ARRIVED
+									)
+							);
+						break;
 						default: // push signal to logic layer
+							cout<<"Default Sig..."<<endl;
 							sgen_.pushBackOnSignalBuffer(msg.signal);
 						break;
 					}
