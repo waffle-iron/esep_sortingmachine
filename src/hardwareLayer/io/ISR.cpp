@@ -26,11 +26,8 @@ namespace io {
 int ISR::isrId;
 struct sigevent ISR::isrEvent;
 
-int storedMask;
-
 ISR::ISR() {
 	GPIO::instance().gainAccess();
-	storedMask = GPIO::instance().read(PORT::C)<<8 | GPIO::instance().read(PORT::B);
 }
 
 int ISR::getPendingIntFlags() {
@@ -58,21 +55,24 @@ void ISR::clearAllPendingIntFlag() {
 
 
 const struct sigevent* ISR::mainISR(void* arg, int id) {
+	int interrupt_service_register;
+	struct sigevent* event = (struct sigevent*) arg;
+
+	// determine the source of the interrupt by reading the Interrupt Status Register
+	interrupt_service_register =
+			GPIO::instance().read(DIO_CHG_STATE_IRQ_STATUS) &
+			(DIO_GROUP0_PB_STATE_CHANGED | DIO_GROUP0_PC_HI_STATE_CHANGED);
+
+	ISR::clearAllPendingIntFlag();
+
+	/* 	no interrupt? */
+	if (interrupt_service_register > 0) return nullptr; /* then no event */
+
 	int mask = ((GPIO::instance().read(PORT::C) & UPPER_BYTE) << 8) |
 				(GPIO::instance().read(PORT::B) & FULL_BYTE);
 
-	if((mask xor storedMask) == 0) { 	// IRQ not for us
-		return nullptr;
-	} else {						// IRQ for us
-		// reset IRQ
-		ISR::clearAllPendingIntFlag();
-		// update stored mask
-		storedMask = mask;
-		// prepare event task
-		struct sigevent* event = (struct sigevent*) arg;
-		event->sigev_value.sival_int = mask;
-		return event;
-	}
+	event->sigev_value.sival_int = mask;
+	return event;
 }
 
 
