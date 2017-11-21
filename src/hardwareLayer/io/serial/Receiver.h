@@ -25,6 +25,7 @@ public:
     ~Receiver();
     void operator()();
     void terminate();
+    ItemBuffer& getItemBuffer();
 
 private:
 	void setNext_cb();

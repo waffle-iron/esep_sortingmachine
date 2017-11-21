@@ -24,6 +24,7 @@ public:
 	virtual ~Serial();
 	void send(Signal& signal);
 	void send(Item* item);
+	Receiver& getReceiver();
 
 private:
 	Interface _serialClockwise;

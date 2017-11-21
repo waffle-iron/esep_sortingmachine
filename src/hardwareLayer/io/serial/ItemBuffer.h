@@ -20,6 +20,7 @@ public:
 	virtual ~ItemBuffer();
 
 	void pushItem(Item);
+	Item pullItem();
 
 private :
 	vector<Item> items;
