@@ -126,7 +126,7 @@ private:
 	*@param: Signal signal
 	*@return: true if no clatter
 	*/
-	bool noClutterOn(SensorEvent& event);
+	bool noChatterOn(SensorEvent& event);
 
 	/*
 	 * events holds all sensor events
