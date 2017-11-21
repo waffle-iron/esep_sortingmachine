@@ -1,3 +1,4 @@
+[![Waffle.io - Columns and their card count](https://badge.waffle.io/fabiansch/esep_sortingmachine.png?columns=all)](https://waffle.io/fabiansch/esep_sortingmachine?utm_source=badge)
 # esep
 
 Florian Heuer   florian.heuer@haw-hamburg.de
