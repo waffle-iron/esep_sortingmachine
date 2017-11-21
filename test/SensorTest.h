@@ -82,9 +82,9 @@ private:
 	struct SENSOR_HEIGHT_MATCH_Test : public State {
 		virtual void sensor_height_match() {
 			cout<<__FUNCTION__<<endl;
-			Item item;
-			item.heightAbsolute = hal->getHeight();
-			cout<<"ABSOLUTE HOEHE: "<<item.heightAbsolute<<endl;
+
+			testItem->heightAbsolute = hal->getHeight();
+			cout<<"ABSOLUTE HOEHE: "<<testItem->heightAbsolute<<endl;
 
 		}
 		virtual void sensor_height_not_match() {
@@ -107,13 +107,22 @@ private:
 		virtual void lb_height_interrupted() {
 			cout<<__FUNCTION__<<endl;
 
-			Item item;
-			item.heightCenter = hal->getHeight();
-			cout<<"HOEHE DER MITTE: "<<item.heightCenter<<endl;
+			testItem->heightCenter = hal->getHeight();
+			cout<<"HOEHE DER MITTE: "<<testItem->heightCenter<<endl;
 
-			cout<<name()<<" => ";
-			new (this) SENSOR_HEIGHT_MATCH_2_Test;
-			cout<<name()<<endl;
+			if(cb_this == cb_last) {
+
+				Item passedItem = hal->getPassedItem();
+				if( abs(passedItem.heightCenter - testItem->heightCenter) < 200) {
+					cout<<"DIFFERENZ IST NICHT ALLZU GROSS."<<endl;
+					cout<<name()<<" => ";
+					new (this) SENSOR_HEIGHT_MATCH_2_Test;
+					cout<<name()<<endl;
+				} else {
+					cout<<"DIFFERECE TOO HIGH"<<endl;
+					testFailed(__FUNCTION__);
+				}
+			}
 		}
 	};
 

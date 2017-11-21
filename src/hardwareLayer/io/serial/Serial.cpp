@@ -38,6 +38,10 @@ void Serial::send(Item* item) {
 	_serialClockwise.send(message);
 }
 
+Receiver& Serial::getReceiver() {
+	return _receiver;
+}
+
 } /* namespace serial */
 } /* namespace io */
 } /* namespace hardwareLayer */

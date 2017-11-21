@@ -24,6 +24,12 @@ void ItemBuffer::pushItem(Item item){
 	items.push_back(item);
 }
 
+Item ItemBuffer::pullItem() {
+	Item item = items.front();
+	items.pop_back();
+	return item;
+}
+
 } /* namespace itembuffer */
 } /* namespace io */
 } /* namespace hardwareLayer */

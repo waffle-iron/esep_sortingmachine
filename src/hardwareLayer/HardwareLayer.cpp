@@ -153,6 +153,10 @@ void HardwareLayer::sendItemViaSerial(Item* item) {
 	serial.send(item);
 }
 
+Item HardwareLayer::getPassedItem() {
+	return serial.getReceiver().getItemBuffer().pullItem();
+}
+
 uint16_t HardwareLayer::getHeight() {
 	return _heightSensor.getHeight();
 }

@@ -78,6 +78,12 @@ namespace hardwareLayer {
 		Signal getSignal();
 
 		/**
+		 * @brief	gets passed item
+		 * @return	returns the last passed Item from ItemBuffer.
+		 */
+		Item getPassedItem();
+
+		/**
 		 * @brief removes all signals from Buffer and adds SIGNAL_BUFFER_EMPTY signal
 		 *
 		 * if removing all signals fails a error message gets logged.

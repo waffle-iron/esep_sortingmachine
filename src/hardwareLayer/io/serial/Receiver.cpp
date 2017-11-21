@@ -85,6 +85,10 @@ namespace serial {
 		running = false;
 	}
 
+	ItemBuffer& Receiver::getItemBuffer() {
+		return itemBuffer_;
+	}
+
 	void Receiver::evaluateTokenAndSendFeed(const Message& msg) {
 		if (cb_available == 0) {
 			cb_available = msg.signal.sender;
