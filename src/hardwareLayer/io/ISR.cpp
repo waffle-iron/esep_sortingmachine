@@ -66,7 +66,7 @@ const struct sigevent* ISR::mainISR(void* arg, int id) {
 	ISR::clearAllPendingIntFlag();
 
 	/* 	no interrupt? */
-	if (interrupt_service_register > 0) return nullptr; /* then no event */
+	if (interrupt_service_register == 0) return nullptr; /* then no event */
 
 	int mask = ((GPIO::instance().read(PORT::C) & UPPER_BYTE) << 8) |
 				(GPIO::instance().read(PORT::B) & FULL_BYTE);
