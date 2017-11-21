@@ -173,19 +173,16 @@ void Test::buttonTestHelper(hardwareLayer::io::SensorEvent signalBitmask, Signal
 
 	_hal->clearSignalBuffer();
 
-	cout <<endl<< "test " << signalBitmask.name << "\n - please trigger button one or several times. Hit return key afterwards.";
+	cout <<endl<< "test " << signalBitmask.name << "\n - please trigger button one or several times. Hit return key afterwards."<<endl;
 
 	while (cin.get() != '\n');
 
 	int successCounter = 0;
 	int pulledCounter = 0;
 	int failureCounter = 0;
-	Signal signal =  _hal->getSignal();
+	Signal signal;
 
-	while (signal.name != Signalname::SIGNAL_BUFFER_EMPTY) {
-
-		hardwareLayer::io::SignalGenerator::printEvents();
-
+	while ((signal = _hal->getSignal()).name != Signalname::SIGNAL_BUFFER_EMPTY) {
 
 		if (signal.name == eventTriggerStart) {
 			successCounter++;
@@ -194,8 +191,6 @@ void Test::buttonTestHelper(hardwareLayer::io::SensorEvent signalBitmask, Signal
 		} else {
 			failureCounter++;
 		}
-
-		signal = _hal->getSignal();
 	}
 
 	bool success = failureCounter == 0 && successCounter > 0;

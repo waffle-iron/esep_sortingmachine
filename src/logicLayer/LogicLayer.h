@@ -10,7 +10,6 @@
 
 #include "Observer.h"
 #include "HardwareLayer.h"
-#include "Timer.h"
 
 namespace logicLayer {
 
@@ -21,7 +20,6 @@ public:
 	void notify();
 private:
 	hardwareLayer::HardwareLayer& hal;
-	Timer timer;
 };
 
 } /* namespace logicLayer */

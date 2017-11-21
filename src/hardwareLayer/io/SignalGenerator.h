@@ -12,6 +12,7 @@
 #include <thread>
 #include <vector>
 #include <chrono>
+#include <thread>
 
 namespace hardwareLayer {
 namespace io {
@@ -139,10 +140,14 @@ private:
 	 */
 	static std::vector<SensorEvent> events;
 
-	std::thread thread;
+	static void chatter_timer(SignalGenerator* signalGenerator, SensorEvent* event);
+
+
+	std::thread signal_generator_thr;
 	bool running;
 	int stored_mask;
 	std::vector<Signal> signalBuffer;
+	std::thread chatter_timer_th;
 };
 
 } /* namespace io */

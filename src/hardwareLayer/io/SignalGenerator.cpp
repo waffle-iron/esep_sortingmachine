@@ -21,8 +21,8 @@ namespace hardwareLayer {
 namespace io {
 
 const int NOCHATTER = 0;
-const int SWITCH_BUTTON_CHATTER_TIME = 50;
-const int E_STOP_CHATTER_TIME = 100;
+const int SWITCH_BUTTON_CHATTER_TIME = 20;
+const int E_STOP_CHATTER_TIME = 20;
 std::chrono::steady_clock::time_point time = std::chrono::steady_clock::now();
 
 SensorEvent SignalGenerator::BUTTON_START(		0b00010000<<8, "BUTTON_START", SWITCH_BUTTON_CHATTER_TIME , time , SPair(	Signalname::BUTTON_START_PUSHED,
@@ -53,16 +53,16 @@ SensorEvent SignalGenerator::LIGHT_BARRIER_OUTPUT(0b10000000, "LIGHT_BARRIER_OUT
 std::vector< SensorEvent>  SignalGenerator::events = init_events();
 std::chrono::steady_clock::time_point timeNow;
 
-
-SignalGenerator::SignalGenerator():
-running(true)
+SignalGenerator::SignalGenerator()
+: running(true)
+, chatter_timer_th(std::thread(chatter_timer, this, nullptr))
 {
 	LOG_SCOPE
 	init_events();
 	GPIO::instance().gainAccess();
 	stored_mask = GPIO::instance().read(PORT::C)<<8 | GPIO::instance().read(PORT::B);
 	ISR::registerISR(AsyncChannel::instance(), MAGIC_NUMBER);
-	thread = std::thread(std::ref(*this));
+	signal_generator_thr = std::thread(std::ref(*this));
 	timeNow = std::chrono::system_clock::now();
 }
 
@@ -70,7 +70,7 @@ SignalGenerator::~SignalGenerator() {
 	LOG_SCOPE
 	terminate();
 	AsyncChannel::instance().sendMessage({0,0});
-	thread.join();
+	signal_generator_thr.join();
 	ISR::unregisterISR();
 }
 
@@ -90,10 +90,10 @@ void SignalGenerator::operator()() {
 					} else {								// high -> low
 						pushBackOnSignalBuffer(Signal(event.signalPair.low));
 					}
+					stored_mask = current_mask;
 				}
 			}
 		}
-		stored_mask = current_mask;
 	}
 }
 
@@ -104,7 +104,7 @@ void SignalGenerator::terminate() {
 
 Signal SignalGenerator::nextSignal() {
 	LOG_SCOPE
-	Signal signal(0b001,0b000,Signalname::SIGNAL_BUFFER_EMPTY);
+	Signal signal(Signalname::SIGNAL_BUFFER_EMPTY);
 	if (not signalBuffer.empty()) {
 		signal = signalBuffer.front();
 		signalBuffer.erase(signalBuffer.begin());
@@ -117,18 +117,28 @@ bool SignalGenerator::noChatterOn(SensorEvent& event) {
 	auto timeSinceLastInterrupt = std::chrono::duration_cast <std::chrono::milliseconds> (timeNow - event.lastTimeTriggered);
 	if (timeSinceLastInterrupt.count() > event.chatterProtectionTime){
 		event.lastTimeTriggered = timeNow;
+		chatter_timer_th.detach();
+		chatter_timer_th = std::thread(chatter_timer, this, &event);
 		return true;
 	}
 	else {
-		pushBackOnSignalBuffer(Signalname::START_CHATTER_TIMER);
 		return false;
+	}
+}
+
+void SignalGenerator::chatter_timer(SignalGenerator* signalGenerator, SensorEvent* event) {
+	if (event != nullptr) {
+		WAIT(event->chatterProtectionTime);
+		signalGenerator->pollOnSensors();
+	} else {
+		LOG_WARNING<<__FUNCTION__<<": event hold nullptr"<<endl;
 	}
 }
 
 void SignalGenerator::pollOnSensors() {
 	int sensorValues;
-	sensorValues = ((io::GPIO::instance().read(PORT::C)&0xf0)<<8 |
-					(io::GPIO::instance().read(PORT::B)&0xff));
+	sensorValues = ((GPIO::instance().read(PORT::C)&0xf0)<<8) |
+					(GPIO::instance().read(PORT::B)&0xff);
 	AsyncChannel::instance().sendMessage(AsyncMsg(0,sensorValues));
 
 }
