@@ -7,11 +7,10 @@
 
 #include "LogicLayer.h"
 
-
 namespace logicLayer {
 
-LogicLayer::LogicLayer(hardwareLayer::HardwareLayer& hal) :
-hal(hal)
+LogicLayer::LogicLayer(hardwareLayer::HardwareLayer& hal)
+: hal(hal)
 {
 	hal.register_observer(this);
 }
@@ -25,8 +24,7 @@ void LogicLayer::notify(){
 	Signal signal;
 	while((signal = hal.getSignal()).name != Signalname::SIGNAL_BUFFER_EMPTY) {
 		cout << "LogicLayer: I have been notified! Now I go get the Signal." << endl;
+
 	}
-	cout << "LogicLayer: I have been notified! All signals read." << endl;
-	//cout << hal.getSignal().name << endl;
 }
 } /* namespace logicLayer */
