@@ -6,8 +6,6 @@
  */
 
 #include "HardwareLayer.h"
-#include "GPIO.h"
-#include "Signals.h"
 
 namespace hardwareLayer {
 
@@ -148,6 +146,10 @@ void HardwareLayer::clearSignalBuffer() {
 
 uint16_t HardwareLayer::getHeight() {
 	return _heightSensor.getHeight();
+}
+
+void HardwareLayer::pollOnSensors() {
+	signalGenerator.pollOnSensors();
 }
 
 

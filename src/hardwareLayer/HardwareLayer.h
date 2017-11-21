@@ -70,6 +70,11 @@ namespace hardwareLayer {
 		 */
 		void clearSignalBuffer();
 
+		/**
+		 * @brief performs poll on sensors and generates signal when change has occurred and signal's chatter protection has passed
+		 */
+		void pollOnSensors();
+
 	private:
 		actuators::Motor& _motor;
 		actuators::SwitchPoint& _switchPoint;

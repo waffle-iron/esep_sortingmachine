@@ -112,16 +112,25 @@ Signal SignalGenerator::nextSignal() {
 	return signal;
 }
 
-bool SignalGenerator::noChatterOn(SensorEvent& event){
+bool SignalGenerator::noChatterOn(SensorEvent& event) {
 	timeNow = std::chrono::steady_clock::now();
 	auto timeSinceLastInterrupt = std::chrono::duration_cast <std::chrono::milliseconds> (timeNow - event.lastTimeTriggered);
 	if (timeSinceLastInterrupt.count() > event.chatterProtectionTime){
 		event.lastTimeTriggered = timeNow;
 		return true;
 	}
-	else{
+	else {
+		pushBackOnSignalBuffer(Signalname::START_CHATTER_TIMER);
 		return false;
 	}
+}
+
+void SignalGenerator::pollOnSensors() {
+	int sensorValues;
+	sensorValues = ((io::GPIO::instance().read(PORT::C)&0xf0)<<8 |
+					(io::GPIO::instance().read(PORT::B)&0xff));
+	AsyncChannel::instance().sendMessage(AsyncMsg(0,sensorValues));
+
 }
 
 void SignalGenerator::pushBackOnSignalBuffer(Signal signal) {

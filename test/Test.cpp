@@ -178,6 +178,7 @@ void Test::buttonTestHelper(hardwareLayer::io::SensorEvent signalBitmask, Signal
 	while (cin.get() != '\n');
 
 	int successCounter = 0;
+	int pulledCounter = 0;
 	int failureCounter = 0;
 	Signal signal =  _hal->getSignal();
 
@@ -189,7 +190,7 @@ void Test::buttonTestHelper(hardwareLayer::io::SensorEvent signalBitmask, Signal
 		if (signal.name == eventTriggerStart) {
 			successCounter++;
 		} else if (signal.name == eventTriggerEnd){
-
+			pulledCounter++;
 		} else {
 			failureCounter++;
 		}
@@ -200,10 +201,12 @@ void Test::buttonTestHelper(hardwareLayer::io::SensorEvent signalBitmask, Signal
 	bool success = failureCounter == 0 && successCounter > 0;
 
 	if ( success ){
-		cout << "triggered successfully "   << successCounter << " time(s))" << endl;
+		cout << "pushed successfully "   << successCounter << " time(s))" << endl;
+		cout << "pulled successfully "   << pulledCounter  << " time(s))" << endl;
 	} else {
-		cout << "triggered UNsuccessfully " << failureCounter << " time(s))\n" <<
-				"triggered successfully "   << successCounter << " time(s))" << endl;
+		cout << "pushed UNSUCCESSFULLY " << failureCounter << " time(s))\n" <<
+				"pushed successfully "   << successCounter << " time(s))\n" <<
+				"pulled successfully "   << pulledCounter  << " time(s))\n" << endl;
 	}
 }
 

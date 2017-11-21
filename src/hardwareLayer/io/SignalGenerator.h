@@ -100,6 +100,12 @@ public:
 	void clearSignalBuffer();
 
 
+	/*
+	 * @brief performs poll on sensors and generates signal when change has occurred and signal's chatter protection has passed
+	 */
+	void pollOnSensors();
+
+
 	// sensor events for higher byte of PORT C
 	static SensorEvent BUTTON_START;
 	static SensorEvent BUTTON_STOP;
