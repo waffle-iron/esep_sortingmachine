@@ -32,11 +32,11 @@ public:
 	void mmiTest();
 
 	/**
-	 *@brief test sensors
+	 *@brief test buttons
 	 *@brief just working without LogicLayer started. LogicLayer is using
-	 *@brief is using SensorTestController for testing sensors
+	 *@brief SensorTest for testing other sensors
 	 */
-	void sensorsTest();
+	void buttonsTest();
 
 	/**
 	*  @brief test singleton thread safeness
@@ -61,7 +61,7 @@ private:
 	 */
 	bool nextTest(string functionName);
 
-	void sensorTestHelper(hardwareLayer::io::SensorEvent signalbitmask, Signalname eventTriggerStart, Signalname eventTriggerEnd);
+	void buttonTestHelper(hardwareLayer::io::SensorEvent signalbitmask, Signalname eventTriggerStart, Signalname eventTriggerEnd);
 
 };
 

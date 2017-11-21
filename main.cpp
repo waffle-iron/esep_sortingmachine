@@ -44,23 +44,26 @@ int main(int argc, char *argv[])
 
 
 	hardwareLayer::HardwareLayer hal;
-	logicLayer::LogicLayer loLay = logicLayer::LogicLayer(hal);
-
-
-
-	cout<<"READY FOR TESTING"<<endl;
-	WAIT(5000);
-
 	logicLayer::test::Test test = logicLayer::test::Test(&hal);
 
+	WAIT(5000);
+	test.buttonsTest();
+
+	logicLayer::LogicLayer loLay = logicLayer::LogicLayer(hal);
+
+	cin.get();
 	if (cb_this == cb_1) {
-		cin.get();
 		test.actuatorsTest();
 		test.mmiTest();
 		test.threadSafenessInGpioTest();
 		test.singletonThreadSafeTest();
 	}
 
+	uint16_t heightValue;
+	for(int i = 10; i>0; i--) {
+		  heightValue = hal.getHeight();
+		  cout << heightValue << endl;
+	}
 
 	cout<<"Shut down?"<<endl;
 	cin.get();

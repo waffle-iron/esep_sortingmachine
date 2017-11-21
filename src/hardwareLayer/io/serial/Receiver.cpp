@@ -66,7 +66,6 @@ namespace serial {
 							);
 						break;
 						default: // push signal to logic layer
-							cout<<"Default Sig..."<<endl;
 							sgen_.pushBackOnSignalBuffer(msg.signal);
 						break;
 					}

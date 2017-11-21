@@ -6,8 +6,6 @@
  */
 
 #include "HardwareLayer.h"
-#include "GPIO.h"
-#include "Header.h"
 
 namespace hardwareLayer {
 

@@ -7,14 +7,12 @@
 
 #include "LogicLayer.h"
 
-
 namespace logicLayer {
 
-LogicLayer::LogicLayer(hardwareLayer::HardwareLayer& hal) :
-hal(hal),
-sensorTest(hal)
+LogicLayer::LogicLayer(hardwareLayer::HardwareLayer& hal)
+: hal(hal)
+, sensorTest(hal)
 {
-	//hal.register_observer(this);
 	hal.getSignalGenerator().register_observer(this); //listen to SignalGenerator
 }
 
@@ -207,7 +205,6 @@ void LogicLayer::notify(){
 			cout<<__FUNCTION__<<" unknown signal occurred."<<endl;
 			break;
 		}
-
 	}
 }
 } /* namespace logicLayer */
