@@ -20,38 +20,35 @@ constexpr int MAGIC_NUMBER = 15;
 namespace hardwareLayer {
 namespace io {
 
-const int NOCHATTER = 0;
-const int SWITCH_BUTTON_CHATTER_TIME = 20;
-const int E_STOP_CHATTER_TIME = 20;
-std::chrono::steady_clock::time_point time = std::chrono::steady_clock::now();
+const int NO_CHATTER_TIME = 0;
+const int CHATTER_TIME = 20;
 
-SensorEvent SignalGenerator::BUTTON_START(		0b00010000<<8, "BUTTON_START", SWITCH_BUTTON_CHATTER_TIME , time , SPair(	Signalname::BUTTON_START_PUSHED,
-																															Signalname::BUTTON_START_PULLED));
-SensorEvent SignalGenerator::BUTTON_STOP( 		0b00100000<<8, "BUTTON_STOP", SWITCH_BUTTON_CHATTER_TIME , time, SPair(		Signalname::BUTTON_STOP_PULLED,
-																															Signalname::BUTTON_STOP_PUSHED));
-SensorEvent SignalGenerator::BUTTON_RESET( 		0b01000000<<8, "BUTTON_RESET", SWITCH_BUTTON_CHATTER_TIME, time, SPair(		Signalname::BUTTON_RESET_PUSHED,
-																															Signalname::BUTTON_RESET_PULLED));
-SensorEvent SignalGenerator::BUTTON_E_STOP(		0b10000000<<8, "BUTTON_E_STOP", E_STOP_CHATTER_TIME, time, SPair(	  		Signalname::BUTTON_E_STOP_PULLED,
-																						  	  	  	  	  	  	 			Signalname::BUTTON_E_STOP_PUSHED));
-SensorEvent SignalGenerator::LIGHT_BARRIER_INPUT( 0b00000001, "LIGHT_BARRIER_INPUT", NOCHATTER, time, SPair( 				Signalname::LB_INPUT_FREED,
-																						  	  	  	  	  	  	  			Signalname::LB_INPUT_INTERRUPTED));
-SensorEvent SignalGenerator::LIGHT_BARRIER_HEIGHT(0b00000010, "LIGHT_BARRIER_HEIGHT", NOCHATTER, time, SPair(				Signalname::LB_HEIGHT_FREED,
-																						  	  	  	  	  	  	  			Signalname::LB_HEIGHT_INTERRUPTED));
-SensorEvent SignalGenerator::SENSOR_HEIGHT_MATCH(	0b00000100, "SENSOR_HEIGHT_MATCH", NOCHATTER, time, SPair( 				Signalname::SENSOR_HEIGHT_MATCH,
-																															Signalname::SENSOR_HEIGHT_NOT_MATCH));
-SensorEvent SignalGenerator::LIGHT_BARRIER_SWITCH(0b00001000, "LIGHT_BARRIER_SWITCH", NOCHATTER, time, SPair(				Signalname::LB_SWITCH_FREED,
-																															Signalname::LB_SWITCH_INTERRUPTED));
-SensorEvent SignalGenerator::SENSOR_METAL_MATCH(	0b00010000, "SENSOR_METAL_MATCH", NOCHATTER, time, SPair(  				Signalname::SENSOR_METAL_MATCH,
-																						  	  	  	  	  	  	  			Signalname::SENSOR_METAL_NOT_MATCH));
-SensorEvent SignalGenerator::SENSOR_SWITCH_OPEN(	0b00100000, "SENSOR_SWITCH_OPEN", SWITCH_BUTTON_CHATTER_TIME, time, SPair(Signalname::SENSOR_SWITCH_IS_OPEN,
-																															Signalname::SENSOR_SWITCH_IS_CLOSED));
-SensorEvent SignalGenerator::LIGHT_BARRIER_SLIDE(	0b01000000, "LIGHT_BARRIER_SLIDE", NOCHATTER, time, SPair( 				Signalname::LB_SLIDE_FREED,
-																						  	  	  	  	  	  	  			Signalname::LB_SLIDE_INTERRUPTED));
-SensorEvent SignalGenerator::LIGHT_BARRIER_OUTPUT(0b10000000, "LIGHT_BARRIER_OUTPUT", NOCHATTER, time, SPair(				Signalname::LB_OUTPUT_FREED,
-																								  	  	  	  	  	  	  	Signalname::LB_OUTPUT_INTERRUPTED));
+SensorEvent SignalGenerator::BUTTON_START(		0b00010000<<8, "BUTTON_START", CHATTER_TIME , SPair(				Signalname::BUTTON_START_PUSHED,
+																													Signalname::BUTTON_START_PULLED));
+SensorEvent SignalGenerator::BUTTON_STOP( 		0b00100000<<8, "BUTTON_STOP", CHATTER_TIME , SPair(					Signalname::BUTTON_STOP_PULLED,
+																													Signalname::BUTTON_STOP_PUSHED));
+SensorEvent SignalGenerator::BUTTON_RESET( 		0b01000000<<8, "BUTTON_RESET", CHATTER_TIME, SPair(					Signalname::BUTTON_RESET_PUSHED,
+																													Signalname::BUTTON_RESET_PULLED));
+SensorEvent SignalGenerator::BUTTON_E_STOP(		0b10000000<<8, "BUTTON_E_STOP", CHATTER_TIME, SPair(	  			Signalname::BUTTON_E_STOP_PULLED,
+																						  	  	  	  	  	  	 	Signalname::BUTTON_E_STOP_PUSHED));
+SensorEvent SignalGenerator::LIGHT_BARRIER_INPUT( 	0b00000001, "LIGHT_BARRIER_INPUT", NO_CHATTER_TIME, SPair( 		Signalname::LB_INPUT_FREED,
+																						  	  	  	  	  	  	  	Signalname::LB_INPUT_INTERRUPTED));
+SensorEvent SignalGenerator::LIGHT_BARRIER_HEIGHT(	0b00000010, "LIGHT_BARRIER_HEIGHT", NO_CHATTER_TIME, SPair(		Signalname::LB_HEIGHT_FREED,
+																						  	  	  	  	  	  	  	Signalname::LB_HEIGHT_INTERRUPTED));
+SensorEvent SignalGenerator::SENSOR_HEIGHT_MATCH(	0b00000100, "SENSOR_HEIGHT_MATCH", NO_CHATTER_TIME, SPair( 		Signalname::SENSOR_HEIGHT_MATCH,
+																													Signalname::SENSOR_HEIGHT_NOT_MATCH));
+SensorEvent SignalGenerator::LIGHT_BARRIER_SWITCH(	0b00001000, "LIGHT_BARRIER_SWITCH", NO_CHATTER_TIME, SPair(		Signalname::LB_SWITCH_FREED,
+																													Signalname::LB_SWITCH_INTERRUPTED));
+SensorEvent SignalGenerator::SENSOR_METAL_MATCH(	0b00010000, "SENSOR_METAL_MATCH", NO_CHATTER_TIME, SPair(  		Signalname::SENSOR_METAL_MATCH,
+																						  	  	  	  	  	  	  	Signalname::SENSOR_METAL_NOT_MATCH));
+SensorEvent SignalGenerator::SENSOR_SWITCH_OPEN(	0b00100000, "SENSOR_SWITCH_OPEN", CHATTER_TIME, SPair(			Signalname::SENSOR_SWITCH_IS_OPEN,
+																													Signalname::SENSOR_SWITCH_IS_CLOSED));
+SensorEvent SignalGenerator::LIGHT_BARRIER_SLIDE(	0b01000000, "LIGHT_BARRIER_SLIDE", NO_CHATTER_TIME, SPair( 		Signalname::LB_SLIDE_FREED,
+																						  	  	  	  	  	  	  	Signalname::LB_SLIDE_INTERRUPTED));
+SensorEvent SignalGenerator::LIGHT_BARRIER_OUTPUT(	0b10000000, "LIGHT_BARRIER_OUTPUT", NO_CHATTER_TIME, SPair(		Signalname::LB_OUTPUT_FREED,
+																								  	  	  	  	  	Signalname::LB_OUTPUT_INTERRUPTED));
 
 std::vector< SensorEvent>  SignalGenerator::events = init_events();
-std::chrono::steady_clock::time_point timeNow;
 
 SignalGenerator::SignalGenerator()
 : running(true)
@@ -62,15 +59,15 @@ SignalGenerator::SignalGenerator()
 	GPIO::instance().gainAccess();
 	stored_mask = GPIO::instance().read(PORT::C)<<8 | GPIO::instance().read(PORT::B);
 	ISR::registerISR(AsyncChannel::instance(), MAGIC_NUMBER);
-	signal_generator_thr = std::thread(std::ref(*this));
-	timeNow = std::chrono::system_clock::now();
+	signal_generator_th = std::thread(std::ref(*this));
 }
 
 SignalGenerator::~SignalGenerator() {
 	LOG_SCOPE
 	terminate();
 	AsyncChannel::instance().sendMessage({0,0});
-	signal_generator_thr.join();
+	chatter_timer_th.join();
+	signal_generator_th.join();
 	ISR::unregisterISR();
 }
 
@@ -113,12 +110,15 @@ Signal SignalGenerator::nextSignal() {
 }
 
 bool SignalGenerator::noChatterOn(SensorEvent& event) {
-	timeNow = std::chrono::steady_clock::now();
-	auto timeSinceLastInterrupt = std::chrono::duration_cast <std::chrono::milliseconds> (timeNow - event.lastTimeTriggered);
-	if (timeSinceLastInterrupt.count() > event.chatterProtectionTime){
+	using namespace std::chrono;
+	steady_clock::time_point timeNow = steady_clock::now();
+	auto timeSinceLastInterrupt = duration_cast <milliseconds> (timeNow - event.lastTimeTriggered);
+	if (timeSinceLastInterrupt.count() > event.chatterProtectionTime) {
 		event.lastTimeTriggered = timeNow;
-		chatter_timer_th.detach();
-		chatter_timer_th = std::thread(chatter_timer, this, &event);
+		if (event.chatterProtectionTime > 0) {
+			chatter_timer_th.detach();
+			chatter_timer_th = std::thread(chatter_timer, this, &event);
+		}
 		return true;
 	}
 	else {

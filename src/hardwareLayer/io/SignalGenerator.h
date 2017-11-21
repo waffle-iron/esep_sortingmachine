@@ -41,11 +41,11 @@ struct SPair {
  * siganlPair.low holds signal for lower edge  change of bit
  */
 struct SensorEvent {
-	SensorEvent(const int bitmask, const std::string name, const int chatterProtectionTime, std::chrono::steady_clock::time_point lastTimeTriggered, const SPair signalPair) :
+	SensorEvent(const int bitmask, const std::string name, const int chatterProtectionTime, const SPair signalPair) :
 	bitmask(bitmask),
 	name(name),
 	chatterProtectionTime(chatterProtectionTime),
-	lastTimeTriggered(lastTimeTriggered),
+	lastTimeTriggered(std::chrono::steady_clock::now()),
 	signalPair(signalPair)
 	{
 		LOG_SCOPE
@@ -53,11 +53,11 @@ struct SensorEvent {
 	~SensorEvent(){
 		LOG_SCOPE
 	}
-	int bitmask;
-	std::string name;
-	int chatterProtectionTime;
+	const int bitmask;
+	const std::string name;
+	const int chatterProtectionTime;
 	std::chrono::steady_clock::time_point lastTimeTriggered;
-	SPair signalPair;
+	const SPair signalPair;
 };
 
 class SignalGenerator {
@@ -143,7 +143,7 @@ private:
 	static void chatter_timer(SignalGenerator* signalGenerator, SensorEvent* event);
 
 
-	std::thread signal_generator_thr;
+	std::thread signal_generator_th;
 	bool running;
 	int stored_mask;
 	std::vector<Signal> signalBuffer;
