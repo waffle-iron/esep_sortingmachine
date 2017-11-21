@@ -9,7 +9,6 @@
 
 #include "ISR.h"
 #include <sys/neutrino.h>
-#include <hw/inout.h>
 #include "DIO48.h"
 #include "GPIO.h"
 
@@ -31,26 +30,22 @@ ISR::ISR() {
 }
 
 int ISR::getPendingIntFlags() {
-	return in8(DIO_BASE + DIO_CHG_STATE_IRQ_STATUS);
+	return GPIO::instance().read(DIO_CHG_STATE_IRQ_STATUS);
 }
 
 void ISR::disableInterrupts() {
-	out8(DIO_BASE + DIO_CHG_STATE_IRQ_ENABLE, FULL_BYTE);
+	GPIO::instance().clearBits(DIO_CHG_STATE_IRQ_ENABLE, FULL_BYTE);
+	GPIO::instance().setBits(DIO_CHG_STATE_IRQ_ENABLE, FULL_BYTE);
 }
 
 void ISR::enableInterrupts(int mask) {
-	 out8(DIO_BASE + DIO_CHG_STATE_IRQ_ENABLE, ~(mask));
-}
-
-void ISR::clearPendingIntFlag(int bit) {
-	int tmp = in8(DIO_BASE + DIO_CHG_STATE_IRQ_STATUS);
-	tmp &= ~(1 << bit);
-	out8(DIO_BASE + DIO_CHG_STATE_IRQ_STATUS, tmp);
+	GPIO::instance().clearBits(DIO_CHG_STATE_IRQ_ENABLE, FULL_BYTE);
+	GPIO::instance().setBits(DIO_CHG_STATE_IRQ_ENABLE, ~(mask));
 }
 
 // no debug message allowed, otherwise isr crashes
 void ISR::clearAllPendingIntFlag() {
-	out8(DIO_BASE + DIO_CHG_STATE_IRQ_STATUS, 0);
+	GPIO::instance().clearBits(DIO_CHG_STATE_IRQ_STATUS, FULL_BYTE);
 }
 
 
