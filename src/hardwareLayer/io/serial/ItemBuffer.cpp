@@ -30,6 +30,10 @@ Item ItemBuffer::pullItem() {
 	return item;
 }
 
+int ItemBuffer::size(){
+	return items.size();
+}
+
 } /* namespace itembuffer */
 } /* namespace io */
 } /* namespace hardwareLayer */

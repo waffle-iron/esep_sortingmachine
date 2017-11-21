@@ -53,6 +53,11 @@ private:
 		Item* testItem;
 	} *statePtr;   // a pointer to current state. Used for polymorphism.
 
+
+
+
+
+
 	//============================ LB_INPUT_Test =======================================
 	struct LB_INPUT_Test : public State {
 		virtual void lb_input_interrupted() {
@@ -70,12 +75,12 @@ private:
 			new (this) SENSOR_HEIGHT_MATCH_Test;
 			cout<<name()<<endl;
 		}
-		virtual void sensor_test_start(){
-			cout<<__FUNCTION__<<endl;
-			hal->motorRotateClockwise();
-			hal->motorFast();
-			hal->motorStart();
-		}
+//		virtual void sensor_test_start(){
+//			cout<<__FUNCTION__<<endl;
+//			hal->motorRotateClockwise();
+//			hal->motorFast();
+//			hal->motorStart();
+//		}
 	};
 
 	//============================ SENSOR_HEIGHT_MATCH_Test =======================================
@@ -86,13 +91,21 @@ private:
 			testItem->heightAbsolute = hal->getHeight();
 			cout<<"ABSOLUTE HOEHE: "<<testItem->heightAbsolute<<endl;
 
+			cout<<name()<<" => ";
+			new (this) SENSOR_HEIGHT_NOT_MATCH_Test;
+			cout<<name()<<endl;
 		}
+	};
+
+	//============================ SENSOR_HEIGHT_NOT_MATCH_Test =======================================
+	struct SENSOR_HEIGHT_NOT_MATCH_Test : public State {
+
 		virtual void sensor_height_not_match() {
 			cout<<__FUNCTION__<<endl;
 
 			cout<<name()<<" => ";
 			new (this) LB_HEIGHT_INTERRUPT_Test;
-			cout<<name()<<" => "<<endl;
+			cout<<name()<<endl;
 		}
 	};
 
@@ -101,7 +114,7 @@ private:
 		virtual void sensor_height_match() {
 			cout<<__FUNCTION__<<endl;
 			cout<<name()<<" => ";
-			new (this) SENSOR_HEIGHT_MATCH_Test;
+			new (this) SENSOR_HEIGHT_NOT_MATCH_Test;
 			cout<<name()<<endl;
 		}
 		virtual void lb_height_interrupted() {
@@ -110,19 +123,18 @@ private:
 			testItem->heightCenter = hal->getHeight();
 			cout<<"HOEHE DER MITTE: "<<testItem->heightCenter<<endl;
 
-			if(cb_this == cb_last) {
-
+			if(cb_this == cb_last && hal->getItemBufferSize() > 0) {
 				Item passedItem = hal->getPassedItem();
 				if( abs(passedItem.heightCenter - testItem->heightCenter) < 200) {
 					cout<<"DIFFERENZ IST NICHT ALLZU GROSS."<<endl;
-					cout<<name()<<" => ";
-					new (this) SENSOR_HEIGHT_MATCH_2_Test;
-					cout<<name()<<endl;
 				} else {
 					cout<<"DIFFERECE TOO HIGH"<<endl;
 					testFailed(__FUNCTION__);
 				}
 			}
+			cout<<name()<<" => ";
+			new (this) SENSOR_HEIGHT_MATCH_2_Test;
+			cout<<name()<<endl;
 		}
 	};
 
@@ -228,9 +240,11 @@ private:
 			cout<<__FUNCTION__<<endl;
 			hal->switchPointClose();
 			if(cb_this == cb_last) {
-				hal->motorStop();
+				cout<<"WE ARE LAST"<<endl;
+								hal->motorStop();
 				cout<<"please put item on master's input again."<<endl;
 			} else {
+				cout<<"WE ARE NOT LAST"<<endl;
 				hal->sendSerial(Signal(cb_this, cb_next, Signalname::SENSOR_TEST_START));
 				hal->sendItemViaSerial(testItem);
 			}

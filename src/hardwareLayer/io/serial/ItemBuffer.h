@@ -21,6 +21,7 @@ public:
 
 	void pushItem(Item);
 	Item pullItem();
+	int size();
 
 private :
 	vector<Item> items;

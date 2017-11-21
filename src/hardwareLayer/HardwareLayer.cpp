@@ -157,6 +157,10 @@ Item HardwareLayer::getPassedItem() {
 	return serial.getReceiver().getItemBuffer().pullItem();
 }
 
+int HardwareLayer::getItemBufferSize(){
+	return serial.getReceiver().getItemBuffer().size();
+}
+
 uint16_t HardwareLayer::getHeight() {
 	return _heightSensor.getHeight();
 }

@@ -84,6 +84,11 @@ namespace hardwareLayer {
 		Item getPassedItem();
 
 		/**
+		 *
+		 */
+		int getItemBufferSize();
+
+		/**
 		 * @brief removes all signals from Buffer and adds SIGNAL_BUFFER_EMPTY signal
 		 *
 		 * if removing all signals fails a error message gets logged.
