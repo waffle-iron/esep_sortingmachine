@@ -11,9 +11,8 @@
 #include "Signals.h"
 
 struct Item{
-	int dies;
-	int das;
-	int jenes;
+	int heightAbsolute;
+	int heightCenter;
 };
 
 

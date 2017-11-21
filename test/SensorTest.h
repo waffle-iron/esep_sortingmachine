@@ -82,6 +82,10 @@ private:
 	struct SENSOR_HEIGHT_MATCH_Test : public State {
 		virtual void sensor_height_match() {
 			cout<<__FUNCTION__<<endl;
+			Item item;
+			item.heightAbsolute = hal->getHeight();
+			cout<<"ABSOLUTE HOEHE: "<<item.heightAbsolute<<endl;
+
 		}
 		virtual void sensor_height_not_match() {
 			cout<<__FUNCTION__<<endl;
@@ -96,13 +100,16 @@ private:
 	struct LB_HEIGHT_INTERRUPT_Test : public State {
 		virtual void sensor_height_match() {
 			cout<<__FUNCTION__<<endl;
-
 			cout<<name()<<" => ";
 			new (this) SENSOR_HEIGHT_MATCH_Test;
 			cout<<name()<<endl;
 		}
 		virtual void lb_height_interrupted() {
 			cout<<__FUNCTION__<<endl;
+
+			Item item;
+			item.heightCenter = hal->getHeight();
+			cout<<"HOEHE DER MITTE: "<<item.heightCenter<<endl;
 
 			cout<<name()<<" => ";
 			new (this) SENSOR_HEIGHT_MATCH_2_Test;
@@ -283,7 +290,7 @@ private:
 			cout<<"Test UNsuccessful on conveyer belt: "<<(int)sender<<endl;
 			cout<<"Please restart test."<<endl;
 			cout<<name()<<" => ";
-			new (this) LB_INPUT_Test;;
+			new (this) LB_INPUT_Test;
 			cout<<name()<<endl;
 		}
 	};
