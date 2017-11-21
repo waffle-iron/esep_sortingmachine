@@ -315,7 +315,7 @@ bool Test::nextTest(string functionName){
 	if (cin.get() == '\n'){
 		return true;
 	} else {
-		cout << "##### "<<functionName << " NOT succesfull." << " #####"<< endl;
+		cout << "##### "<<functionName << " NOT successfull." << " #####"<< endl;
 		cout << "Hit return to go on" << endl;
 		cin.get();
 		cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
