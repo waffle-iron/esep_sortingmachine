@@ -34,36 +34,49 @@ void Test::actuatorsTest(){
 
 	cout << "test motor (counterclockwise, fast) " << endl;
 	_hal->motorStart();
+	_hal->sendSerial(Signal(cb_this, cb_all, Signalname::MOTOR_START));
 	_hal->motorRotateCounterclockwise();
+	_hal->sendSerial(Signal(cb_this, cb_all, Signalname::MOTOR_ROTATE_COUNTER_CLOCKWISE));
 	_hal->motorFast();
+	_hal->sendSerial(Signal(cb_this, cb_all, Signalname::MOTOR_FAST));
 	if( !nextTest(__FUNCTION__) ) return;
 
 	cout << "test motor (counterclockwise, slow) " << endl;
 	_hal->motorStart();
+	_hal->sendSerial(Signal(cb_this, cb_all, Signalname::MOTOR_START));
 	_hal->motorRotateCounterclockwise();
+	_hal->sendSerial(Signal(cb_this, cb_all, Signalname::MOTOR_ROTATE_COUNTER_CLOCKWISE));
 	_hal->motorSlow();
+	_hal->sendSerial(Signal(cb_this, cb_all, Signalname::MOTOR_SLOW));
 	if( !nextTest(__FUNCTION__) ) return;
 
 	cout << "test motor (clockwise, fast) " << endl;
 	_hal->motorStart();
+	_hal->sendSerial(Signal(cb_this, cb_all, Signalname::MOTOR_START));
 	_hal->motorRotateClockwise();
+	_hal->sendSerial(Signal(cb_this, cb_all, Signalname::MOTOR_ROTATE_CLOCKWISE));
 	_hal->motorFast();
+	_hal->sendSerial(Signal(cb_this, cb_all, Signalname::MOTOR_FAST));
 	if( !nextTest(__FUNCTION__) ) return;
 
 	cout << "test motor (clockwise, slow) " << endl;
 	_hal->motorSlow();
+	_hal->sendSerial(Signal(cb_this, cb_all, Signalname::MOTOR_SLOW));
 	if( !nextTest(__FUNCTION__) ) return;
 
 	cout << "test motor stop" << endl;
 	_hal->motorStop();
+	_hal->sendSerial(Signal(cb_this, cb_all, Signalname::MOTOR_STOP));
 	if( !nextTest(__FUNCTION__) ) return;
 
 	cout << "test open switch point - please continue soon" << endl;
 	_hal->switchPointOpen();
+	_hal->sendSerial(Signal(cb_this, cb_all, Signalname::SWITCH_OPEN));
 	if( !nextTest(__FUNCTION__) ) return;
 
 	cout << "test close switch point " << endl;
 	_hal->switchPointClose();
+	_hal->sendSerial(Signal(cb_this, cb_all, Signalname::SWITCH_CLOSE));
 
 	if( !nextTest(__FUNCTION__) ) return;
 
@@ -77,68 +90,107 @@ void Test::mmiTest(){
 	cout << "start " << __FUNCTION__ << endl;
 	cout<< "testButtonLEDs on: Reset,Start,Q1,Q2" <<endl;
 	_hal->Q1LEDOn();
+	_hal->sendSerial(Signal(cb_this, cb_all, Signalname::Q1_LED_ON));
 	_hal->Q2LEDOn();
+	_hal->sendSerial(Signal(cb_this, cb_all, Signalname::Q2_LED_ON));
 	_hal->ResetLEDOn();
+	_hal->sendSerial(Signal(cb_this, cb_all, Signalname::RESET_LED_ON));
 	_hal->StartLEDOn();
+	_hal->sendSerial(Signal(cb_this, cb_all, Signalname::START_LED_ON));
 	if( !nextTest(__FUNCTION__) ) return;
 
+	cout<< "testButtonLEDs off: Reset,Start,Q1,Q2" <<endl;
+	_hal->Q1LEDOff();
+	_hal->sendSerial(Signal(cb_this, cb_all, Signalname::Q1_LED_OFF));
+	_hal->Q2LEDOff();
+	_hal->sendSerial(Signal(cb_this, cb_all, Signalname::Q2_LED_OFF));
+	_hal->ResetLEDOff();
+	_hal->sendSerial(Signal(cb_this, cb_all, Signalname::RESET_LED_OFF));
+	_hal->StartLEDOff();
+	_hal->sendSerial(Signal(cb_this, cb_all, Signalname::START_LED_OFF));
+	if( !nextTest(__FUNCTION__) ) return;
 
 	cout << "test lamps on: red, yellow, green" << endl;
 	_hal->yellowLightOn();
+	_hal->sendSerial(Signal(cb_this, cb_all, Signalname::YELLOW_LIGHT_ON));
 	_hal->redLightOn();
+	_hal->sendSerial(Signal(cb_this, cb_all, Signalname::RED_LIGHT_ON));
 	_hal->greenLightOn();
+	_hal->sendSerial(Signal(cb_this, cb_all, Signalname::GREEN_LIGHT_ON));
 	if( !nextTest(__FUNCTION__) ) return;
 
 	cout << "test blinking fast: red, yellow, green " << endl;
 	_hal->blinkGreen(Speed::fast);
+	_hal->sendSerial(Signal(cb_this, cb_all, Signalname::BLINK_GREEN_FAST));
 	_hal->blinkRed(Speed::fast);
+	_hal->sendSerial(Signal(cb_this, cb_all, Signalname::BLINK_RED_FAST));
 	_hal->blinkYellow(Speed::fast);
+	_hal->sendSerial(Signal(cb_this, cb_all, Signalname::BLINK_YELLOW_FAST));
 	if( !nextTest(__FUNCTION__) ) return;
 
 	cout << "test blinking fast: yellow, green" << endl;
 	_hal->redLightOff();
+	_hal->sendSerial(Signal(cb_this, cb_all, Signalname::RED_LIGHT_OFF));
 	if( !nextTest(__FUNCTION__) ) return;
 
 	cout << "test blinking fast: green" << endl;
 	_hal->yellowLightOff();
+	_hal->sendSerial(Signal(cb_this, cb_all, Signalname::YELLOW_LIGHT_OFF));
 	if( !nextTest(__FUNCTION__) ) return;
 
 	cout << "test blinking slow: red, yellow, green" << endl;
 	_hal->blinkGreen(Speed::slow);
+	_hal->sendSerial(Signal(cb_this, cb_all, Signalname::BLINK_GREEN_SLOW));
 	_hal->blinkYellow(Speed::slow);
+	_hal->sendSerial(Signal(cb_this, cb_all, Signalname::BLINK_YELLOW_SLOW));
 	_hal->blinkRed(Speed::slow);
+	_hal->sendSerial(Signal(cb_this, cb_all, Signalname::BLINK_RED_SLOW));
 	if( !nextTest(__FUNCTION__) ) return;
 
 	cout << "test blinking slow: yellow, green" << endl;
 	_hal->redLightOff();
+	_hal->sendSerial(Signal(cb_this, cb_all, Signalname::RED_LIGHT_OFF));
 	if( !nextTest(__FUNCTION__) ) return;
 
 	cout << "test blinking slow: green" << endl;
 	_hal->yellowLightOff();
+	_hal->sendSerial(Signal(cb_this, cb_all, Signalname::YELLOW_LIGHT_OFF));
 	if( !nextTest(__FUNCTION__) ) return;
 
 	cout << "test blinking slow: red, yellow, green" << endl;
 	_hal->blinkGreen(Speed::slow);
+	_hal->sendSerial(Signal(cb_this, cb_all, Signalname::BLINK_GREEN_SLOW));
 	_hal->blinkYellow(Speed::slow);
+	_hal->sendSerial(Signal(cb_this, cb_all, Signalname::BLINK_YELLOW_SLOW));
 	_hal->blinkRed(Speed::slow);
+	_hal->sendSerial(Signal(cb_this, cb_all, Signalname::BLINK_RED_SLOW));
 	if( !nextTest(__FUNCTION__) ) return;
 
 	cout << "test blinking fast: red, yellow, green" << endl;
 	_hal->blinkGreen(Speed::fast);
+	_hal->sendSerial(Signal(cb_this, cb_all, Signalname::BLINK_GREEN_FAST));
 	_hal->blinkYellow(Speed::fast);
+	_hal->sendSerial(Signal(cb_this, cb_all, Signalname::BLINK_YELLOW_FAST));
 	_hal->blinkRed(Speed::fast);
+	_hal->sendSerial(Signal(cb_this, cb_all, Signalname::BLINK_RED_FAST));
 	if( !nextTest(__FUNCTION__) ) return;
 
 	cout << "test blinking slow: red, yellow, green" << endl;
 	_hal->blinkGreen(Speed::slow);
+	_hal->sendSerial(Signal(cb_this, cb_all, Signalname::BLINK_GREEN_SLOW));
 	_hal->blinkYellow(Speed::slow);
+	_hal->sendSerial(Signal(cb_this, cb_all, Signalname::BLINK_YELLOW_SLOW));
 	_hal->blinkRed(Speed::slow);
+	_hal->sendSerial(Signal(cb_this, cb_all, Signalname::BLINK_RED_SLOW));
 	if( !nextTest(__FUNCTION__) ) return;
 
 	cout << "test blinking: nothing" << endl;
 	_hal->greenLightOff();
+	_hal->sendSerial(Signal(cb_this, cb_all, Signalname::GREEN_LIGHT_OFF));
 	_hal->yellowLightOff();
+	_hal->sendSerial(Signal(cb_this, cb_all, Signalname::YELLOW_LIGHT_OFF));
 	_hal->redLightOff();
+	_hal->sendSerial(Signal(cb_this, cb_all, Signalname::RED_LIGHT_OFF));
 	if( !nextTest(__FUNCTION__) ) return;
 
 	cout  << __FUNCTION__ << " successful. " << endl;
@@ -177,7 +229,7 @@ void Test::buttonTestHelper(hardwareLayer::io::SensorEvent signalBitmask, Signal
 
 	while (cin.get() != '\n');
 
-	int successCounter = 0;
+	int pushedCounter = 0;
 	int pulledCounter = 0;
 	int failureCounter = 0;
 	Signal signal;
@@ -185,22 +237,22 @@ void Test::buttonTestHelper(hardwareLayer::io::SensorEvent signalBitmask, Signal
 	while ((signal = _hal->getSignal()).name != Signalname::SIGNAL_BUFFER_EMPTY) {
 
 		if (signal.name == eventTriggerStart) {
-			successCounter++;
+			pushedCounter++;
 		} else if (signal.name == eventTriggerEnd){
 			pulledCounter++;
-		} else {
+		} else{
 			failureCounter++;
 		}
 	}
 
-	bool success = failureCounter == 0 && successCounter > 0;
+	bool success = failureCounter == 0 && pushedCounter > 0;
 
 	if ( success ){
-		cout << "pushed successfully "   << successCounter << " time(s))" << endl;
+		cout << "pushed successfully "   << pushedCounter << " time(s))" << endl;
 		cout << "pulled successfully "   << pulledCounter  << " time(s))" << endl;
 	} else {
-		cout << "pushed UNSUCCESSFULLY " << failureCounter << " time(s))\n" <<
-				"pushed successfully "   << successCounter << " time(s))\n" <<
+		cout << "Wrong Signals Triggered" << failureCounter << " time(s))\n" <<
+				"pushed successfully "   << pushedCounter << " time(s))\n" <<
 				"pulled successfully "   << pulledCounter  << " time(s))\n" << endl;
 	}
 }
@@ -263,7 +315,7 @@ bool Test::nextTest(string functionName){
 	if (cin.get() == '\n'){
 		return true;
 	} else {
-		cout << "##### "<<functionName << " NOT succesfull." << " #####"<< endl;
+		cout << "##### "<<functionName << " NOT successfull." << " #####"<< endl;
 		cout << "Hit return to go on" << endl;
 		cin.get();
 		cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');

@@ -10,6 +10,7 @@
 
 #include "Observer.h"
 #include "HardwareLayer.h"
+#include "SensorTest.h"
 
 namespace logicLayer {
 
@@ -20,6 +21,7 @@ public:
 	void notify();
 private:
 	hardwareLayer::HardwareLayer& hal;
+	SensorTest sensorTest;
 };
 
 } /* namespace logicLayer */

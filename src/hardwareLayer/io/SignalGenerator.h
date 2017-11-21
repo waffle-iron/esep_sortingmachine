@@ -11,6 +11,7 @@
 #include "Signals.h"
 #include <thread>
 #include <vector>
+#include "Observable.h"
 #include <chrono>
 #include <thread>
 
@@ -60,7 +61,7 @@ struct SensorEvent {
 	const SPair signalPair;
 };
 
-class SignalGenerator {
+class SignalGenerator : public Observable {
 public:
 	SignalGenerator();
 	virtual ~SignalGenerator();

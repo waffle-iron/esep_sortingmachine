@@ -144,6 +144,7 @@ enum class Signalname : uint16_t {
 
 	// signal generator
 	SIGNAL_BUFFER_EMPTY,
+	ITEM_ARRIVED,
 
 	// dummy signal
 	SIGNAL_DUMMY

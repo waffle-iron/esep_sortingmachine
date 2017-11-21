@@ -16,7 +16,6 @@
 
 constexpr int MAGIC_NUMBER = 15;
 
-
 namespace hardwareLayer {
 namespace io {
 
@@ -65,7 +64,7 @@ SignalGenerator::SignalGenerator()
 SignalGenerator::~SignalGenerator() {
 	LOG_SCOPE
 	terminate();
-	AsyncChannel::instance().sendMessage({0,0});
+	AsyncChannel::instance().sendMessage({0,stored_mask});
 	chatter_timer_th.join();
 	signal_generator_th.join();
 	ISR::unregisterISR();
@@ -144,11 +143,16 @@ void SignalGenerator::pollOnSensors() {
 }
 
 void SignalGenerator::pushBackOnSignalBuffer(Signal signal) {
+	LOG_SCOPE
+
 	signalBuffer.push_back(signal);
+	LOG_DEBUG << "signal pushed";
+	notify_observers();
 }
 
 void SignalGenerator::clearSignalBuffer() {
 	LOG_SCOPE
+
 	signalBuffer.clear();
 	if(signalBuffer.size() != 0){
 		LOG_ERROR<<__FUNCTION__<<": could not clear signalBuffer"<<endl;

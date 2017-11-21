@@ -18,7 +18,7 @@ namespace test{
 
 class Test {
 public:
-	Test(hardwareLayer::HardwareLayer* hal);
+	Test( hardwareLayer::HardwareLayer* hal);
 	virtual ~Test();
 
 	/**
@@ -32,7 +32,9 @@ public:
 	void mmiTest();
 
 	/**
-	 *  @brief test buttons
+	 *@brief test buttons
+	 *@brief just working without LogicLayer started. LogicLayer is using
+	 *@brief SensorTest for testing other sensors
 	 */
 	void buttonsTest();
 
